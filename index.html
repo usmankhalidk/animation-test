@@ -1103,6 +1103,68 @@
             }
         }
 
+
+
+        /* --------------------------------------------------------------------------
+   REFERENCE CLICK FX — per-card effect language from the supplied motion clip
+   -------------------------------------------------------------------------- */
+
+        .reference-fx {
+            position: absolute;
+            inset: -110px -85px;
+            z-index: 9;
+            width: calc(100% + 170px);
+            height: calc(100% + 220px);
+            pointer-events: none;
+            mix-blend-mode: screen;
+        }
+
+        .energy-card.fx-plasma-afterglow {
+            border-color: rgba(255, 87, 103, 1) !important;
+            box-shadow:
+                inset 0 0 24px rgba(255, 44, 72, 0.24),
+                0 0 8px rgba(255, 72, 89, 0.96),
+                0 0 30px rgba(255, 36, 67, 0.56),
+                0 0 72px rgba(255, 21, 54, 0.24) !important;
+        }
+
+        .energy-card.fx-electric-afterglow {
+            border-color: rgba(119, 255, 239, 1) !important;
+            box-shadow:
+                inset 0 0 24px rgba(16, 255, 225, 0.19),
+                0 0 8px rgba(115, 255, 241, 1),
+                0 0 34px rgba(0, 245, 217, 0.62),
+                0 0 84px rgba(0, 224, 198, 0.26) !important;
+        }
+
+        .energy-card.fx-supernova-afterglow {
+            border-color: rgba(113, 195, 255, 1) !important;
+            box-shadow:
+                inset 0 0 28px rgba(44, 149, 255, 0.24),
+                0 0 9px rgba(127, 208, 255, 1),
+                0 0 38px rgba(39, 142, 255, 0.67),
+                0 0 104px rgba(20, 107, 255, 0.31) !important;
+        }
+
+        .energy-card.is-reference-bursting .edge-runner {
+            opacity: 1;
+            animation-play-state: running;
+        }
+
+        @media (max-width: 1020px) {
+            .reference-fx {
+                inset: -80px -65px;
+                width: calc(100% + 130px);
+                height: calc(100% + 160px);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reference-fx {
+                display: none !important;
+            }
+        }
+
         @property --edge-angle {
             syntax: "<angle>";
             initial-value: 0deg;
@@ -1310,9 +1372,11 @@
 
             <div class="cards-scene">
                 <canvas class="stage-energy" aria-hidden="true"></canvas>
+                <canvas class="reference-fx" aria-hidden="true"></canvas>
 
                 <div class="cards-grid">
-                    <article class="energy-card" tabindex="0" style="--accent-rgb: 36, 139, 255">
+                    <article class="energy-card landing-card" data-effect="supernova" tabindex="0"
+                        style="--accent-rgb: 36, 139, 255">
                         <div class="card-plasma" aria-hidden="true"></div>
                         <div class="card-spotlight" aria-hidden="true"></div>
                         <div class="card-sheen" aria-hidden="true"></div>
@@ -1371,7 +1435,8 @@
                         </div>
                     </article>
 
-                    <article class="energy-card" tabindex="0" style="--accent-rgb: 255, 49, 88">
+                    <article class="energy-card website-card" data-effect="plasma" tabindex="0"
+                        style="--accent-rgb: 255, 49, 88">
                         <div class="card-plasma" aria-hidden="true"></div>
                         <div class="card-spotlight" aria-hidden="true"></div>
                         <div class="card-sheen" aria-hidden="true"></div>
@@ -1425,7 +1490,8 @@
                         </div>
                     </article>
 
-                    <article class="energy-card apps-card" tabindex="0" style="--accent-rgb: 15, 220, 199">
+                    <article class="energy-card apps-card" data-effect="electric" tabindex="0"
+                        style="--accent-rgb: 15, 220, 199">
                         <div class="card-plasma" aria-hidden="true"></div>
                         <div class="card-spotlight" aria-hidden="true"></div>
                         <div class="card-sheen" aria-hidden="true"></div>
@@ -1522,6 +1588,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pixi.js@8.19.0/dist/pixi.min.js"></script>
     <script>
 
         (() => {
@@ -1595,7 +1662,7 @@
                 constructor(canvas) {
                     this.canvas = canvas;
                     this.ctx = canvas.getContext("2d", { alpha: true });
-                    this.dpr = Math.min(window.devicePixelRatio || 1, 2);
+                    this.dpr = Math.min(window.devicePixelRatio || 1, 1.35);
                     this.stars = [];
                     this.width = 1;
                     this.height = 1;
@@ -1660,12 +1727,13 @@
                     this.stage = stage;
                     this.cards = cardElements;
                     this.ctx = canvas.getContext("2d", { alpha: true });
-                    this.dpr = Math.min(window.devicePixelRatio || 1, 2);
+                    this.dpr = Math.min(window.devicePixelRatio || 1, 1.35);
                     this.width = 1;
                     this.height = 1;
                     this.activeCard = null;
                     this.charge = 0;
                     this.targetCharge = 0;
+                    this.running = false;
                     this.bolts = [];
                     this.sparks = [];
                     this.waves = [];
@@ -1676,9 +1744,6 @@
                     this.resizeObserver.observe(stage);
                     this.resize();
 
-                    if (!reduceMotion) {
-                        requestAnimationFrame((t) => this.frame(t));
-                    }
                 }
 
                 resize() {
@@ -1783,6 +1848,7 @@
                 }
 
                 activate(card) {
+                    this.start();
                     const changedCard = this.activeCard !== card;
                     this.activeCard = card;
                     this.targetCharge = 1;
@@ -2109,6 +2175,13 @@
                     );
                 }
 
+                start() {
+                    if (this.running || reduceMotion) return;
+                    this.running = true;
+                    this.lastTime = performance.now();
+                    requestAnimationFrame((time) => this.frame(time));
+                }
+
                 frame(time) {
                     const elapsed = clamp(time - this.lastTime, 0, 34);
                     const delta = elapsed / 16.667;
@@ -2170,7 +2243,893 @@
                     this.bolts = this.bolts.filter((b) => b.alpha > 0);
                     this.sparks = this.sparks.filter((s) => s.alpha > 0);
 
-                    requestAnimationFrame((t) => this.frame(t));
+                    const alive =
+                        this.activeCard ||
+                        this.charge > 0.01 ||
+                        this.motes.length ||
+                        this.waves.length ||
+                        this.bolts.length ||
+                        this.sparks.length;
+
+                    if (alive) {
+                        requestAnimationFrame((nextTime) => this.frame(nextTime));
+                    } else {
+                        this.running = false;
+                        this.ctx.clearRect(0, 0, this.width, this.height);
+                    }
+                }
+            }
+
+
+
+
+            /* ------------------------------------------------------------------------
+               WebGLReferenceBurstEngine
+               GPU-rendered click VFX. PixiJS owns the heavy particles/glows/lines;
+               GSAP remains responsible for DOM/card motion.
+               ------------------------------------------------------------------------ */
+
+            class WebGLReferenceBurstEngine {
+                constructor(canvas, stage) {
+                    this.canvas = canvas;
+                    this.stage = stage;
+                    this.app = null;
+                    this.ready = false;
+                    this.failed = false;
+                    this.queue = [];
+                    this.items = [];
+                    this.sessions = [];
+                    this.textures = {};
+                    this.lastTime = performance.now();
+                    this.init();
+                }
+
+                async init() {
+                    if (!window.PIXI || reduceMotion) {
+                        this.failed = true;
+                        return;
+                    }
+
+                    try {
+                        const app = new PIXI.Application();
+                        await app.init({
+                            canvas: this.canvas,
+                            resizeTo: this.stage,
+                            preference: "webgl",
+                            powerPreference: "high-performance",
+                            antialias: false,
+                            autoDensity: true,
+                            resolution: Math.min(window.devicePixelRatio || 1, 1.35),
+                            backgroundAlpha: 0,
+                            clearBeforeRender: true
+                        });
+
+                        this.app = app;
+                        this.app.stage.eventMode = "none";
+                        this.app.stage.blendMode = "add";
+                        this.createTextures();
+                        this.app.ticker.add((ticker) => this.tick(ticker));
+                        this.app.stop();
+                        this.ready = true;
+
+                        const queued = this.queue.splice(0);
+                        queued.forEach(({ card, kind }) => this.burst(card, kind));
+                    } catch (error) {
+                        console.error("WebGL reference FX failed to initialize", error);
+                        this.failed = true;
+                    }
+                }
+
+                makeRadialTexture(size, stops) {
+                    const source = document.createElement("canvas");
+                    source.width = size;
+                    source.height = size;
+                    const ctx = source.getContext("2d");
+                    const half = size / 2;
+                    const gradient = ctx.createRadialGradient(half, half, 0, half, half, half);
+                    stops.forEach(([offset, color]) => gradient.addColorStop(offset, color));
+                    ctx.fillStyle = gradient;
+                    ctx.fillRect(0, 0, size, size);
+                    return PIXI.Texture.from(source);
+                }
+
+                makeRingTexture(size, strokeWidth, rgb) {
+                    const source = document.createElement("canvas");
+                    source.width = size;
+                    source.height = size;
+                    const ctx = source.getContext("2d");
+                    const half = size / 2;
+                    ctx.strokeStyle = `rgba(${rgb}, .95)`;
+                    ctx.lineWidth = strokeWidth;
+                    ctx.shadowBlur = strokeWidth * 4;
+                    ctx.shadowColor = `rgba(${rgb}, 1)`;
+                    ctx.beginPath();
+                    ctx.arc(half, half, half - strokeWidth * 4, 0, Math.PI * 2);
+                    ctx.stroke();
+                    return PIXI.Texture.from(source);
+                }
+
+                createTextures() {
+                    this.textures.white = PIXI.Texture.WHITE;
+                    this.textures.plasmaRed = this.makeRadialTexture(128, [
+                        [0, "rgba(255,246,220,.96)"],
+                        [.14, "rgba(255,180,76,.92)"],
+                        [.42, "rgba(255,45,68,.72)"],
+                        [.72, "rgba(255,20,45,.25)"],
+                        [1, "rgba(255,20,45,0)"]
+                    ]);
+                    this.textures.plasmaOrange = this.makeRadialTexture(128, [
+                        [0, "rgba(255,255,242,1)"],
+                        [.18, "rgba(255,214,122,.95)"],
+                        [.48, "rgba(255,94,40,.62)"],
+                        [1, "rgba(255,50,35,0)"]
+                    ]);
+                    this.textures.sparkRed = this.makeRadialTexture(48, [
+                        [0, "rgba(255,255,255,1)"],
+                        [.2, "rgba(255,184,90,1)"],
+                        [.52, "rgba(255,46,69,.55)"],
+                        [1, "rgba(255,46,69,0)"]
+                    ]);
+                    this.textures.sparkTeal = this.makeRadialTexture(48, [
+                        [0, "rgba(255,255,255,1)"],
+                        [.2, "rgba(184,255,248,1)"],
+                        [.55, "rgba(28,255,223,.58)"],
+                        [1, "rgba(28,255,223,0)"]
+                    ]);
+                    this.textures.sparkBlue = this.makeRadialTexture(48, [
+                        [0, "rgba(255,255,255,1)"],
+                        [.18, "rgba(205,241,255,1)"],
+                        [.54, "rgba(50,148,255,.62)"],
+                        [1, "rgba(50,148,255,0)"]
+                    ]);
+                    this.textures.cloudBlue = this.makeRadialTexture(192, [
+                        [0, "rgba(184,226,255,.56)"],
+                        [.28, "rgba(75,164,255,.44)"],
+                        [.65, "rgba(31,116,255,.17)"],
+                        [1, "rgba(31,116,255,0)"]
+                    ]);
+                    this.textures.flashRed = this.makeRadialTexture(256, [
+                        [0, "rgba(255,255,255,.94)"],
+                        [.12, "rgba(255,178,83,.82)"],
+                        [.38, "rgba(255,40,64,.48)"],
+                        [1, "rgba(255,40,64,0)"]
+                    ]);
+                    this.textures.flashTeal = this.makeRadialTexture(256, [
+                        [0, "rgba(255,255,255,.94)"],
+                        [.12, "rgba(177,255,248,.82)"],
+                        [.42, "rgba(26,255,222,.35)"],
+                        [1, "rgba(26,255,222,0)"]
+                    ]);
+                    this.textures.flashBlue = this.makeRadialTexture(256, [
+                        [0, "rgba(255,255,255,1)"],
+                        [.12, "rgba(197,235,255,.92)"],
+                        [.38, "rgba(61,156,255,.58)"],
+                        [1, "rgba(61,156,255,0)"]
+                    ]);
+                    this.textures.ringBlue = this.makeRingTexture(256, 3, "102, 191, 255");
+                }
+
+                colorHex(rgb) {
+                    const parts = rgb.split(",").map((part) => clamp(parseInt(part.trim(), 10) || 0, 0, 255));
+                    return (parts[0] << 16) | (parts[1] << 8) | parts[2];
+                }
+
+                cardRect(card) {
+                    const canvasRect = this.canvas.getBoundingClientRect();
+                    const rect = card.getBoundingClientRect();
+                    return {
+                        x: rect.left - canvasRect.left,
+                        y: rect.top - canvasRect.top,
+                        w: rect.width,
+                        h: rect.height,
+                        radius: 30
+                    };
+                }
+
+                edgePoint(rect, t) {
+                    const r = Math.min(rect.radius, rect.w / 2, rect.h / 2);
+                    const top = rect.w - r * 2;
+                    const side = rect.h - r * 2;
+                    const q = Math.PI * r * 0.5;
+                    const total = top * 2 + side * 2 + q * 4;
+                    let d = (((t % 1) + 1) % 1) * total;
+
+                    const arc = (cx, cy, start, distance) => {
+                        const angle = start + distance / r;
+                        return {
+                            x: cx + Math.cos(angle) * r,
+                            y: cy + Math.sin(angle) * r,
+                            nx: Math.cos(angle),
+                            ny: Math.sin(angle)
+                        };
+                    };
+
+                    if (d < top) return { x: rect.x + r + d, y: rect.y, nx: 0, ny: -1 };
+                    d -= top;
+                    if (d < q) return arc(rect.x + rect.w - r, rect.y + r, -Math.PI / 2, d);
+                    d -= q;
+                    if (d < side) return { x: rect.x + rect.w, y: rect.y + r + d, nx: 1, ny: 0 };
+                    d -= side;
+                    if (d < q) return arc(rect.x + rect.w - r, rect.y + rect.h - r, 0, d);
+                    d -= q;
+                    if (d < top) return { x: rect.x + rect.w - r - d, y: rect.y + rect.h, nx: 0, ny: 1 };
+                    d -= top;
+                    if (d < q) return arc(rect.x + r, rect.y + rect.h - r, Math.PI / 2, d);
+                    d -= q;
+                    if (d < side) return { x: rect.x, y: rect.y + rect.h - r - d, nx: -1, ny: 0 };
+                    d -= side;
+                    return arc(rect.x + r, rect.y + r, Math.PI, d);
+                }
+
+                rayStartAtCard(rect, angle, inset = 4) {
+                    const cx = rect.x + rect.w / 2;
+                    const cy = rect.y + rect.h / 2;
+                    const dx = Math.cos(angle);
+                    const dy = Math.sin(angle);
+                    const hx = rect.w / 2 + inset;
+                    const hy = rect.h / 2 + inset;
+                    const tx = Math.abs(dx) < 0.0001 ? Infinity : hx / Math.abs(dx);
+                    const ty = Math.abs(dy) < 0.0001 ? Infinity : hy / Math.abs(dy);
+                    const distance = Math.min(tx, ty);
+                    return { x: cx + dx * distance, y: cy + dy * distance, dx, dy };
+                }
+
+                addAfterglow(card, className, duration) {
+                    card.classList.remove(
+                        "fx-plasma-afterglow",
+                        "fx-electric-afterglow",
+                        "fx-supernova-afterglow"
+                    );
+                    card.classList.add("is-reference-bursting", className);
+                    window.clearTimeout(card.__referenceFxTimer);
+                    card.__referenceFxTimer = window.setTimeout(() => {
+                        card.classList.remove("is-reference-bursting", className);
+                    }, duration);
+                }
+
+                burst(card, kind) {
+                    if (reduceMotion) return;
+
+                    if (this.failed) {
+                        const strength = kind === "supernova" ? 1.35 : kind === "electric" ? 1.05 : 1.15;
+                        stageEnergy?.activate(card);
+                        stageEnergy?.bigBurst(strength);
+                        return;
+                    }
+
+                    if (!this.ready) {
+                        this.queue.push({ card, kind });
+                        return;
+                    }
+
+                    const rect = this.cardRect(card);
+                    const now = performance.now();
+
+                    if (kind === "plasma") this.burstPlasma(card, rect, now);
+                    else if (kind === "electric") this.burstElectric(card, rect, now);
+                    else this.burstSupernova(card, rect, now);
+
+                    this.app.start();
+                }
+
+                addSprite(texture, x, y, width, height, alpha = 1, rotation = 0) {
+                    const sprite = new PIXI.Sprite(texture);
+                    sprite.anchor.set(0.5);
+                    sprite.position.set(x, y);
+                    sprite.width = width;
+                    sprite.height = height;
+                    sprite.alpha = alpha;
+                    sprite.rotation = rotation;
+                    sprite.blendMode = "add";
+                    this.app.stage.addChild(sprite);
+                    return sprite;
+                }
+
+                addFlash(texture, x, y, width, height, alpha, decay) {
+                    const display = this.addSprite(texture, x, y, width, height, alpha);
+                    this.items.push({ type: "fade", display, alpha, decay });
+                }
+
+                addParticle(texture, options) {
+                    const display = this.addSprite(
+                        texture,
+                        options.x,
+                        options.y,
+                        options.size,
+                        options.size,
+                        options.alpha,
+                        options.rotation || 0
+                    );
+                    this.items.push({
+                        type: "particle",
+                        display,
+                        x: options.x,
+                        y: options.y,
+                        vx: options.vx || 0,
+                        vy: options.vy || 0,
+                        alpha: options.alpha,
+                        decay: options.decay,
+                        drag: options.drag || 1,
+                        grow: options.grow || 0,
+                        size: options.size,
+                        spin: options.spin || 0
+                    });
+                }
+
+                addLine(start, end, rgb, width, alpha, decay, glow = 7) {
+                    const dx = end.x - start.x;
+                    const dy = end.y - start.y;
+                    const length = Math.hypot(dx, dy) || 1;
+                    const angle = Math.atan2(dy, dx);
+                    const container = new PIXI.Container();
+                    container.position.set(start.x, start.y);
+                    container.rotation = angle;
+                    container.alpha = alpha;
+                    container.blendMode = "add";
+
+                    const color = this.colorHex(rgb);
+                    const glowLine = new PIXI.Sprite(this.textures.white);
+                    glowLine.anchor.set(0, 0.5);
+                    glowLine.width = length;
+                    glowLine.height = Math.max(1, width * glow);
+                    glowLine.tint = color;
+                    glowLine.alpha = 0.18;
+
+                    const coreLine = new PIXI.Sprite(this.textures.white);
+                    coreLine.anchor.set(0, 0.5);
+                    coreLine.width = length;
+                    coreLine.height = Math.max(0.65, width);
+                    coreLine.tint = 0xf4ffff;
+                    coreLine.alpha = 0.96;
+
+                    container.addChild(glowLine, coreLine);
+                    this.app.stage.addChild(container);
+                    this.items.push({ type: "fade", display: container, alpha, decay });
+                    return container;
+                }
+
+                addPolyline(points, rgb, width, alpha, decay, glow = 7) {
+                    const group = new PIXI.Container();
+                    group.alpha = alpha;
+                    group.blendMode = "add";
+                    this.app.stage.addChild(group);
+                    const color = this.colorHex(rgb);
+
+                    for (let index = 0; index < points.length - 1; index += 1) {
+                        const start = points[index];
+                        const end = points[index + 1];
+                        const dx = end.x - start.x;
+                        const dy = end.y - start.y;
+                        const length = Math.hypot(dx, dy) || 1;
+                        const angle = Math.atan2(dy, dx);
+
+                        const glowLine = new PIXI.Sprite(this.textures.white);
+                        glowLine.anchor.set(0, 0.5);
+                        glowLine.position.set(start.x, start.y);
+                        glowLine.rotation = angle;
+                        glowLine.width = length + 1;
+                        glowLine.height = Math.max(1, width * glow);
+                        glowLine.tint = color;
+                        glowLine.alpha = 0.17;
+
+                        const coreLine = new PIXI.Sprite(this.textures.white);
+                        coreLine.anchor.set(0, 0.5);
+                        coreLine.position.set(start.x, start.y);
+                        coreLine.rotation = angle;
+                        coreLine.width = length + 1;
+                        coreLine.height = Math.max(0.65, width);
+                        coreLine.tint = 0xf1ffff;
+                        coreLine.alpha = 0.98;
+
+                        group.addChild(glowLine, coreLine);
+                    }
+
+                    this.items.push({ type: "fade", display: group, alpha, decay });
+                    return group;
+                }
+
+                burstPlasma(card, rect, now) {
+                    this.addAfterglow(card, "fx-plasma-afterglow", 1280);
+                    this.sessions.push({ kind: "plasma", rect, start: now, duration: 920, lastEmit: -1 });
+                    this.addFlash(
+                        this.textures.flashRed,
+                        rect.x + rect.w * 0.5,
+                        rect.y + 2,
+                        rect.w * 1.25,
+                        115,
+                        0.92,
+                        0.062
+                    );
+
+                    for (let index = 0; index < 42; index += 1) this.spawnPlasmaBlob(rect, 1.05, index < 30);
+                    for (let index = 0; index < 24; index += 1) this.spawnPlasmaStrand(rect, index < 18);
+                    for (let index = 0; index < 48; index += 1) this.spawnPlasmaSpark(rect);
+                }
+
+                spawnPlasmaBlob(rect, power = 1, preferTop = true) {
+                    const topWeighted = preferTop || Math.random() < 0.66;
+                    let x;
+                    let y;
+                    let vx;
+                    let vy;
+
+                    if (topWeighted) {
+                        x = rect.x + rnd(rect.w * 0.04, rect.w * 0.96);
+                        y = rect.y + rnd(-5, 14);
+                        vx = rnd(-0.26, 0.26) * rnd(0.45, 1.2) * power;
+                        vy = rnd(-1.25, -0.32) * rnd(0.48, 1.12) * power;
+                    } else {
+                        const right = Math.random() > 0.5;
+                        x = right ? rect.x + rect.w + rnd(-7, 7) : rect.x + rnd(-7, 7);
+                        y = rect.y + rnd(rect.h * 0.05, rect.h * 0.88);
+                        vx = (right ? 1 : -1) * rnd(0.25, 0.94) * rnd(0.45, 1.12) * power;
+                        vy = rnd(-0.5, 0.42) * rnd(0.45, 1.12) * power;
+                    }
+
+                    const hot = Math.random() < 0.38;
+                    this.addParticle(hot ? this.textures.plasmaOrange : this.textures.plasmaRed, {
+                        x,
+                        y,
+                        vx,
+                        vy,
+                        size: rnd(24, 66) * power,
+                        alpha: rnd(0.3, 0.72),
+                        decay: rnd(0.008, 0.02),
+                        drag: 0.986,
+                        grow: rnd(0.12, 0.45)
+                    });
+                }
+
+                spawnPlasmaStrand(rect, preferTop = true) {
+                    const top = preferTop || Math.random() < 0.7;
+                    let start;
+                    let angle;
+                    let length;
+
+                    if (top) {
+                        start = { x: rect.x + rnd(rect.w * 0.02, rect.w * 0.98), y: rect.y + rnd(-2, 8) };
+                        angle = rnd(-Math.PI * 0.82, -Math.PI * 0.18);
+                        length = rnd(28, 92);
+                    } else {
+                        const side = Math.random() > 0.5 ? 1 : -1;
+                        start = { x: side > 0 ? rect.x + rect.w : rect.x, y: rect.y + rnd(rect.h * 0.08, rect.h * 0.9) };
+                        angle = side > 0 ? rnd(-0.6, 0.6) : rnd(Math.PI - 0.6, Math.PI + 0.6);
+                        length = rnd(20, 64);
+                    }
+
+                    const points = [start];
+                    const normalX = -Math.sin(angle);
+                    const normalY = Math.cos(angle);
+                    for (let index = 1; index <= 5; index += 1) {
+                        const t = index / 5;
+                        const wave = Math.sin(t * Math.PI * rnd(1.2, 2.4)) * rnd(-10, 10);
+                        points.push({
+                            x: start.x + Math.cos(angle) * length * t + normalX * wave,
+                            y: start.y + Math.sin(angle) * length * t + normalY * wave
+                        });
+                    }
+                    this.addPolyline(
+                        points,
+                        Math.random() < 0.35 ? "255,205,129" : "255,54,72",
+                        rnd(0.7, 2.0),
+                        rnd(0.58, 1),
+                        rnd(0.036, 0.07),
+                        6
+                    );
+                }
+
+                spawnPlasmaSpark(rect) {
+                    const top = Math.random() < 0.68;
+                    const point = top
+                        ? { x: rect.x + Math.random() * rect.w, y: rect.y, nx: rnd(-0.18, 0.18), ny: -1 }
+                        : this.edgePoint(rect, Math.random());
+                    this.addParticle(this.textures.sparkRed, {
+                        x: point.x,
+                        y: point.y,
+                        vx: point.nx * rnd(1.1, 5.8) + rnd(-1.1, 1.1),
+                        vy: point.ny * rnd(1.2, 6.4) + rnd(-1.1, 0.5),
+                        size: rnd(5, 12),
+                        alpha: rnd(0.64, 1),
+                        decay: rnd(0.024, 0.056),
+                        drag: 0.967
+                    });
+                }
+
+                burstElectric(card, rect, now) {
+                    this.addAfterglow(card, "fx-electric-afterglow", 1480);
+                    this.sessions.push({ kind: "electric", rect, start: now, duration: 760, lastEmit: -1 });
+                    this.addFlash(
+                        this.textures.flashTeal,
+                        rect.x + rect.w * 0.5,
+                        rect.y + rect.h * 0.5,
+                        rect.w * 1.32,
+                        rect.h * 1.25,
+                        0.42,
+                        0.11
+                    );
+                    for (let index = 0; index < 16; index += 1) this.spawnElectricBolt(rect, index % 3 === 0);
+                    for (let index = 0; index < 50; index += 1) this.spawnElectricSpark(rect);
+                }
+
+                spawnElectricBolt(rect, crossSurface = false) {
+                    const startT = Math.random();
+                    const start = this.edgePoint(rect, startT);
+                    let end;
+
+                    if (crossSurface) {
+                        end = Math.random() < 0.55
+                            ? { x: rect.x + rnd(rect.w * 0.12, rect.w * 0.88), y: rect.y + rnd(rect.h * 0.1, rect.h * 0.9) }
+                            : this.edgePoint(rect, startT + rnd(0.26, 0.64));
+                    } else {
+                        const direction = Math.random() > 0.5 ? 1 : -1;
+                        end = this.edgePoint(rect, startT + direction * rnd(0.035, 0.16));
+                    }
+
+                    const distance = Math.hypot(end.x - start.x, end.y - start.y) || 1;
+                    const points = buildLightningPath(
+                        start,
+                        end,
+                        Math.min(21, distance * 0.135),
+                        0.48,
+                        distance > 130 ? 5 : 4
+                    );
+                    this.addPolyline(
+                        points,
+                        Math.random() < 0.24 ? "184,255,248" : "31,255,224",
+                        crossSurface ? rnd(0.8, 1.55) : rnd(0.65, 1.28),
+                        rnd(0.76, 1),
+                        rnd(0.18, 0.3),
+                        8
+                    );
+                }
+
+                spawnElectricSpark(rect) {
+                    const point = this.edgePoint(rect, Math.random());
+                    const tangentX = -point.ny;
+                    const tangentY = point.nx;
+                    const outward = rnd(0.8, 4.1);
+                    const tangent = rnd(-2.2, 2.2);
+                    this.addParticle(this.textures.sparkTeal, {
+                        x: point.x,
+                        y: point.y,
+                        vx: point.nx * outward + tangentX * tangent,
+                        vy: point.ny * outward + tangentY * tangent,
+                        size: rnd(4, 10),
+                        alpha: rnd(0.62, 1),
+                        decay: rnd(0.045, 0.096),
+                        drag: 0.95
+                    });
+                }
+
+                burstSupernova(card, rect, now) {
+                    this.addAfterglow(card, "fx-supernova-afterglow", 2180);
+                    this.sessions.push({ kind: "supernova", rect, start: now, duration: 1760, lastEmit: -1 });
+                    const cx = rect.x + rect.w / 2;
+                    const cy = rect.y + rect.h / 2;
+
+                    this.addFlash(
+                        this.textures.flashBlue,
+                        cx,
+                        cy,
+                        rect.w * 1.72,
+                        rect.h * 1.36,
+                        1,
+                        0.052
+                    );
+
+                    const wave = this.addSprite(
+                        this.textures.ringBlue,
+                        cx,
+                        cy,
+                        Math.hypot(rect.w, rect.h) * 0.78,
+                        Math.hypot(rect.w, rect.h) * 0.78,
+                        0.96
+                    );
+                    this.items.push({ type: "wave", display: wave, alpha: 0.96, decay: 0.038, grow: 0.052 });
+
+                    for (let index = 0; index < 112; index += 1) this.spawnSupernovaRay(rect, index / 112);
+                    for (let index = 0; index < 156; index += 1) this.spawnSupernovaSpark(rect);
+                    for (let index = 0; index < 26; index += 1) this.spawnBlueCloud(rect);
+                }
+
+                spawnSupernovaRay(rect, normalizedAngle = Math.random()) {
+                    const angle = normalizedAngle * Math.PI * 2 + rnd(-0.024, 0.024);
+                    const start = this.rayStartAtCard(rect, angle, rnd(1, 9));
+                    const length = Math.pow(Math.random(), 0.58) * 150 + 28;
+                    const bend = rnd(-0.12, 0.12);
+                    const endAngle = angle + bend;
+                    const end = {
+                        x: start.x + Math.cos(endAngle) * length,
+                        y: start.y + Math.sin(endAngle) * length
+                    };
+                    this.addLine(
+                        start,
+                        end,
+                        Math.random() < 0.26 ? "178,229,255" : "43,139,255",
+                        rnd(0.38, 1.9),
+                        rnd(0.38, 1),
+                        rnd(0.008, 0.021),
+                        8
+                    );
+                }
+
+                spawnSupernovaSpark(rect) {
+                    const angle = Math.random() * Math.PI * 2;
+                    const start = this.rayStartAtCard(rect, angle, rnd(0, 10));
+                    const speed = rnd(1.3, 8.2);
+                    this.addParticle(this.textures.sparkBlue, {
+                        x: start.x,
+                        y: start.y,
+                        vx: start.dx * speed + rnd(-0.55, 0.55),
+                        vy: start.dy * speed + rnd(-0.55, 0.55),
+                        size: rnd(4, 11),
+                        alpha: rnd(0.42, 1),
+                        decay: rnd(0.01, 0.032),
+                        drag: 0.978
+                    });
+                }
+
+                spawnBlueCloud(rect) {
+                    const angle = Math.random() * Math.PI * 2;
+                    const start = this.rayStartAtCard(rect, angle, rnd(0, 16));
+                    this.addParticle(this.textures.cloudBlue, {
+                        x: start.x + start.dx * rnd(4, 28),
+                        y: start.y + start.dy * rnd(4, 28),
+                        vx: start.dx * rnd(0.06, 0.32),
+                        vy: start.dy * rnd(0.06, 0.32),
+                        size: rnd(35, 90),
+                        alpha: rnd(0.08, 0.24),
+                        decay: rnd(0.0015, 0.0048),
+                        drag: 1,
+                        grow: rnd(0.08, 0.26)
+                    });
+                }
+
+                emitSession(session, time) {
+                    const elapsed = time - session.start;
+                    if (elapsed > session.duration) return;
+
+                    if (session.kind === "plasma") {
+                        const interval = elapsed < 560 ? 34 : 62;
+                        if (session.lastEmit < 0 || elapsed - session.lastEmit >= interval) {
+                            const build = Math.sin(Math.min(1, elapsed / 720) * Math.PI * 0.92);
+                            const count = Math.max(2, Math.round(2 + build * 4));
+                            for (let index = 0; index < count; index += 1) this.spawnPlasmaBlob(session.rect, 0.72 + build * 0.48, true);
+                            if (Math.random() < 0.64) this.spawnPlasmaStrand(session.rect, true);
+                            session.lastEmit = elapsed;
+                        }
+                    }
+
+                    if (session.kind === "electric") {
+                        if (session.lastEmit < 0 || elapsed - session.lastEmit >= 52) {
+                            const arcCount = elapsed < 560 ? 4 : 2;
+                            for (let index = 0; index < arcCount; index += 1) {
+                                this.spawnElectricBolt(session.rect, index === 0 || Math.random() < 0.26);
+                            }
+                            for (let index = 0; index < 5; index += 1) this.spawnElectricSpark(session.rect);
+                            session.lastEmit = elapsed;
+                        }
+                    }
+
+                    if (session.kind === "supernova") {
+                        if (elapsed < 500 && (session.lastEmit < 0 || elapsed - session.lastEmit >= 62)) {
+                            for (let index = 0; index < 10; index += 1) this.spawnSupernovaRay(session.rect);
+                            for (let index = 0; index < 12; index += 1) this.spawnSupernovaSpark(session.rect);
+                            session.lastEmit = elapsed;
+                        } else if (
+                            elapsed >= 500 &&
+                            elapsed < 1420 &&
+                            (session.lastEmit < 0 || elapsed - session.lastEmit >= 170)
+                        ) {
+                            for (let index = 0; index < 3; index += 1) this.spawnSupernovaRay(session.rect);
+                            for (let index = 0; index < 5; index += 1) this.spawnSupernovaSpark(session.rect);
+                            session.lastEmit = elapsed;
+                        }
+                    }
+                }
+
+                tick(ticker) {
+                    if (!this.ready) return;
+                    const time = performance.now();
+                    const delta = clamp(ticker.deltaTime, 0.25, 2.2);
+
+                    for (const session of this.sessions) this.emitSession(session, time);
+                    this.sessions = this.sessions.filter((session) => time - session.start < session.duration);
+
+                    const alive = [];
+                    for (const item of this.items) {
+                        if (item.type === "particle") {
+                            item.x += item.vx * delta;
+                            item.y += item.vy * delta;
+                            item.vx *= Math.pow(item.drag, delta);
+                            item.vy *= Math.pow(item.drag, delta);
+                            item.size += item.grow * delta;
+                            item.alpha -= item.decay * delta;
+                            item.display.position.set(item.x, item.y);
+                            item.display.width = item.size;
+                            item.display.height = item.size;
+                            item.display.rotation += item.spin * delta;
+                            item.display.alpha = Math.max(0, item.alpha);
+                        } else if (item.type === "wave") {
+                            item.alpha -= item.decay * delta;
+                            item.display.alpha = Math.max(0, item.alpha);
+                            item.display.scale.x += item.grow * delta;
+                            item.display.scale.y += item.grow * delta;
+                        } else {
+                            item.alpha -= item.decay * delta;
+                            item.display.alpha = Math.max(0, item.alpha);
+                        }
+
+                        if (item.alpha > 0) {
+                            alive.push(item);
+                        } else {
+                            item.display.removeFromParent();
+                            item.display.destroy({ children: true });
+                        }
+                    }
+                    this.items = alive;
+
+                    if (!this.sessions.length && !this.items.length) {
+                        this.app.stop();
+                        this.app.renderer.clear();
+                    }
+                }
+            }
+
+
+            class ReferenceFxAudio {
+                constructor() {
+                    this.context = null;
+                    this.master = null;
+                }
+
+                ensureContext() {
+                    if (!this.context) {
+                        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                        if (!AudioContextClass) return false;
+                        this.context = new AudioContextClass();
+                        this.master = this.context.createGain();
+                        this.master.gain.value = 0.31;
+                        this.master.connect(this.context.destination);
+                    }
+
+                    if (this.context.state === "suspended") {
+                        this.context.resume();
+                    }
+
+                    return true;
+                }
+
+                noise(duration = 0.5) {
+                    const length = Math.max(1, Math.floor(this.context.sampleRate * duration));
+                    const buffer = this.context.createBuffer(1, length, this.context.sampleRate);
+                    const data = buffer.getChannelData(0);
+                    let last = 0;
+
+                    for (let index = 0; index < length; index += 1) {
+                        const white = Math.random() * 2 - 1;
+                        last = last * 0.72 + white * 0.28;
+                        data[index] = last;
+                    }
+
+                    const source = this.context.createBufferSource();
+                    source.buffer = buffer;
+                    return source;
+                }
+
+                play(kind) {
+                    if (!this.ensureContext()) return;
+                    if (kind === "plasma") this.playPlasma();
+                    else if (kind === "electric") this.playElectric();
+                    else this.playSupernova();
+                }
+
+                playPlasma() {
+                    const ctx = this.context;
+                    const now = ctx.currentTime;
+
+                    const noise = this.noise(0.78);
+                    const band = ctx.createBiquadFilter();
+                    const gain = ctx.createGain();
+                    band.type = "bandpass";
+                    band.frequency.setValueAtTime(1650, now);
+                    band.frequency.exponentialRampToValueAtTime(420, now + 0.72);
+                    band.Q.value = 0.72;
+                    gain.gain.setValueAtTime(0.001, now);
+                    gain.gain.exponentialRampToValueAtTime(0.62, now + 0.026);
+                    gain.gain.exponentialRampToValueAtTime(0.18, now + 0.42);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.78);
+                    noise.connect(band).connect(gain).connect(this.master);
+                    noise.start(now);
+
+                    const osc = ctx.createOscillator();
+                    const oscGain = ctx.createGain();
+                    osc.type = "sawtooth";
+                    osc.frequency.setValueAtTime(180, now);
+                    osc.frequency.exponentialRampToValueAtTime(54, now + 0.52);
+                    oscGain.gain.setValueAtTime(0.001, now);
+                    oscGain.gain.exponentialRampToValueAtTime(0.18, now + 0.018);
+                    oscGain.gain.exponentialRampToValueAtTime(0.001, now + 0.56);
+                    osc.connect(oscGain).connect(this.master);
+                    osc.start(now);
+                    osc.stop(now + 0.58);
+                }
+
+                playElectric() {
+                    const ctx = this.context;
+                    const now = ctx.currentTime;
+                    const offsets = [0, 0.055, 0.12, 0.205, 0.325, 0.47, 0.61];
+
+                    offsets.forEach((offset, index) => {
+                        const start = now + offset;
+                        const duration = index < 3 ? 0.052 : 0.078;
+                        const osc = ctx.createOscillator();
+                        const gain = ctx.createGain();
+                        const high = ctx.createBiquadFilter();
+                        osc.type = index % 2 ? "square" : "sawtooth";
+                        osc.frequency.setValueAtTime(rnd(1250, 2600), start);
+                        osc.frequency.exponentialRampToValueAtTime(rnd(180, 520), start + duration);
+                        high.type = "highpass";
+                        high.frequency.value = 620;
+                        gain.gain.setValueAtTime(0.001, start);
+                        gain.gain.exponentialRampToValueAtTime(rnd(0.16, 0.31), start + 0.004);
+                        gain.gain.exponentialRampToValueAtTime(0.001, start + duration);
+                        osc.connect(high).connect(gain).connect(this.master);
+                        osc.start(start);
+                        osc.stop(start + duration + 0.01);
+
+                        const crackle = this.noise(duration + 0.018);
+                        const crackleFilter = ctx.createBiquadFilter();
+                        const crackleGain = ctx.createGain();
+                        crackleFilter.type = "highpass";
+                        crackleFilter.frequency.value = rnd(1800, 4200);
+                        crackleGain.gain.setValueAtTime(rnd(0.08, 0.19), start);
+                        crackleGain.gain.exponentialRampToValueAtTime(0.001, start + duration);
+                        crackle.connect(crackleFilter).connect(crackleGain).connect(this.master);
+                        crackle.start(start);
+                    });
+                }
+
+                playSupernova() {
+                    const ctx = this.context;
+                    const now = ctx.currentTime;
+
+                    const low = ctx.createOscillator();
+                    const lowGain = ctx.createGain();
+                    low.type = "sine";
+                    low.frequency.setValueAtTime(82, now);
+                    low.frequency.exponentialRampToValueAtTime(31, now + 1.22);
+                    lowGain.gain.setValueAtTime(0.001, now);
+                    lowGain.gain.exponentialRampToValueAtTime(0.46, now + 0.018);
+                    lowGain.gain.exponentialRampToValueAtTime(0.17, now + 0.52);
+                    lowGain.gain.exponentialRampToValueAtTime(0.001, now + 1.3);
+                    low.connect(lowGain).connect(this.master);
+                    low.start(now);
+                    low.stop(now + 1.34);
+
+                    const sweep = ctx.createOscillator();
+                    const sweepGain = ctx.createGain();
+                    sweep.type = "sawtooth";
+                    sweep.frequency.setValueAtTime(520, now);
+                    sweep.frequency.exponentialRampToValueAtTime(78, now + 0.88);
+                    sweepGain.gain.setValueAtTime(0.001, now);
+                    sweepGain.gain.exponentialRampToValueAtTime(0.12, now + 0.025);
+                    sweepGain.gain.exponentialRampToValueAtTime(0.001, now + 0.92);
+                    sweep.connect(sweepGain).connect(this.master);
+                    sweep.start(now);
+                    sweep.stop(now + 0.96);
+
+                    const noise = this.noise(1.18);
+                    const lowpass = ctx.createBiquadFilter();
+                    const noiseGain = ctx.createGain();
+                    lowpass.type = "lowpass";
+                    lowpass.frequency.setValueAtTime(4200, now);
+                    lowpass.frequency.exponentialRampToValueAtTime(510, now + 1.06);
+                    noiseGain.gain.setValueAtTime(0.001, now);
+                    noiseGain.gain.exponentialRampToValueAtTime(0.34, now + 0.014);
+                    noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 1.17);
+                    noise.connect(lowpass).connect(noiseGain).connect(this.master);
+                    noise.start(now);
                 }
             }
 
@@ -2180,7 +3139,7 @@
                     this.card = card;
                     this.canvas = canvas;
                     this.ctx = canvas.getContext("2d", { alpha: true });
-                    this.dpr = Math.min(window.devicePixelRatio || 1, 2);
+                    this.dpr = Math.min(window.devicePixelRatio || 1, 1.35);
                     this.width = 1;
                     this.height = 1;
                     this.active = false;
@@ -2203,7 +3162,7 @@
 
                     this.width = Math.max(1, rect.width);
                     this.height = Math.max(1, rect.height);
-                    this.dpr = Math.min(window.devicePixelRatio || 1, 2);
+                    this.dpr = Math.min(window.devicePixelRatio || 1, 1.35);
 
                     this.canvas.width = Math.round(this.width * this.dpr);
                     this.canvas.height = Math.round(this.height * this.dpr);
@@ -2625,10 +3584,11 @@
                     this.canvas = canvas;
                     this.button = button;
                     this.ctx = canvas.getContext("2d", { alpha: true });
-                    this.dpr = Math.min(window.devicePixelRatio || 1, 2);
+                    this.dpr = Math.min(window.devicePixelRatio || 1, 1.35);
                     this.width = 1;
                     this.height = 1;
                     this.hot = false;
+                    this.running = false;
                     this.bolts = [];
                     this.sparks = [];
                     this.last = performance.now();
@@ -2637,9 +3597,6 @@
                     this.resizeObserver.observe(canvas.parentElement);
                     this.resize();
 
-                    if (!reduceMotion) {
-                        requestAnimationFrame((t) => this.frame(t));
-                    }
                 }
 
                 resize() {
@@ -2669,6 +3626,7 @@
                 }
 
                 burst(power = 1) {
+                    this.start();
                     const o = this.center();
 
                     for (let i = 0; i < 10 * power; i += 1) {
@@ -2763,6 +3721,13 @@
                     bolt.a -= bolt.d;
                 }
 
+                start() {
+                    if (this.running || reduceMotion) return;
+                    this.running = true;
+                    this.last = performance.now();
+                    requestAnimationFrame((time) => this.frame(time));
+                }
+
                 frame(time) {
                     const elapsed = clamp(time - this.last, 0, 34);
                     const delta = elapsed / 16.667;
@@ -2811,7 +3776,12 @@
                     this.bolts = this.bolts.filter((b) => b.a > 0);
                     this.sparks = this.sparks.filter((s) => s.a > 0);
 
-                    requestAnimationFrame((t) => this.frame(t));
+                    if (this.hot || this.bolts.length || this.sparks.length) {
+                        requestAnimationFrame((nextTime) => this.frame(nextTime));
+                    } else {
+                        this.running = false;
+                        this.ctx.clearRect(0, 0, this.width, this.height);
+                    }
                 }
             }
 
@@ -2826,6 +3796,13 @@
                 stageCanvas && scene
                     ? new StageEnergy(stageCanvas, scene, cards)
                     : null;
+
+            const referenceCanvas = document.querySelector(".reference-fx");
+            const referenceFx =
+                referenceCanvas && scene
+                    ? new WebGLReferenceBurstEngine(referenceCanvas, scene)
+                    : null;
+            const referenceAudio = new ReferenceFxAudio();
 
             const localEnergyByCard = new WeakMap();
 
@@ -3008,31 +3985,51 @@
                 card.addEventListener("click", () => {
                     setActive(card, true);
 
-                    const isAppsCard =
-                        card.classList.contains("apps-card");
+                    const effect = card.dataset.effect || "supernova";
 
-                    stageEnergy?.bigBurst(
-                        isAppsCard ? 1.05 : 0.92
-                    );
+                    // The source clip keeps the selected card nearly front-on during impact.
+                    if (gsapReady && !reduceMotion) {
+                        toRotX(0);
+                        toRotY(0);
+                        contentX(0);
+                        contentY(0);
+                        toY(-3);
+                    }
 
-                    localEnergyByCard
-                        .get(card)
-                        ?.burst(isAppsCard ? 0.96 : 0.78);
+                    stageEnergy?.deactivate(card);
+                    referenceFx?.burst(card, effect);
+                    referenceAudio.play(effect);
+
+                    // Apps keeps a second, card-local lightning layer so arcs can spiderweb
+                    // over the dark glass surface while the stage layer wraps the perimeter.
+                    if (effect === "electric") {
+                        // WebGL reference FX now handles the click lightning; avoid double-rendering Canvas2D arcs.
+                    }
 
                     if (gsapReady && !reduceMotion) {
+                        const impactScale =
+                            effect === "supernova" ? 1.045 :
+                                effect === "plasma" ? 1.032 :
+                                    1.026;
+
                         gsap.fromTo(
                             card,
-                            { scale: 0.985 },
+                            { scale: 0.992 },
                             {
-                                scale: 1.035,
-                                duration: 0.22,
+                                scale: impactScale,
+                                duration: effect === "supernova" ? 0.16 : 0.20,
                                 yoyo: true,
                                 repeat: 1,
-                                ease: "power3.out",
+                                ease: "power4.out",
                                 overwrite: "auto"
                             }
                         );
                     }
+
+                    const releaseDelay =
+                        effect === "supernova" ? 2100 :
+                            effect === "electric" ? 1420 :
+                                1260;
 
                     window.setTimeout(() => {
                         if (
@@ -3041,7 +4038,7 @@
                         ) {
                             setActive(card, false);
                         }
-                    }, 1150);
+                    }, releaseDelay);
                 });
             });
 
@@ -3253,7 +4250,7 @@
 
                     const card = cards[index % cards.length];
                     setActive(card, true);
-                    stageEnergy?.bigBurst(0.82);
+                    referenceFx?.burst(card, card.dataset.effect || "supernova");
 
                     window.setTimeout(() => {
                         setActive(card, false);
