@@ -1,0 +1,3209 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <meta
+    name="description"
+    content="Nucleairs high-fidelity premium animated service cards"
+  />
+  <title>Nucleairs — Ultra Animation V3</title>
+  <style>
+
+:root {
+  color-scheme: dark;
+  --bg: #02030a;
+  --text: #f7faff;
+  --muted: #788399;
+  --mx: 50vw;
+  --my: 30vh;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  min-height: 100%;
+  background: var(--bg);
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100%;
+  overflow-x: hidden;
+  color: var(--text);
+  font-family:
+    Inter, Manrope, ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at 50% -12%, rgba(24, 100, 255, 0.19), transparent 34%),
+    radial-gradient(circle at -5% 54%, rgba(0, 123, 255, 0.075), transparent 30%),
+    radial-gradient(circle at 105% 57%, rgba(0, 231, 209, 0.055), transparent 32%),
+    linear-gradient(180deg, #050713 0%, #02030a 54%, #010207 100%);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 0.14;
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 230 230' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.91' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.19'/%3E%3C/svg%3E");
+  mix-blend-mode: soft-light;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      470px circle at var(--mx) var(--my),
+      rgba(52, 157, 255, 0.060),
+      transparent 70%
+    );
+}
+
+button,
+a {
+  font: inherit;
+}
+
+.ultra-page {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  isolation: isolate;
+}
+
+.ambient-field {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.ultra-wrap {
+  width: min(1260px, calc(100% - 42px));
+  margin: 0 auto;
+  padding: clamp(88px, 10vw, 144px) 0 112px;
+}
+
+.ultra-kicker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+  color: #79c5ff;
+  font-size: 10px;
+  font-weight: 760;
+  letter-spacing: 0.30em;
+  text-transform: uppercase;
+  opacity: 0;
+}
+
+.ultra-kicker::before,
+.ultra-kicker::after {
+  content: "";
+  width: 58px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #26a6ff);
+  box-shadow:
+    0 0 7px rgba(35, 169, 255, 0.9),
+    0 0 18px rgba(35, 169, 255, 0.48);
+}
+
+.ultra-kicker::after {
+  transform: scaleX(-1);
+}
+
+.ultra-title {
+  max-width: 940px;
+  margin: 20px auto 0;
+  text-align: center;
+  font-size: clamp(48px, 7vw, 84px);
+  font-weight: 700;
+  line-height: 0.96;
+  letter-spacing: -0.065em;
+  opacity: 0;
+}
+
+.ultra-title .gradient-word {
+  color: transparent;
+  background:
+    linear-gradient(
+      101deg,
+      #ffffff 6%,
+      #d9f1ff 32%,
+      #82d8ff 62%,
+      #318fff 94%
+    );
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 0 28px rgba(64, 171, 255, 0.19));
+}
+
+.ultra-copy {
+  max-width: 700px;
+  margin: 29px auto 0;
+  text-align: center;
+  color: var(--muted);
+  font-size: clamp(16px, 1.8vw, 19px);
+  line-height: 1.78;
+  opacity: 0;
+}
+
+.section-beam {
+  position: relative;
+  width: min(840px, 88%);
+  height: 1px;
+  margin: 39px auto 58px;
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(20, 129, 255, 0.20),
+      rgba(73, 212, 255, 0.51),
+      rgba(20, 129, 255, 0.20),
+      transparent
+    );
+  opacity: 0;
+}
+
+.section-beam::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -10%;
+  width: 17%;
+  height: 4px;
+  border-radius: 999px;
+  background:
+    linear-gradient(90deg, transparent, #25a5ff, #b9f3ff, transparent);
+  box-shadow:
+    0 0 7px #42baff,
+    0 0 27px rgba(42, 162, 255, 0.86);
+  animation: beam-run 5.2s ease-in-out infinite;
+}
+
+.cards-scene {
+  position: relative;
+  padding: 62px 24px 82px;
+  border-radius: 56px;
+}
+
+.cards-scene::before {
+  content: "";
+  position: absolute;
+  inset: 8% 1% 4%;
+  z-index: -2;
+  border-radius: 42%;
+  background:
+    radial-gradient(circle at 16% 58%, rgba(23, 122, 255, 0.135), transparent 21%),
+    radial-gradient(circle at 50% 58%, rgba(255, 35, 80, 0.095), transparent 21%),
+    radial-gradient(circle at 84% 58%, rgba(0, 224, 198, 0.10), transparent 21%);
+  filter: blur(39px);
+}
+
+.stage-energy {
+  position: absolute;
+  inset: -110px -85px;
+  z-index: 0;
+  width: calc(100% + 170px);
+  height: calc(100% + 220px);
+  pointer-events: none;
+}
+
+.cards-grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 27px;
+  perspective: 1500px;
+}
+
+.energy-card {
+  --accent-rgb: 40, 143, 255;
+  --accent: rgb(var(--accent-rgb));
+  position: relative;
+  min-height: 456px;
+  overflow: hidden;
+  border: 1px solid rgba(var(--accent-rgb), 0.44);
+  border-radius: 30px;
+  cursor: pointer;
+  outline: none;
+  opacity: 0;
+  transform-style: preserve-3d;
+  transform-origin: 50% 54%;
+  background:
+    linear-gradient(154deg, rgba(var(--accent-rgb), 0.18), transparent 33%),
+    radial-gradient(circle at 50% 117%, rgba(var(--accent-rgb), 0.215), transparent 43%),
+    linear-gradient(180deg, rgba(12, 18, 41, 0.91), rgba(3, 7, 19, 0.975));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    inset 0 -1px 0 rgba(var(--accent-rgb), 0.19),
+    0 34px 82px rgba(0, 0, 0, 0.48);
+  transition:
+    border-color 0.38s ease,
+    box-shadow 0.42s ease,
+    filter 0.42s ease,
+    opacity 0.42s ease;
+  will-change: transform;
+}
+
+.cards-grid.has-active .energy-card:not(.is-active) {
+  opacity: 0.61 !important;
+  filter: saturate(0.72) brightness(0.80);
+}
+
+.energy-card.is-active,
+.energy-card:hover,
+.energy-card:focus-visible {
+  border-color: rgba(var(--accent-rgb), 0.96);
+  filter: saturate(1.17) brightness(1.065);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.13),
+    inset 0 -1px 0 rgba(var(--accent-rgb), 0.40),
+    0 38px 100px rgba(0, 0, 0, 0.61),
+    0 0 10px rgba(var(--accent-rgb), 0.46),
+    0 0 30px rgba(var(--accent-rgb), 0.24),
+    0 0 74px rgba(var(--accent-rgb), 0.12);
+}
+
+.card-plasma {
+  position: absolute;
+  inset: -47%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.04;
+  border-radius: 50%;
+  background:
+    conic-gradient(
+      from 90deg,
+      transparent 0 7%,
+      rgba(var(--accent-rgb), 0.28) 14%,
+      transparent 24% 49%,
+      rgba(var(--accent-rgb), 0.22) 62%,
+      transparent 74% 100%
+    );
+  filter: blur(35px);
+  animation: plasma-turn 9s linear infinite;
+  transition: opacity 0.42s ease;
+}
+
+.energy-card.is-active .card-plasma,
+.energy-card:hover .card-plasma,
+.energy-card:focus-visible .card-plasma {
+  opacity: 0.52;
+}
+
+.card-spotlight {
+  position: absolute;
+  z-index: 1;
+  width: 230px;
+  height: 230px;
+  left: -115px;
+  top: -115px;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  background:
+    radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.20),
+      rgba(var(--accent-rgb), 0.095) 24%,
+      transparent 68%
+    );
+  filter: blur(2px);
+  mix-blend-mode: screen;
+  transition: opacity 0.3s ease;
+}
+
+.energy-card.is-active .card-spotlight,
+.energy-card:hover .card-spotlight,
+.energy-card:focus-visible .card-spotlight {
+  opacity: 1;
+}
+
+.card-sheen {
+  position: absolute;
+  inset: -20% -70%;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.42;
+  background:
+    linear-gradient(
+      112deg,
+      transparent 40%,
+      rgba(255, 255, 255, 0.025) 46%,
+      rgba(255, 255, 255, 0.115) 50%,
+      rgba(255, 255, 255, 0.025) 54%,
+      transparent 60%
+    );
+  transform: translateX(-29%);
+  transition: transform 0.85s cubic-bezier(.18,.84,.2,1);
+}
+
+.energy-card.is-active .card-sheen,
+.energy-card:hover .card-sheen,
+.energy-card:focus-visible .card-sheen {
+  transform: translateX(29%);
+}
+
+.edge-runner {
+  position: absolute;
+  inset: 0;
+  z-index: 7;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0.10;
+  padding: 2px;
+  background:
+    conic-gradient(
+      from var(--edge-angle, 0deg),
+      transparent 0 22%,
+      rgba(var(--accent-rgb), 0.12) 27%,
+      rgba(var(--accent-rgb), 1) 30%,
+      #ffffff 31%,
+      rgba(var(--accent-rgb), 0.96) 32%,
+      transparent 37% 100%
+    );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: edge-run 2.25s linear infinite paused;
+  transition: opacity 0.28s ease;
+}
+
+.energy-card.is-active .edge-runner,
+.energy-card:hover .edge-runner,
+.energy-card:focus-visible .edge-runner {
+  opacity: 0.76;
+  animation-play-state: running;
+}
+
+.inner-glass {
+  position: absolute;
+  inset: 11px;
+  z-index: 2;
+  border: 1px solid rgba(255, 255, 255, 0.028);
+  border-radius: 21px;
+  pointer-events: none;
+}
+
+.inner-glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0.38;
+  background:
+    linear-gradient(90deg, rgba(var(--accent-rgb), 0.23), transparent 15%) top left / 38% 1px no-repeat,
+    linear-gradient(90deg, transparent, rgba(var(--accent-rgb), 0.21)) bottom right / 38% 1px no-repeat;
+}
+
+.circuit-map {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.16;
+  transition: opacity 0.38s ease;
+}
+
+.circuit-map path {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 0.65;
+  stroke-linecap: round;
+  stroke-dasharray: 2 12;
+  animation: circuit-flow 7s linear infinite;
+}
+
+.energy-card.is-active .circuit-map,
+.energy-card:hover .circuit-map,
+.energy-card:focus-visible .circuit-map {
+  opacity: 0.42;
+}
+
+.corner {
+  position: absolute;
+  z-index: 8;
+  width: 18px;
+  height: 18px;
+  pointer-events: none;
+  opacity: 0.34;
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+.corner::before,
+.corner::after {
+  content: "";
+  position: absolute;
+  background: rgba(var(--accent-rgb), 0.95);
+}
+
+.corner::before {
+  width: 100%;
+  height: 1px;
+  box-shadow: 0 0 7px rgba(var(--accent-rgb), 0.88);
+}
+
+.corner::after {
+  width: 1px;
+  height: 100%;
+  box-shadow: 0 0 7px rgba(var(--accent-rgb), 0.88);
+}
+
+.corner.tl { top: 18px; left: 18px; }
+.corner.tr { top: 18px; right: 18px; transform: rotate(90deg); }
+.corner.bl { bottom: 18px; left: 18px; transform: rotate(-90deg); }
+.corner.br { right: 18px; bottom: 18px; transform: rotate(180deg); }
+
+.energy-card.is-active .corner,
+.energy-card:hover .corner,
+.energy-card:focus-visible .corner {
+  opacity: 1;
+  filter: brightness(1.8);
+}
+
+.card-content {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  min-height: 456px;
+  flex-direction: column;
+  align-items: center;
+  padding: 31px 30px 28px;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.card-badge {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 27px;
+  padding: 0 11px;
+  border: 1px solid rgba(var(--accent-rgb), 0.29);
+  border-radius: 999px;
+  color: rgba(221, 236, 255, 0.74);
+  background: rgba(var(--accent-rgb), 0.076);
+  font-size: 9px;
+  font-weight: 760;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transform: translateZ(32px);
+}
+
+.card-badge::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow:
+    0 0 7px var(--accent),
+    0 0 14px rgba(var(--accent-rgb), 0.7);
+  animation: status-pulse 1.65s ease-in-out infinite;
+}
+
+.icon-reactor {
+  position: relative;
+  display: grid;
+  width: 174px;
+  height: 160px;
+  margin: 10px auto 15px;
+  place-items: center;
+  transform: translateZ(55px);
+}
+
+.icon-reactor::before {
+  content: "";
+  position: absolute;
+  width: 110px;
+  height: 110px;
+  border: 1px solid rgba(var(--accent-rgb), 0.51);
+  border-radius: 29px;
+  background:
+    radial-gradient(circle at 28% 22%, rgba(255, 255, 255, 0.16), transparent 26%),
+    radial-gradient(circle at 58% 69%, rgba(var(--accent-rgb), 0.24), transparent 60%),
+    rgba(var(--accent-rgb), 0.052);
+  box-shadow:
+    inset 0 0 29px rgba(var(--accent-rgb), 0.18),
+    0 0 27px rgba(var(--accent-rgb), 0.14);
+  transform: rotate(45deg) scale(0.73);
+  transition:
+    transform 0.48s cubic-bezier(.18,.84,.2,1),
+    box-shadow 0.4s ease;
+}
+
+.icon-reactor::after {
+  content: "";
+  position: absolute;
+  bottom: 12px;
+  width: 82px;
+  height: 13px;
+  border-radius: 50%;
+  background: rgba(var(--accent-rgb), 0.78);
+  filter: blur(15px);
+  opacity: 0.36;
+  transform: scaleX(0.76);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.energy-card.is-active .icon-reactor::before,
+.energy-card:hover .icon-reactor::before,
+.energy-card:focus-visible .icon-reactor::before {
+  transform: rotate(45deg) scale(0.87);
+  box-shadow:
+    inset 0 0 37px rgba(var(--accent-rgb), 0.23),
+    0 0 18px rgba(var(--accent-rgb), 0.38),
+    0 0 61px rgba(var(--accent-rgb), 0.19);
+}
+
+.energy-card.is-active .icon-reactor::after,
+.energy-card:hover .icon-reactor::after,
+.energy-card:focus-visible .icon-reactor::after {
+  opacity: 0.98;
+  transform: scaleX(1.19);
+}
+
+.reactor-ring {
+  position: absolute;
+  width: 126px;
+  height: 126px;
+  border-radius: 50%;
+  border: 1px dashed rgba(var(--accent-rgb), 0.20);
+  opacity: 0.20;
+  animation: reactor-spin 15s linear infinite;
+  transition: opacity 0.35s ease;
+}
+
+.reactor-ring::before,
+.reactor-ring::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -3px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 11px var(--accent);
+}
+
+.reactor-ring::after {
+  top: auto;
+  bottom: -3px;
+}
+
+.energy-card.is-active .reactor-ring,
+.energy-card:hover .reactor-ring,
+.energy-card:focus-visible .reactor-ring {
+  opacity: 0.85;
+  animation-duration: 4.8s;
+}
+
+.card-icon {
+  position: relative;
+  z-index: 2;
+  width: 116px;
+  height: 95px;
+  overflow: visible;
+  color: var(--accent);
+  filter:
+    drop-shadow(0 0 7px rgba(var(--accent-rgb), 0.77))
+    drop-shadow(0 0 21px rgba(var(--accent-rgb), 0.27));
+  transition:
+    transform 0.44s cubic-bezier(.18,.84,.2,1),
+    filter 0.38s ease;
+}
+
+.card-icon .icon-detail {
+  transition: transform 0.4s cubic-bezier(.18,.84,.2,1), opacity 0.3s ease;
+  transform-origin: center;
+}
+
+.energy-card.is-active .card-icon,
+.energy-card:hover .card-icon,
+.energy-card:focus-visible .card-icon {
+  transform: translateY(-8px) scale(1.085);
+  filter:
+    drop-shadow(0 0 8px rgba(var(--accent-rgb), 1))
+    drop-shadow(0 0 31px rgba(var(--accent-rgb), 0.66));
+}
+
+.energy-card.is-active .card-icon .icon-detail,
+.energy-card:hover .card-icon .icon-detail,
+.energy-card:focus-visible .card-icon .icon-detail {
+  transform: translateY(-2px);
+}
+
+.energy-card h2 {
+  margin: 0;
+  text-align: center;
+  font-size: 30px;
+  font-weight: 650;
+  letter-spacing: -0.04em;
+  transform: translateZ(42px);
+}
+
+.card-rule {
+  width: 100%;
+  height: 1px;
+  margin: 22px 0 18px;
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(var(--accent-rgb), 0.46),
+      transparent
+    );
+  box-shadow: 0 0 13px rgba(var(--accent-rgb), 0.18);
+  transform: translateZ(30px);
+}
+
+.energy-card p {
+  margin: 0;
+  min-height: 74px;
+  text-align: center;
+  color: #8792a8;
+  font-size: 15px;
+  line-height: 1.67;
+  transform: translateZ(31px);
+  transition: color 0.3s ease;
+}
+
+.energy-card.is-active p,
+.energy-card:hover p,
+.energy-card:focus-visible p {
+  color: #bec8da;
+}
+
+.card-action {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 18px;
+  color: #69758c;
+  font-size: 10px;
+  font-weight: 720;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transform: translateZ(34px);
+}
+
+.action-orb {
+  display: grid;
+  width: 31px;
+  height: 31px;
+  place-items: center;
+  border: 1px solid rgba(var(--accent-rgb), 0.28);
+  border-radius: 50%;
+  color: var(--accent);
+  background: rgba(var(--accent-rgb), 0.06);
+  transition:
+    transform 0.34s cubic-bezier(.18,.84,.2,1),
+    background 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.energy-card.is-active .action-orb,
+.energy-card:hover .action-orb,
+.energy-card:focus-visible .action-orb {
+  transform: translateX(5px) rotate(8deg);
+  background: rgba(var(--accent-rgb), 0.15);
+  box-shadow:
+    inset 0 0 14px rgba(var(--accent-rgb), 0.12),
+    0 0 16px rgba(var(--accent-rgb), 0.22);
+}
+
+.energy-card::after {
+  content: "";
+  position: absolute;
+  right: 8%;
+  bottom: -12px;
+  left: 8%;
+  z-index: 3;
+  height: 20px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: rgba(var(--accent-rgb), 0.75);
+  filter: blur(20px);
+  opacity: 0.37;
+  transform: scaleX(0.80);
+  transition: opacity 0.38s ease, transform 0.38s ease;
+}
+
+.energy-card.is-active::after,
+.energy-card:hover::after,
+.energy-card:focus-visible::after {
+  opacity: 0.98;
+  transform: scaleX(1.18);
+}
+
+.interaction-copy {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  margin-top: 39px;
+  color: #647087;
+  font-size: 12px;
+}
+
+.interaction-copy .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #39a8ff;
+  box-shadow:
+    0 0 9px #39a8ff,
+    0 0 20px rgba(57, 168, 255, 0.58);
+  animation: status-pulse 1.8s ease-in-out infinite;
+}
+
+.contact-zone {
+  position: relative;
+  display: grid;
+  min-height: 440px;
+  place-items: center;
+  padding-top: 26px;
+}
+
+.contact-energy {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.contact-stack {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+}
+
+.contact-label {
+  margin-bottom: 38px;
+  color: #6d7a91;
+  font-size: 10px;
+  font-weight: 740;
+  letter-spacing: 0.23em;
+  text-transform: uppercase;
+}
+
+.contact-button {
+  position: relative;
+  display: grid;
+  width: 224px;
+  height: 224px;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  color: #fff;
+  cursor: pointer;
+  isolation: isolate;
+  font-size: 19px;
+  font-weight: 650;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  background:
+    radial-gradient(circle at 42% 29%, rgba(255, 255, 255, 0.33), transparent 19%),
+    radial-gradient(circle at 52% 130%, rgba(255, 76, 110, 0.9), transparent 59%),
+    linear-gradient(145deg, #dc304f, #850e2d 65%, #4a0619);
+  box-shadow:
+    inset 0 5px 18px rgba(255, 255, 255, 0.19),
+    inset 0 -21px 35px rgba(49, 0, 14, 0.54),
+    0 26px 67px rgba(0, 0, 0, 0.69),
+    0 0 0 10px rgba(135, 25, 53, 0.84),
+    0 0 0 13px rgba(61, 194, 255, 0.97),
+    0 0 29px 15px rgba(43, 169, 255, 0.36);
+  will-change: transform;
+}
+
+.contact-button::before {
+  content: "";
+  position: absolute;
+  inset: -42px;
+  z-index: -1;
+  border-radius: 50%;
+  opacity: 0.18;
+  background:
+    repeating-conic-gradient(
+      from 3deg,
+      transparent 0 5deg,
+      rgba(58, 185, 255, 0.98) 5.2deg 5.8deg,
+      transparent 6.05deg 12.5deg
+    );
+  filter:
+    blur(0.3px)
+    drop-shadow(0 0 8px rgba(42, 176, 255, 0.96));
+  -webkit-mask: radial-gradient(circle, transparent 0 48%, #000 53% 100%);
+  mask: radial-gradient(circle, transparent 0 48%, #000 53% 100%);
+  transform: scale(0.76);
+  animation: contact-rotate 6.4s linear infinite;
+  transition: opacity 0.3s ease, transform 0.42s cubic-bezier(.18,.84,.2,1);
+}
+
+.contact-button::after {
+  content: "";
+  position: absolute;
+  inset: -88px;
+  z-index: -2;
+  border-radius: 50%;
+  opacity: 0.18;
+  background: radial-gradient(circle, rgba(54, 184, 255, 0.35), transparent 65%);
+  filter: blur(18px);
+  transform: scale(0.75);
+  transition: opacity 0.35s ease, transform 0.45s ease;
+}
+
+.contact-button.is-hot,
+.contact-button:hover,
+.contact-button:focus-visible {
+  outline: none;
+  filter: saturate(1.18) brightness(1.08);
+  box-shadow:
+    inset 0 5px 19px rgba(255, 255, 255, 0.23),
+    inset 0 -21px 35px rgba(49, 0, 14, 0.58),
+    0 30px 80px rgba(0, 0, 0, 0.74),
+    0 0 0 10px rgba(145, 29, 58, 0.91),
+    0 0 0 13px rgba(101, 220, 255, 1),
+    0 0 32px 14px rgba(42, 176, 255, 0.45);
+}
+
+.contact-button.is-hot::before,
+.contact-button:hover::before,
+.contact-button:focus-visible::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.contact-button.is-hot::after,
+.contact-button:hover::after,
+.contact-button:focus-visible::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+
+/* --------------------------------------------------------------------------
+   APPS CARD — dedicated green animation layer
+   -------------------------------------------------------------------------- */
+
+.apps-local-energy {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.apps-card .apps-icon {
+  transform-origin: center;
+}
+
+.apps-card .apps-grid,
+.apps-card .app-tile {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.apps-card .app-link {
+  opacity: 0.20;
+  stroke-dasharray: 3 8;
+  stroke-dashoffset: 0;
+}
+
+.apps-card .app-core {
+  filter:
+    drop-shadow(0 0 4px rgba(var(--accent-rgb), 0.92))
+    drop-shadow(0 0 12px rgba(var(--accent-rgb), 0.46));
+}
+
+.apps-card.is-active .apps-icon,
+.apps-card:hover .apps-icon,
+.apps-card:focus-visible .apps-icon {
+  animation: apps-icon-float 1.85s ease-in-out infinite;
+}
+
+.apps-card.is-active .app-link,
+.apps-card:hover .app-link,
+.apps-card:focus-visible .app-link {
+  opacity: 0.72;
+  animation: apps-link-flow 0.85s linear infinite;
+}
+
+.apps-card.is-active .app-tile,
+.apps-card:hover .app-tile,
+.apps-card:focus-visible .app-tile {
+  animation: apps-tile-live 1.32s cubic-bezier(.2,.8,.2,1) infinite;
+}
+
+.apps-card.is-active .tile-1,
+.apps-card:hover .tile-1,
+.apps-card:focus-visible .tile-1 { animation-delay: -0.08s; }
+
+.apps-card.is-active .tile-2,
+.apps-card:hover .tile-2,
+.apps-card:focus-visible .tile-2 { animation-delay: -0.22s; }
+
+.apps-card.is-active .tile-3,
+.apps-card:hover .tile-3,
+.apps-card:focus-visible .tile-3 { animation-delay: -0.36s; }
+
+.apps-card.is-active .tile-4,
+.apps-card:hover .tile-4,
+.apps-card:focus-visible .tile-4 { animation-delay: -0.50s; }
+
+.apps-card.is-active .tile-5,
+.apps-card:hover .tile-5,
+.apps-card:focus-visible .tile-5 {
+  animation-name: apps-core-charge;
+  animation-duration: 0.92s;
+  animation-delay: -0.22s;
+}
+
+.apps-card.is-active .tile-6,
+.apps-card:hover .tile-6,
+.apps-card:focus-visible .tile-6 { animation-delay: -0.64s; }
+
+.apps-card.is-active .tile-7,
+.apps-card:hover .tile-7,
+.apps-card:focus-visible .tile-7 { animation-delay: -0.78s; }
+
+.apps-card.is-active .tile-8,
+.apps-card:hover .tile-8,
+.apps-card:focus-visible .tile-8 { animation-delay: -0.92s; }
+
+.apps-card.is-active .tile-9,
+.apps-card:hover .tile-9,
+.apps-card:focus-visible .tile-9 { animation-delay: -1.06s; }
+
+.apps-card.is-active .icon-reactor::before,
+.apps-card:hover .icon-reactor::before,
+.apps-card:focus-visible .icon-reactor::before {
+  box-shadow:
+    inset 0 0 34px rgba(var(--accent-rgb), 0.22),
+    0 0 14px rgba(var(--accent-rgb), 0.34),
+    0 0 50px rgba(var(--accent-rgb), 0.18),
+    0 0 80px rgba(var(--accent-rgb), 0.08);
+}
+
+.apps-card.is-active .reactor-ring,
+.apps-card:hover .reactor-ring,
+.apps-card:focus-visible .reactor-ring {
+  border-style: solid;
+  box-shadow:
+    inset 0 0 16px rgba(var(--accent-rgb), 0.13),
+    0 0 22px rgba(var(--accent-rgb), 0.22);
+  animation:
+    reactor-spin 2.7s linear infinite,
+    apps-reactor-breathe 1.35s ease-in-out infinite;
+}
+
+@keyframes apps-icon-float {
+  0%,
+  100% {
+    transform: translateY(-8px) scale(1.085) rotateZ(-0.6deg);
+  }
+  50% {
+    transform: translateY(-13px) scale(1.115) rotateZ(0.8deg);
+  }
+}
+
+@keyframes apps-link-flow {
+  to {
+    stroke-dashoffset: -44;
+  }
+}
+
+@keyframes apps-tile-live {
+  0%,
+  100% {
+    transform: translateY(0) scale(0.92);
+    opacity: 0.48;
+  }
+  38% {
+    transform: translateY(-4px) scale(1.12);
+    opacity: 1;
+  }
+  66% {
+    transform: translateY(1px) scale(1.01);
+    opacity: 0.76;
+  }
+}
+
+@keyframes apps-core-charge {
+  0%,
+  100% {
+    transform: scale(0.90) rotate(0deg);
+    opacity: 0.72;
+    filter:
+      drop-shadow(0 0 4px rgba(var(--accent-rgb), 0.80))
+      drop-shadow(0 0 10px rgba(var(--accent-rgb), 0.38));
+  }
+  48% {
+    transform: scale(1.28) rotate(4deg);
+    opacity: 1;
+    filter:
+      drop-shadow(0 0 7px rgba(var(--accent-rgb), 1))
+      drop-shadow(0 0 22px rgba(var(--accent-rgb), 0.92))
+      drop-shadow(0 0 42px rgba(var(--accent-rgb), 0.56));
+  }
+}
+
+@keyframes apps-reactor-breathe {
+  0%,
+  100% {
+    scale: 0.96;
+    opacity: 0.55;
+  }
+  50% {
+    scale: 1.06;
+    opacity: 1;
+  }
+}
+
+@property --edge-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes beam-run {
+  0%, 100% { left: -10%; opacity: 0.16; }
+  48%, 54% { opacity: 1; }
+  100% { left: 94%; }
+}
+
+@keyframes plasma-turn {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes edge-run {
+  to { --edge-angle: 360deg; }
+}
+
+@keyframes circuit-flow {
+  to { stroke-dashoffset: -120; }
+}
+
+@keyframes status-pulse {
+  0%, 100% { opacity: 0.35; transform: scale(0.76); }
+  50% { opacity: 1; transform: scale(1.22); }
+}
+
+@keyframes reactor-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes contact-rotate {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 1020px) {
+  .ultra-wrap {
+    width: min(780px, calc(100% - 34px));
+  }
+
+  .cards-scene {
+    padding-inline: 32px;
+  }
+
+  .cards-grid {
+    grid-template-columns: 1fr;
+    max-width: 590px;
+    margin: 0 auto;
+  }
+
+  .energy-card,
+  .card-content {
+    min-height: 430px;
+  }
+
+  .stage-energy {
+    inset: -80px -65px;
+    width: calc(100% + 130px);
+    height: calc(100% + 160px);
+  }
+}
+
+@media (max-width: 580px) {
+  .ultra-wrap {
+    width: min(100% - 22px, 540px);
+    padding-top: 70px;
+  }
+
+  .ultra-kicker {
+    font-size: 8px;
+    letter-spacing: 0.20em;
+  }
+
+  .ultra-kicker::before,
+  .ultra-kicker::after {
+    width: 29px;
+  }
+
+  .ultra-copy {
+    line-height: 1.64;
+  }
+
+  .section-beam {
+    margin-bottom: 28px;
+  }
+
+  .cards-scene {
+    padding: 30px 0 58px;
+  }
+
+  .cards-grid {
+    gap: 20px;
+  }
+
+  .energy-card,
+  .card-content {
+    min-height: 410px;
+  }
+
+  .card-content {
+    padding: 26px 22px 23px;
+  }
+
+  .icon-reactor {
+    margin-top: 5px;
+  }
+
+  .contact-zone {
+    min-height: 390px;
+  }
+
+  .contact-button {
+    width: 190px;
+    height: 190px;
+    font-size: 16px;
+  }
+}
+
+@media (hover: none) {
+  .interaction-copy .desktop {
+    display: none;
+  }
+
+  .interaction-copy::after {
+    content: "Tik op een kaart om de energie te activeren";
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .stage-energy,
+  .ambient-field,
+  .contact-energy {
+    display: none !important;
+  }
+
+  .energy-card,
+  .card-content,
+  .contact-button {
+    transform: none !important;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<main class="ultra-page">
+  <canvas class="ambient-field" aria-hidden="true"></canvas>
+
+  <section class="ultra-wrap" aria-labelledby="ultra-title">
+    <div class="ultra-kicker">Nucleairs digital systems</div>
+
+    <h1 class="ultra-title" id="ultra-title">
+      Wat we <span class="gradient-word">bouwen</span>
+    </h1>
+
+    <p class="ultra-copy">
+      Inventieve AI-ondersteunende ontwikkelingsservices om je bedrijf
+      naar een hoger niveau te tillen.
+    </p>
+
+    <div class="section-beam" aria-hidden="true"></div>
+
+    <div class="cards-scene">
+      <canvas class="stage-energy" aria-hidden="true"></canvas>
+
+      <div class="cards-grid">
+        <article class="energy-card" tabindex="0" style="--accent-rgb: 36, 139, 255">
+          <div class="card-plasma" aria-hidden="true"></div>
+          <div class="card-spotlight" aria-hidden="true"></div>
+          <div class="card-sheen" aria-hidden="true"></div>
+          <div class="edge-runner" aria-hidden="true"></div>
+          <div class="inner-glass" aria-hidden="true"></div>
+          <span class="corner tl" aria-hidden="true"></span>
+          <span class="corner tr" aria-hidden="true"></span>
+          <span class="corner bl" aria-hidden="true"></span>
+          <span class="corner br" aria-hidden="true"></span>
+
+          <svg class="circuit-map" viewBox="0 0 400 456" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M16 86H94L122 58H214"/>
+            <path d="M384 118H314L284 148H229"/>
+            <path d="M18 344H92L126 310H176"/>
+            <path d="M382 372H309L273 336H220"/>
+            <path d="M54 206H92L108 222H139"/>
+            <path d="M346 234H309L289 214H258"/>
+          </svg>
+
+          <div class="card-content">
+            <span class="card-badge">Conversion</span>
+
+            <div class="icon-reactor">
+              <span class="reactor-ring" aria-hidden="true"></span>
+              <svg class="card-icon" viewBox="0 0 150 108" fill="none" aria-hidden="true">
+                <rect x="13" y="11" width="124" height="86" rx="10" stroke="currentColor" stroke-width="2.2"/>
+                <path d="M13 31h124" stroke="currentColor" stroke-width="2.2"/>
+                <circle cx="25" cy="21" r="3.2" fill="currentColor"/>
+                <circle cx="36" cy="21" r="3.2" fill="currentColor" opacity=".66"/>
+                <circle cx="47" cy="21" r="3.2" fill="currentColor" opacity=".38"/>
+                <g class="icon-detail">
+                  <rect x="27" y="43" width="54" height="34" rx="4.5" stroke="currentColor" opacity=".82"/>
+                  <path d="M32 72l15-15 10 8 9-8 11 15" stroke="currentColor" stroke-width="2.2"/>
+                  <circle cx="69" cy="53" r="4.3" fill="currentColor"/>
+                </g>
+                <path d="M93 45h29M93 54h22M93 63h27" stroke="currentColor" stroke-width="2.2" opacity=".82"/>
+                <rect x="99" y="73" width="23" height="8" rx="4" fill="currentColor"/>
+              </svg>
+            </div>
+
+            <h2>Landingspage</h2>
+            <div class="card-rule"></div>
+            <p>
+              Snelle, conversiegerichte pagina’s met een premium visuele
+              ervaring en duidelijke call-to-actions.
+            </p>
+
+            <div class="card-action">
+              <span>Bekijk mogelijkheden</span>
+              <span class="action-orb" aria-hidden="true">↗</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="energy-card" tabindex="0" style="--accent-rgb: 255, 49, 88">
+          <div class="card-plasma" aria-hidden="true"></div>
+          <div class="card-spotlight" aria-hidden="true"></div>
+          <div class="card-sheen" aria-hidden="true"></div>
+          <div class="edge-runner" aria-hidden="true"></div>
+          <div class="inner-glass" aria-hidden="true"></div>
+          <span class="corner tl" aria-hidden="true"></span>
+          <span class="corner tr" aria-hidden="true"></span>
+          <span class="corner bl" aria-hidden="true"></span>
+          <span class="corner br" aria-hidden="true"></span>
+
+          <svg class="circuit-map" viewBox="0 0 400 456" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M16 86H94L122 58H214"/>
+            <path d="M384 118H314L284 148H229"/>
+            <path d="M18 344H92L126 310H176"/>
+            <path d="M382 372H309L273 336H220"/>
+            <path d="M54 206H92L108 222H139"/>
+            <path d="M346 234H309L289 214H258"/>
+          </svg>
+
+          <div class="card-content">
+            <span class="card-badge">Digital presence</span>
+
+            <div class="icon-reactor">
+              <span class="reactor-ring" aria-hidden="true"></span>
+              <svg class="card-icon" viewBox="0 0 150 108" fill="none" aria-hidden="true">
+                <rect x="13" y="11" width="124" height="86" rx="10" stroke="currentColor" stroke-width="2.2"/>
+                <path d="M13 31h124" stroke="currentColor" stroke-width="2.2"/>
+                <circle cx="25" cy="21" r="3.2" fill="currentColor"/>
+                <circle cx="36" cy="21" r="3.2" fill="currentColor" opacity=".66"/>
+                <circle cx="47" cy="21" r="3.2" fill="currentColor" opacity=".38"/>
+                <g class="icon-detail">
+                  <rect x="27" y="42" width="43" height="26" rx="4" stroke="currentColor"/>
+                  <rect x="80" y="42" width="43" height="26" rx="4" stroke="currentColor"/>
+                  <path d="M27 76h96M27 83h67" stroke="currentColor" stroke-width="2.2"/>
+                </g>
+              </svg>
+            </div>
+
+            <h2>Website</h2>
+            <div class="card-rule"></div>
+            <p>
+              Complete websites met een sterke structuur, moderne interacties
+              en schaalbare code voor groei.
+            </p>
+
+            <div class="card-action">
+              <span>Bekijk mogelijkheden</span>
+              <span class="action-orb" aria-hidden="true">↗</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="energy-card apps-card" tabindex="0" style="--accent-rgb: 15, 220, 199">
+          <div class="card-plasma" aria-hidden="true"></div>
+          <div class="card-spotlight" aria-hidden="true"></div>
+          <div class="card-sheen" aria-hidden="true"></div>
+          <div class="edge-runner" aria-hidden="true"></div>
+          <div class="inner-glass" aria-hidden="true"></div>
+          <canvas class="apps-local-energy" aria-hidden="true"></canvas>
+          <span class="corner tl" aria-hidden="true"></span>
+          <span class="corner tr" aria-hidden="true"></span>
+          <span class="corner bl" aria-hidden="true"></span>
+          <span class="corner br" aria-hidden="true"></span>
+
+          <svg class="circuit-map" viewBox="0 0 400 456" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M16 86H94L122 58H214"/>
+            <path d="M384 118H314L284 148H229"/>
+            <path d="M18 344H92L126 310H176"/>
+            <path d="M382 372H309L273 336H220"/>
+            <path d="M54 206H92L108 222H139"/>
+            <path d="M346 234H309L289 214H258"/>
+          </svg>
+
+          <div class="card-content">
+            <span class="card-badge">Custom systems</span>
+
+            <div class="icon-reactor">
+              <span class="reactor-ring" aria-hidden="true"></span>
+              <svg class="card-icon apps-icon" viewBox="0 0 150 108" fill="currentColor" aria-hidden="true">
+                <g class="apps-links" fill="none" stroke="currentColor" stroke-width="1.3">
+                  <path class="app-link" d="M55 25H63"/>
+                  <path class="app-link" d="M87 25H95"/>
+                  <path class="app-link" d="M43 37V45"/>
+                  <path class="app-link" d="M75 37V45"/>
+                  <path class="app-link" d="M107 37V45"/>
+                  <path class="app-link" d="M55 57H63"/>
+                  <path class="app-link" d="M87 57H95"/>
+                  <path class="app-link" d="M43 69V77"/>
+                  <path class="app-link" d="M75 69V77"/>
+                  <path class="app-link" d="M107 69V77"/>
+                </g>
+
+                <g class="icon-detail apps-grid" opacity=".96">
+                  <rect class="app-tile tile-1" x="31" y="13" width="24" height="24" rx="5"/>
+                  <rect class="app-tile tile-2" x="63" y="13" width="24" height="24" rx="5" opacity=".58"/>
+                  <rect class="app-tile tile-3" x="95" y="13" width="24" height="24" rx="5" opacity=".80"/>
+                  <rect class="app-tile tile-4" x="31" y="45" width="24" height="24" rx="5" opacity=".55"/>
+                  <rect class="app-tile tile-5 app-core" x="63" y="45" width="24" height="24" rx="5"/>
+                  <rect class="app-tile tile-6" x="95" y="45" width="24" height="24" rx="5" opacity=".52"/>
+                  <rect class="app-tile tile-7" x="31" y="77" width="24" height="18" rx="5" opacity=".80"/>
+                  <rect class="app-tile tile-8" x="63" y="77" width="24" height="18" rx="5" opacity=".60"/>
+                  <rect class="app-tile tile-9" x="95" y="77" width="24" height="18" rx="5"/>
+                </g>
+              </svg>
+            </div>
+
+            <h2>Apps</h2>
+            <div class="card-rule"></div>
+            <p>
+              Custom webapplicaties, dashboards en digitale producten die
+              processen vereenvoudigen en resultaat leveren.
+            </p>
+
+            <div class="card-action">
+              <span>Bekijk mogelijkheden</span>
+              <span class="action-orb" aria-hidden="true">↗</span>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="interaction-copy">
+        <span class="dot" aria-hidden="true"></span>
+        <span class="desktop">Beweeg over een kaart om de energie te activeren</span>
+      </div>
+    </div>
+
+    <div class="contact-zone">
+      <canvas class="contact-energy" aria-hidden="true"></canvas>
+
+      <div class="contact-stack">
+        <div class="contact-label">Klaar om te beginnen?</div>
+        <button class="contact-button" type="button">Contact</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+  <script>
+
+(() => {
+  "use strict";
+
+  const gsapReady = typeof window.gsap !== "undefined";
+  const gsap = window.gsap;
+  const ScrollTrigger = window.ScrollTrigger;
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const coarse = window.matchMedia("(pointer: coarse)").matches;
+
+  if (gsapReady && ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+  }
+
+  const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+  const rnd = (min, max) => min + Math.random() * (max - min);
+
+  const buildLightningPath = (
+    start,
+    end,
+    displacement = 18,
+    roughness = 0.54,
+    iterations = 5
+  ) => {
+    let points = [start, end];
+
+    for (let level = 0; level < iterations; level += 1) {
+      const next = [points[0]];
+
+      for (let index = 0; index < points.length - 1; index += 1) {
+        const a = points[index];
+        const b = points[index + 1];
+        const midX = (a.x + b.x) * 0.5;
+        const midY = (a.y + b.y) * 0.5;
+        const dx = b.x - a.x;
+        const dy = b.y - a.y;
+        const length = Math.hypot(dx, dy) || 1;
+        const normalX = -dy / length;
+        const normalY = dx / length;
+        const offset = rnd(-displacement, displacement);
+
+        next.push({
+          x: midX + normalX * offset,
+          y: midY + normalY * offset
+        });
+
+        next.push(b);
+      }
+
+      points = next;
+      displacement *= roughness;
+    }
+
+    return points;
+  };
+  const cards = Array.from(document.querySelectorAll(".energy-card"));
+  const grid = document.querySelector(".cards-grid");
+  const scene = document.querySelector(".cards-scene");
+
+  document.addEventListener(
+    "pointermove",
+    (event) => {
+      document.documentElement.style.setProperty("--mx", `${event.clientX}px`);
+      document.documentElement.style.setProperty("--my", `${event.clientY}px`);
+    },
+    { passive: true }
+  );
+
+  class AmbientField {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.ctx = canvas.getContext("2d", { alpha: true });
+      this.dpr = Math.min(window.devicePixelRatio || 1, 2);
+      this.stars = [];
+      this.width = 1;
+      this.height = 1;
+      this.resize = this.resize.bind(this);
+      window.addEventListener("resize", this.resize, { passive: true });
+      this.resize();
+
+      if (!reduceMotion) {
+        requestAnimationFrame((t) => this.frame(t));
+      }
+    }
+
+    resize() {
+      const rect = this.canvas.getBoundingClientRect();
+      this.width = Math.max(1, rect.width);
+      this.height = Math.max(1, rect.height);
+      this.canvas.width = Math.round(this.width * this.dpr);
+      this.canvas.height = Math.round(this.height * this.dpr);
+      this.ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
+
+      const count = clamp(Math.floor(this.width / 14), 50, 120);
+      this.stars = Array.from({ length: count }, () => ({
+        x: Math.random() * this.width,
+        y: Math.random() * this.height,
+        r: rnd(0.25, 1.05),
+        a: rnd(0.05, 0.38),
+        tw: rnd(0.0015, 0.005),
+        phase: rnd(0, Math.PI * 2),
+        drift: rnd(-0.018, 0.018)
+      }));
+    }
+
+    frame(time) {
+      const ctx = this.ctx;
+      ctx.clearRect(0, 0, this.width, this.height);
+
+      for (const star of this.stars) {
+        star.y += star.drift;
+        if (star.y < 0) star.y = this.height;
+        if (star.y > this.height) star.y = 0;
+
+        const alpha = Math.max(
+          0,
+          star.a + Math.sin(time * star.tw + star.phase) * star.a * 0.55
+        );
+
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(126, 202, 255, ${alpha})`;
+        ctx.shadowBlur = star.r > 0.75 ? 8 : 0;
+        ctx.shadowColor = "rgba(48, 159, 255, .75)";
+        ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      requestAnimationFrame((t) => this.frame(t));
+    }
+  }
+
+  class StageEnergy {
+    constructor(canvas, stage, cardElements) {
+      this.canvas = canvas;
+      this.stage = stage;
+      this.cards = cardElements;
+      this.ctx = canvas.getContext("2d", { alpha: true });
+      this.dpr = Math.min(window.devicePixelRatio || 1, 2);
+      this.width = 1;
+      this.height = 1;
+      this.activeCard = null;
+      this.charge = 0;
+      this.targetCharge = 0;
+      this.bolts = [];
+      this.sparks = [];
+      this.waves = [];
+      this.motes = [];
+      this.lastTime = performance.now();
+      this.lastAmbientArc = 0;
+      this.resizeObserver = new ResizeObserver(() => this.resize());
+      this.resizeObserver.observe(stage);
+      this.resize();
+
+      if (!reduceMotion) {
+        requestAnimationFrame((t) => this.frame(t));
+      }
+    }
+
+    resize() {
+      const rect = this.canvas.getBoundingClientRect();
+      this.width = Math.max(1, rect.width);
+      this.height = Math.max(1, rect.height);
+      this.canvas.width = Math.round(this.width * this.dpr);
+      this.canvas.height = Math.round(this.height * this.dpr);
+      this.canvas.style.width = `${this.width}px`;
+      this.canvas.style.height = `${this.height}px`;
+      this.ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
+    }
+
+    cardRect(card) {
+      const canvasRect = this.canvas.getBoundingClientRect();
+      const rect = card.getBoundingClientRect();
+
+      return {
+        x: rect.left - canvasRect.left,
+        y: rect.top - canvasRect.top,
+        w: rect.width,
+        h: rect.height,
+        radius: 30,
+        rgb:
+          getComputedStyle(card).getPropertyValue("--accent-rgb").trim() ||
+          "40, 143, 255"
+      };
+    }
+
+    edgePoint(rect, t) {
+      const r = Math.min(rect.radius, rect.w / 2, rect.h / 2);
+      const top = rect.w - r * 2;
+      const side = rect.h - r * 2;
+      const q = Math.PI * r * 0.5;
+      const total = top * 2 + side * 2 + q * 4;
+      let d = (((t % 1) + 1) % 1) * total;
+
+      const arc = (cx, cy, start, dist) => {
+        const angle = start + dist / r;
+
+        return {
+          x: cx + Math.cos(angle) * r,
+          y: cy + Math.sin(angle) * r,
+          nx: Math.cos(angle),
+          ny: Math.sin(angle)
+        };
+      };
+
+      if (d < top) {
+        return { x: rect.x + r + d, y: rect.y, nx: 0, ny: -1 };
+      }
+
+      d -= top;
+
+      if (d < q) {
+        return arc(rect.x + rect.w - r, rect.y + r, -Math.PI / 2, d);
+      }
+
+      d -= q;
+
+      if (d < side) {
+        return { x: rect.x + rect.w, y: rect.y + r + d, nx: 1, ny: 0 };
+      }
+
+      d -= side;
+
+      if (d < q) {
+        return arc(rect.x + rect.w - r, rect.y + rect.h - r, 0, d);
+      }
+
+      d -= q;
+
+      if (d < top) {
+        return {
+          x: rect.x + rect.w - r - d,
+          y: rect.y + rect.h,
+          nx: 0,
+          ny: 1
+        };
+      }
+
+      d -= top;
+
+      if (d < q) {
+        return arc(rect.x + r, rect.y + rect.h - r, Math.PI / 2, d);
+      }
+
+      d -= q;
+
+      if (d < side) {
+        return {
+          x: rect.x,
+          y: rect.y + rect.h - r - d,
+          nx: -1,
+          ny: 0
+        };
+      }
+
+      d -= side;
+
+      return arc(rect.x + r, rect.y + r, Math.PI, d);
+    }
+
+    activate(card) {
+      const changedCard = this.activeCard !== card;
+      this.activeCard = card;
+      this.targetCharge = 1;
+
+      if (changedCard) {
+        const rect = this.cardRect(card);
+
+        for (let index = 0; index < 3; index += 1) {
+          this.spawnEdgeArc(rect);
+        }
+
+        for (let index = 0; index < 12; index += 1) {
+          this.spawnSpark(rect, rnd(0.42, 0.72));
+        }
+      }
+    }
+
+    deactivate(card) {
+      if (this.activeCard === card) {
+        this.activeCard = null;
+        this.targetCharge = 0;
+      }
+    }
+
+    bigBurst(strength = 1) {
+      if (!this.activeCard || reduceMotion) return;
+
+      const rect = this.cardRect(this.activeCard);
+
+      this.waves.push({
+        x: rect.x + rect.w / 2,
+        y: rect.y + rect.h / 2,
+        rx: rect.w * 0.44,
+        ry: rect.h * 0.42,
+        alpha: 0.42,
+        speed: 4.3 * strength,
+        rgb: rect.rgb
+      });
+
+      const rayCount = Math.max(5, Math.floor(8 * strength));
+
+      for (let index = 0; index < rayCount; index += 1) {
+        const t =
+          index / rayCount +
+          rnd(-0.018, 0.018);
+
+        this.spawnRadialBolt(
+          rect,
+          t,
+          rnd(52, 102) * strength,
+          rnd(0.58, 0.88)
+        );
+      }
+
+      const sparkCount = Math.floor(46 * strength);
+
+      for (let index = 0; index < sparkCount; index += 1) {
+        this.spawnSpark(
+          rect,
+          rnd(0.45, 0.88) * strength
+        );
+      }
+
+      for (let index = 0; index < 7 * strength; index += 1) {
+        this.spawnMote(rect, rnd(0.55, 0.9));
+      }
+    }
+
+    spawnMote(rect, strength = 1) {
+      const p = this.edgePoint(rect, Math.random());
+
+      this.motes.push({
+        x: p.x + p.nx * rnd(8, 24),
+        y: p.y + p.ny * rnd(8, 24),
+        vx: p.nx * rnd(0.08, 0.5),
+        vy: p.ny * rnd(0.08, 0.5),
+        r: rnd(8, 20) * strength,
+        alpha: rnd(0.08, 0.23),
+        decay: rnd(0.0018, 0.0052),
+        rgb: rect.rgb,
+        phase: rnd(0, Math.PI * 2)
+      });
+    }
+
+    spawnSpark(rect, strength = 1) {
+      const p = this.edgePoint(rect, Math.random());
+      const tangentX = -p.ny;
+      const tangentY = p.nx;
+      const outward = rnd(0.9, 5.3) * strength;
+      const tangent = rnd(-1.5, 1.5) * strength;
+
+      this.sparks.push({
+        x: p.x,
+        y: p.y,
+        vx: p.nx * outward + tangentX * tangent,
+        vy: p.ny * outward + tangentY * tangent,
+        r: rnd(0.4, 1.9) * strength,
+        alpha: rnd(0.52, 1),
+        decay: rnd(0.013, 0.034),
+        rgb: rect.rgb,
+        trail: []
+      });
+    }
+
+    makeLightning(start, end, rgb, strength = 1) {
+      const distance =
+        Math.hypot(end.x - start.x, end.y - start.y) || 1;
+
+      const points = buildLightningPath(
+        start,
+        end,
+        Math.min(18, distance * 0.13) * strength,
+        0.50,
+        distance > 110 ? 5 : 4
+      );
+
+      this.bolts.push({
+        points,
+        alpha: rnd(0.58, 0.82),
+        decay: rnd(0.072, 0.115),
+        width: rnd(0.48, 0.92) * strength,
+        rgb,
+        branch: Math.random() > 0.76
+      });
+    }
+
+    spawnRadialBolt(rect, t, length, strength = 1) {
+      const start = this.edgePoint(rect, t);
+      const angleJitter = rnd(-0.24, 0.24);
+      const nx =
+        start.nx * Math.cos(angleJitter) -
+        start.ny * Math.sin(angleJitter);
+      const ny =
+        start.nx * Math.sin(angleJitter) +
+        start.ny * Math.cos(angleJitter);
+
+      const end = {
+        x: start.x + nx * length,
+        y: start.y + ny * length
+      };
+
+      this.makeLightning(start, end, rect.rgb, strength);
+    }
+
+    spawnEdgeArc(rect) {
+      const a = Math.random();
+      const direction = Math.random() > 0.5 ? 1 : -1;
+      const b = a + direction * rnd(0.045, 0.13);
+      const start = this.edgePoint(rect, a);
+      const end = this.edgePoint(rect, b);
+
+      this.makeLightning(start, end, rect.rgb, rnd(0.55, 0.95));
+    }
+
+    drawBolt(bolt) {
+      const ctx = this.ctx;
+      const alpha = Math.max(0, bolt.alpha);
+
+      ctx.save();
+      ctx.lineJoin = "round";
+      ctx.lineCap = "round";
+
+      ctx.beginPath();
+      ctx.moveTo(bolt.points[0].x, bolt.points[0].y);
+
+      for (let i = 1; i < bolt.points.length; i += 1) {
+        ctx.lineTo(bolt.points[i].x, bolt.points[i].y);
+      }
+
+      ctx.strokeStyle = `rgba(${bolt.rgb}, ${alpha * 0.21})`;
+      ctx.lineWidth = bolt.width * 5.5;
+      ctx.shadowBlur = 14;
+      ctx.shadowColor = `rgba(${bolt.rgb}, .98)`;
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(bolt.points[0].x, bolt.points[0].y);
+
+      for (let i = 1; i < bolt.points.length; i += 1) {
+        ctx.lineTo(bolt.points[i].x, bolt.points[i].y);
+      }
+
+      ctx.strokeStyle = `rgba(242, 252, 255, ${alpha})`;
+      ctx.lineWidth = bolt.width;
+      ctx.shadowBlur = 4;
+      ctx.shadowColor = `rgba(${bolt.rgb}, 1)`;
+      ctx.stroke();
+
+      if (bolt.branch && bolt.points.length > 7) {
+        const pivotIndex = Math.floor(rnd(3, bolt.points.length - 3));
+        const pivot = bolt.points[pivotIndex];
+        const before = bolt.points[pivotIndex - 1];
+        const after = bolt.points[pivotIndex + 1];
+        const baseAngle = Math.atan2(
+          after.y - before.y,
+          after.x - before.x
+        );
+        const angle =
+          baseAngle +
+          (Math.random() > 0.5 ? 1 : -1) * rnd(0.62, 1.22);
+        const branchLength = rnd(12, 28);
+
+        ctx.beginPath();
+        ctx.moveTo(pivot.x, pivot.y);
+        ctx.lineTo(
+          pivot.x +
+            Math.cos(angle) * branchLength * 0.45 +
+            rnd(-5, 5),
+          pivot.y +
+            Math.sin(angle) * branchLength * 0.45 +
+            rnd(-5, 5)
+        );
+        ctx.lineTo(
+          pivot.x + Math.cos(angle) * branchLength,
+          pivot.y + Math.sin(angle) * branchLength
+        );
+
+        ctx.strokeStyle = `rgba(240, 252, 255, ${alpha * 0.68})`;
+        ctx.lineWidth = Math.max(0.42, bolt.width * 0.62);
+        ctx.stroke();
+      }
+
+      ctx.restore();
+      bolt.alpha -= bolt.decay;
+    }
+
+    drawSpark(spark, delta) {
+      spark.trail.push({ x: spark.x, y: spark.y });
+
+      if (spark.trail.length > 4) {
+        spark.trail.shift();
+      }
+
+      spark.x += spark.vx * delta;
+      spark.y += spark.vy * delta;
+      spark.vx *= Math.pow(0.982, delta);
+      spark.vy *= Math.pow(0.982, delta);
+      spark.alpha -= spark.decay * delta;
+
+      const ctx = this.ctx;
+      ctx.save();
+
+      if (spark.trail.length > 1) {
+        ctx.beginPath();
+        ctx.moveTo(spark.trail[0].x, spark.trail[0].y);
+
+        for (let i = 1; i < spark.trail.length; i += 1) {
+          ctx.lineTo(spark.trail[i].x, spark.trail[i].y);
+        }
+
+        ctx.strokeStyle =
+          `rgba(${spark.rgb}, ${Math.max(0, spark.alpha) * 0.34})`;
+        ctx.lineWidth = Math.max(0.35, spark.r * 0.65);
+        ctx.stroke();
+      }
+
+      ctx.beginPath();
+      ctx.fillStyle =
+        `rgba(${spark.rgb}, ${Math.max(0, spark.alpha)})`;
+      ctx.shadowBlur = 12;
+      ctx.shadowColor = `rgba(${spark.rgb}, 1)`;
+      ctx.arc(spark.x, spark.y, spark.r, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    drawWave(wave, delta) {
+      wave.rx += wave.speed * delta;
+      wave.ry += wave.speed * 1.10 * delta;
+      wave.alpha -= 0.026 * delta;
+
+      const ctx = this.ctx;
+
+      ctx.save();
+      ctx.beginPath();
+      ctx.ellipse(
+        wave.x,
+        wave.y,
+        wave.rx,
+        wave.ry,
+        0,
+        0,
+        Math.PI * 2
+      );
+      ctx.strokeStyle =
+        `rgba(${wave.rgb}, ${Math.max(0, wave.alpha)})`;
+      ctx.lineWidth = 1.2;
+      ctx.shadowBlur = 18;
+      ctx.shadowColor = `rgba(${wave.rgb}, .95)`;
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    drawMote(mote, time, delta) {
+      mote.x += mote.vx * delta;
+      mote.y += mote.vy * delta;
+      mote.alpha -= mote.decay * delta;
+
+      const pulse =
+        0.65 + Math.sin(time * 0.004 + mote.phase) * 0.35;
+
+      const ctx = this.ctx;
+      const gradient = ctx.createRadialGradient(
+        mote.x,
+        mote.y,
+        0,
+        mote.x,
+        mote.y,
+        mote.r
+      );
+
+      gradient.addColorStop(
+        0,
+        `rgba(${mote.rgb}, ${Math.max(0, mote.alpha) * pulse})`
+      );
+      gradient.addColorStop(1, `rgba(${mote.rgb}, 0)`);
+
+      ctx.fillStyle = gradient;
+      ctx.fillRect(
+        mote.x - mote.r,
+        mote.y - mote.r,
+        mote.r * 2,
+        mote.r * 2
+      );
+    }
+
+    frame(time) {
+      const elapsed = clamp(time - this.lastTime, 0, 34);
+      const delta = elapsed / 16.667;
+      this.lastTime = time;
+
+      this.charge +=
+        (this.targetCharge - this.charge) *
+        Math.min(1, 0.09 * delta);
+
+      this.ctx.clearRect(0, 0, this.width, this.height);
+
+      if (this.activeCard) {
+        const rect = this.cardRect(this.activeCard);
+
+        if (time - this.lastAmbientArc > 145 - this.charge * 42) {
+          this.lastAmbientArc = time;
+
+          if (Math.random() < 0.48) {
+            this.spawnEdgeArc(rect);
+          }
+
+          if (Math.random() < 0.42) {
+            this.spawnSpark(rect, rnd(0.55, 1.05));
+          }
+
+          if (Math.random() < 0.055 * this.charge) {
+            this.spawnRadialBolt(
+              rect,
+              Math.random(),
+              rnd(34, 68),
+              rnd(0.45, 0.78)
+            );
+          }
+
+          if (Math.random() < 0.05) {
+            this.spawnMote(rect, rnd(0.7, 1.1));
+          }
+        }
+      }
+
+      for (const mote of this.motes) {
+        this.drawMote(mote, time, delta);
+      }
+
+      for (const wave of this.waves) {
+        this.drawWave(wave, delta);
+      }
+
+      for (const bolt of this.bolts) {
+        this.drawBolt(bolt);
+      }
+
+      for (const spark of this.sparks) {
+        this.drawSpark(spark, delta);
+      }
+
+      this.motes = this.motes.filter((m) => m.alpha > 0);
+      this.waves = this.waves.filter((w) => w.alpha > 0);
+      this.bolts = this.bolts.filter((b) => b.alpha > 0);
+      this.sparks = this.sparks.filter((s) => s.alpha > 0);
+
+      requestAnimationFrame((t) => this.frame(t));
+    }
+  }
+
+
+  class AppsLocalEnergy {
+    constructor(card, canvas) {
+      this.card = card;
+      this.canvas = canvas;
+      this.ctx = canvas.getContext("2d", { alpha: true });
+      this.dpr = Math.min(window.devicePixelRatio || 1, 2);
+      this.width = 1;
+      this.height = 1;
+      this.active = false;
+      this.running = false;
+      this.bolts = [];
+      this.sparks = [];
+      this.lastTime = performance.now();
+      this.lastArc = 0;
+      this.rgb =
+        getComputedStyle(card).getPropertyValue("--accent-rgb").trim() ||
+        "15, 220, 199";
+
+      this.resizeObserver = new ResizeObserver(() => this.resize());
+      this.resizeObserver.observe(card);
+      this.resize();
+    }
+
+    resize() {
+      const rect = this.card.getBoundingClientRect();
+
+      this.width = Math.max(1, rect.width);
+      this.height = Math.max(1, rect.height);
+      this.dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+      this.canvas.width = Math.round(this.width * this.dpr);
+      this.canvas.height = Math.round(this.height * this.dpr);
+      this.canvas.style.width = `${this.width}px`;
+      this.canvas.style.height = `${this.height}px`;
+
+      this.ctx.setTransform(
+        this.dpr,
+        0,
+        0,
+        this.dpr,
+        0,
+        0
+      );
+    }
+
+    edgePoint(t) {
+      const rect = {
+        x: 1,
+        y: 1,
+        w: this.width - 2,
+        h: this.height - 2,
+        radius: 29
+      };
+
+      const r = rect.radius;
+      const top = rect.w - r * 2;
+      const side = rect.h - r * 2;
+      const quarter = Math.PI * r * 0.5;
+      const total = top * 2 + side * 2 + quarter * 4;
+      let distance = (((t % 1) + 1) % 1) * total;
+
+      const arc = (cx, cy, startAngle, arcDistance) => {
+        const angle = startAngle + arcDistance / r;
+
+        return {
+          x: cx + Math.cos(angle) * r,
+          y: cy + Math.sin(angle) * r,
+          nx: Math.cos(angle),
+          ny: Math.sin(angle)
+        };
+      };
+
+      if (distance < top) {
+        return {
+          x: rect.x + r + distance,
+          y: rect.y,
+          nx: 0,
+          ny: -1
+        };
+      }
+
+      distance -= top;
+
+      if (distance < quarter) {
+        return arc(
+          rect.x + rect.w - r,
+          rect.y + r,
+          -Math.PI / 2,
+          distance
+        );
+      }
+
+      distance -= quarter;
+
+      if (distance < side) {
+        return {
+          x: rect.x + rect.w,
+          y: rect.y + r + distance,
+          nx: 1,
+          ny: 0
+        };
+      }
+
+      distance -= side;
+
+      if (distance < quarter) {
+        return arc(
+          rect.x + rect.w - r,
+          rect.y + rect.h - r,
+          0,
+          distance
+        );
+      }
+
+      distance -= quarter;
+
+      if (distance < top) {
+        return {
+          x: rect.x + rect.w - r - distance,
+          y: rect.y + rect.h,
+          nx: 0,
+          ny: 1
+        };
+      }
+
+      distance -= top;
+
+      if (distance < quarter) {
+        return arc(
+          rect.x + r,
+          rect.y + rect.h - r,
+          Math.PI / 2,
+          distance
+        );
+      }
+
+      distance -= quarter;
+
+      if (distance < side) {
+        return {
+          x: rect.x,
+          y: rect.y + rect.h - r - distance,
+          nx: -1,
+          ny: 0
+        };
+      }
+
+      distance -= side;
+
+      return arc(
+        rect.x + r,
+        rect.y + r,
+        Math.PI,
+        distance
+      );
+    }
+
+    makeBolt(start, end, strength = 1) {
+      const distance =
+        Math.hypot(end.x - start.x, end.y - start.y) || 1;
+
+      const points = buildLightningPath(
+        start,
+        end,
+        Math.min(12, distance * 0.11) * strength,
+        0.48,
+        distance > 90 ? 5 : 4
+      );
+
+      this.bolts.push({
+        points,
+        alpha: rnd(0.56, 0.78),
+        decay: rnd(0.075, 0.12),
+        width: rnd(0.46, 0.82) * strength
+      });
+    }
+
+    spawnEdgeArc() {
+      const startT = Math.random();
+      const direction = Math.random() > 0.5 ? 1 : -1;
+      const endT =
+        startT + direction * rnd(0.04, 0.11);
+
+      this.makeBolt(
+        this.edgePoint(startT),
+        this.edgePoint(endT),
+        rnd(0.62, 1)
+      );
+    }
+
+    spawnSpark(strength = 1) {
+      const point = this.edgePoint(Math.random());
+      const tangentX = -point.ny;
+      const tangentY = point.nx;
+      const outward = rnd(0.5, 2.7) * strength;
+      const tangent = rnd(-1.1, 1.1) * strength;
+
+      this.sparks.push({
+        x: point.x,
+        y: point.y,
+        vx:
+          point.nx * outward +
+          tangentX * tangent,
+        vy:
+          point.ny * outward +
+          tangentY * tangent,
+        radius: rnd(0.45, 1.65) * strength,
+        alpha: rnd(0.55, 1),
+        decay: rnd(0.018, 0.042)
+      });
+    }
+
+    burst(power = 1) {
+      if (reduceMotion) return;
+
+      const origin = {
+        x: this.width / 2,
+        y: Math.min(173, this.height * 0.39)
+      };
+
+      const rayCount = Math.max(
+        4,
+        Math.floor(7 * power)
+      );
+
+      for (let index = 0; index < rayCount; index += 1) {
+        const edge = this.edgePoint(
+          index / rayCount +
+          rnd(-0.014, 0.014)
+        );
+
+        this.makeBolt(
+          origin,
+          edge,
+          rnd(0.56, 0.82) * power
+        );
+      }
+
+      const sparkCount = Math.floor(34 * power);
+
+      for (let index = 0; index < sparkCount; index += 1) {
+        const angle = Math.random() * Math.PI * 2;
+        const radius = rnd(28, 56);
+        const speed = rnd(0.55, 2.6) * power;
+
+        this.sparks.push({
+          x: origin.x + Math.cos(angle) * radius,
+          y: origin.y + Math.sin(angle) * radius,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          radius: rnd(0.4, 1.2),
+          alpha: rnd(0.48, 0.82),
+          decay: rnd(0.024, 0.048)
+        });
+      }
+
+      this.start();
+    }
+
+    activate() {
+      const wasActive = this.active;
+      this.active = true;
+
+      if (!wasActive) {
+        for (let index = 0; index < 2; index += 1) {
+          this.spawnEdgeArc();
+        }
+
+        for (let index = 0; index < 8; index += 1) {
+          this.spawnSpark(rnd(0.38, 0.62));
+        }
+      }
+
+      this.start();
+    }
+
+    deactivate() {
+      this.active = false;
+    }
+
+    start() {
+      if (this.running || reduceMotion) return;
+
+      this.running = true;
+      this.lastTime = performance.now();
+
+      requestAnimationFrame((time) => this.frame(time));
+    }
+
+    drawBolt(bolt) {
+      const ctx = this.ctx;
+      const alpha = Math.max(0, bolt.alpha);
+
+      ctx.save();
+      ctx.lineJoin = "round";
+      ctx.lineCap = "round";
+
+      ctx.beginPath();
+      ctx.moveTo(
+        bolt.points[0].x,
+        bolt.points[0].y
+      );
+
+      for (
+        let index = 1;
+        index < bolt.points.length;
+        index += 1
+      ) {
+        ctx.lineTo(
+          bolt.points[index].x,
+          bolt.points[index].y
+        );
+      }
+
+      ctx.strokeStyle =
+        `rgba(${this.rgb}, ${alpha * 0.25})`;
+      ctx.lineWidth = bolt.width * 5;
+      ctx.shadowBlur = 12;
+      ctx.shadowColor =
+        `rgba(${this.rgb}, 1)`;
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(
+        bolt.points[0].x,
+        bolt.points[0].y
+      );
+
+      for (
+        let index = 1;
+        index < bolt.points.length;
+        index += 1
+      ) {
+        ctx.lineTo(
+          bolt.points[index].x,
+          bolt.points[index].y
+        );
+      }
+
+      ctx.strokeStyle =
+        `rgba(233, 255, 251, ${alpha})`;
+      ctx.lineWidth = bolt.width;
+      ctx.shadowBlur = 3.5;
+      ctx.shadowColor =
+        `rgba(${this.rgb}, 1)`;
+      ctx.stroke();
+
+      ctx.restore();
+
+      bolt.alpha -= bolt.decay;
+    }
+
+    drawSpark(spark, delta) {
+      spark.x += spark.vx * delta;
+      spark.y += spark.vy * delta;
+      spark.vx *= Math.pow(0.979, delta);
+      spark.vy *= Math.pow(0.979, delta);
+      spark.alpha -= spark.decay * delta;
+
+      this.ctx.save();
+      this.ctx.beginPath();
+      this.ctx.fillStyle =
+        `rgba(${this.rgb}, ${Math.max(0, spark.alpha)})`;
+      this.ctx.shadowBlur = 12;
+      this.ctx.shadowColor =
+        `rgba(${this.rgb}, 1)`;
+      this.ctx.arc(
+        spark.x,
+        spark.y,
+        spark.radius,
+        0,
+        Math.PI * 2
+      );
+      this.ctx.fill();
+      this.ctx.restore();
+    }
+
+    frame(time) {
+      const elapsed = clamp(
+        time - this.lastTime,
+        0,
+        34
+      );
+      const delta = elapsed / 16.667;
+
+      this.lastTime = time;
+
+      this.ctx.clearRect(
+        0,
+        0,
+        this.width,
+        this.height
+      );
+
+      if (
+        this.active &&
+        time - this.lastArc > 145
+      ) {
+        this.lastArc = time;
+
+        this.spawnEdgeArc();
+        this.spawnSpark(rnd(0.65, 1.10));
+
+        if (Math.random() < 0.16) {
+          this.spawnEdgeArc();
+        }
+      }
+
+      for (const bolt of this.bolts) {
+        this.drawBolt(bolt);
+      }
+
+      for (const spark of this.sparks) {
+        this.drawSpark(spark, delta);
+      }
+
+      this.bolts = this.bolts.filter(
+        (bolt) => bolt.alpha > 0
+      );
+
+      this.sparks = this.sparks.filter(
+        (spark) => spark.alpha > 0
+      );
+
+      if (
+        this.active ||
+        this.bolts.length ||
+        this.sparks.length
+      ) {
+        requestAnimationFrame((nextTime) =>
+          this.frame(nextTime)
+        );
+      } else {
+        this.running = false;
+
+        this.ctx.clearRect(
+          0,
+          0,
+          this.width,
+          this.height
+        );
+      }
+    }
+  }
+
+  class ContactEnergy {
+    constructor(canvas, button) {
+      this.canvas = canvas;
+      this.button = button;
+      this.ctx = canvas.getContext("2d", { alpha: true });
+      this.dpr = Math.min(window.devicePixelRatio || 1, 2);
+      this.width = 1;
+      this.height = 1;
+      this.hot = false;
+      this.bolts = [];
+      this.sparks = [];
+      this.last = performance.now();
+      this.lastSpawn = 0;
+      this.resizeObserver = new ResizeObserver(() => this.resize());
+      this.resizeObserver.observe(canvas.parentElement);
+      this.resize();
+
+      if (!reduceMotion) {
+        requestAnimationFrame((t) => this.frame(t));
+      }
+    }
+
+    resize() {
+      const rect = this.canvas.getBoundingClientRect();
+      this.width = Math.max(1, rect.width);
+      this.height = Math.max(1, rect.height);
+      this.canvas.width = Math.round(this.width * this.dpr);
+      this.canvas.height = Math.round(this.height * this.dpr);
+      this.ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
+    }
+
+    center() {
+      const canvasRect = this.canvas.getBoundingClientRect();
+      const buttonRect = this.button.getBoundingClientRect();
+
+      return {
+        x:
+          buttonRect.left -
+          canvasRect.left +
+          buttonRect.width / 2,
+        y:
+          buttonRect.top -
+          canvasRect.top +
+          buttonRect.height / 2,
+        r: buttonRect.width / 2 + 14
+      };
+    }
+
+    burst(power = 1) {
+      const o = this.center();
+
+      for (let i = 0; i < 10 * power; i += 1) {
+        const a =
+          Math.PI * 2 * (i / (10 * power)) +
+          rnd(-0.08, 0.08);
+
+        this.makeBolt(
+          a,
+          rnd(46, 102) * power,
+          rnd(0.7, 1.2)
+        );
+      }
+
+      for (let i = 0; i < 42 * power; i += 1) {
+        const a = Math.random() * Math.PI * 2;
+        const speed = rnd(0.7, 3.1) * power;
+
+        this.sparks.push({
+          x: o.x + Math.cos(a) * o.r,
+          y: o.y + Math.sin(a) * o.r,
+          vx: Math.cos(a) * speed,
+          vy: Math.sin(a) * speed,
+          r: rnd(0.45, 1.7),
+          a: rnd(0.55, 1),
+          d: rnd(0.014, 0.034)
+        });
+      }
+    }
+
+    makeBolt(angle, length, strength = 1) {
+      const o = this.center();
+      const start = {
+        x: o.x + Math.cos(angle) * o.r,
+        y: o.y + Math.sin(angle) * o.r
+      };
+      const end = {
+        x: start.x + Math.cos(angle) * length,
+        y: start.y + Math.sin(angle) * length
+      };
+
+      const points = buildLightningPath(
+        start,
+        end,
+        Math.min(13, length * 0.10) * strength,
+        0.50,
+        length > 100 ? 5 : 4
+      );
+
+      this.bolts.push({
+        pts: points,
+        a: rnd(0.55, 0.78),
+        d: rnd(0.075, 0.12),
+        w: rnd(0.48, 0.86) * strength
+      });
+    }
+
+    drawBolt(bolt) {
+      const ctx = this.ctx;
+
+      ctx.save();
+      ctx.lineJoin = "round";
+      ctx.lineCap = "round";
+
+      ctx.beginPath();
+      ctx.moveTo(bolt.pts[0].x, bolt.pts[0].y);
+
+      for (let i = 1; i < bolt.pts.length; i += 1) {
+        ctx.lineTo(bolt.pts[i].x, bolt.pts[i].y);
+      }
+
+      ctx.strokeStyle =
+        `rgba(38, 176, 255, ${bolt.a * 0.23})`;
+      ctx.lineWidth = bolt.w * 5;
+      ctx.shadowBlur = 13;
+      ctx.shadowColor = "rgba(46, 181, 255, 1)";
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(bolt.pts[0].x, bolt.pts[0].y);
+
+      for (let i = 1; i < bolt.pts.length; i += 1) {
+        ctx.lineTo(bolt.pts[i].x, bolt.pts[i].y);
+      }
+
+      ctx.strokeStyle =
+        `rgba(241, 252, 255, ${bolt.a})`;
+      ctx.lineWidth = bolt.w;
+      ctx.stroke();
+      ctx.restore();
+
+      bolt.a -= bolt.d;
+    }
+
+    frame(time) {
+      const elapsed = clamp(time - this.last, 0, 34);
+      const delta = elapsed / 16.667;
+      this.last = time;
+
+      this.ctx.clearRect(0, 0, this.width, this.height);
+
+      if (this.hot && time - this.lastSpawn > 170) {
+        this.lastSpawn = time;
+
+        if (Math.random() < 0.38) {
+          this.makeBolt(
+            Math.random() * Math.PI * 2,
+            rnd(35, 94),
+            rnd(0.45, 0.8)
+          );
+        }
+      }
+
+      for (const bolt of this.bolts) {
+        this.drawBolt(bolt);
+      }
+
+      for (const spark of this.sparks) {
+        spark.x += spark.vx * delta;
+        spark.y += spark.vy * delta;
+        spark.vx *= Math.pow(0.982, delta);
+        spark.vy *= Math.pow(0.982, delta);
+        spark.a -= spark.d * delta;
+
+        this.ctx.beginPath();
+        this.ctx.fillStyle =
+          `rgba(51, 181, 255, ${Math.max(0, spark.a)})`;
+        this.ctx.shadowBlur = 11;
+        this.ctx.shadowColor = "rgba(43, 174, 255, 1)";
+        this.ctx.arc(
+          spark.x,
+          spark.y,
+          spark.r,
+          0,
+          Math.PI * 2
+        );
+        this.ctx.fill();
+      }
+
+      this.bolts = this.bolts.filter((b) => b.a > 0);
+      this.sparks = this.sparks.filter((s) => s.a > 0);
+
+      requestAnimationFrame((t) => this.frame(t));
+    }
+  }
+
+  const ambientCanvas = document.querySelector(".ambient-field");
+
+  if (ambientCanvas) {
+    new AmbientField(ambientCanvas);
+  }
+
+  const stageCanvas = document.querySelector(".stage-energy");
+  const stageEnergy =
+    stageCanvas && scene
+      ? new StageEnergy(stageCanvas, scene, cards)
+      : null;
+
+  const localEnergyByCard = new WeakMap();
+
+  document
+    .querySelectorAll(".apps-card")
+    .forEach((card) => {
+      const canvas =
+        card.querySelector(".apps-local-energy");
+
+      if (canvas) {
+        localEnergyByCard.set(
+          card,
+          new AppsLocalEnergy(card, canvas)
+        );
+      }
+    });
+
+  function setActive(card, active) {
+    if (active) {
+      grid?.classList.add("has-active");
+
+      cards.forEach((item) => {
+        item.classList.toggle("is-active", item === card);
+      });
+
+      stageEnergy?.activate(card);
+      localEnergyByCard.get(card)?.activate();
+      return;
+    }
+
+    card.classList.remove("is-active");
+
+    const stillActive = cards.some(
+      (item) =>
+        item.matches(":hover") ||
+        item.matches(":focus-visible")
+    );
+
+    if (!stillActive) {
+      grid?.classList.remove("has-active");
+
+      cards.forEach((item) => {
+        item.classList.remove("is-active");
+      });
+    }
+
+    stageEnergy?.deactivate(card);
+    localEnergyByCard.get(card)?.deactivate();
+  }
+
+  cards.forEach((card) => {
+    const content = card.querySelector(".card-content");
+    const spotlight = card.querySelector(".card-spotlight");
+
+    let toRotX;
+    let toRotY;
+    let toY;
+    let contentX;
+    let contentY;
+    let spotX;
+    let spotY;
+
+    if (gsapReady) {
+      gsap.set(card, {
+        transformPerspective: 1500,
+        transformOrigin: "50% 54%",
+        force3D: true
+      });
+
+      toRotX = gsap.quickTo(card, "rotationX", {
+        duration: 0.42,
+        ease: "power3.out"
+      });
+
+      toRotY = gsap.quickTo(card, "rotationY", {
+        duration: 0.42,
+        ease: "power3.out"
+      });
+
+      toY = gsap.quickTo(card, "y", {
+        duration: 0.48,
+        ease: "power3.out"
+      });
+
+      contentX = gsap.quickTo(content, "x", {
+        duration: 0.58,
+        ease: "power3.out"
+      });
+
+      contentY = gsap.quickTo(content, "y", {
+        duration: 0.58,
+        ease: "power3.out"
+      });
+
+      spotX = gsap.quickTo(spotlight, "x", {
+        duration: 0.22,
+        ease: "power2.out"
+      });
+
+      spotY = gsap.quickTo(spotlight, "y", {
+        duration: 0.22,
+        ease: "power2.out"
+      });
+    }
+
+    card.addEventListener("pointerenter", () => {
+      setActive(card, true);
+
+      if (gsapReady) {
+        toY(-12);
+      }
+    });
+
+    card.addEventListener("pointerleave", () => {
+      setActive(card, false);
+
+      if (gsapReady) {
+        toRotX(0);
+        toRotY(0);
+        toY(0);
+        contentX(0);
+        contentY(0);
+      } else {
+        card.style.transform = "";
+        spotlight.style.transform = "";
+      }
+    });
+
+    card.addEventListener("focus", () => {
+      setActive(card, true);
+
+      if (gsapReady) {
+        toY(-12);
+      }
+    });
+
+    card.addEventListener("blur", () => {
+      setActive(card, false);
+
+      if (gsapReady) {
+        toY(0);
+      }
+    });
+
+    card.addEventListener(
+      "pointermove",
+      (event) => {
+        if (reduceMotion || coarse) return;
+
+        const rect = card.getBoundingClientRect();
+        const x = clamp(
+          (event.clientX - rect.left) / rect.width,
+          0,
+          1
+        );
+        const y = clamp(
+          (event.clientY - rect.top) / rect.height,
+          0,
+          1
+        );
+
+        if (gsapReady) {
+          toRotY((x - 0.5) * 13);
+          toRotX((y - 0.5) * -9);
+          contentX((x - 0.5) * 8);
+          contentY((y - 0.5) * 7);
+          spotX(event.clientX - rect.left);
+          spotY(event.clientY - rect.top);
+        } else {
+          card.style.transform =
+            `translateY(-12px) rotateX(${(y - 0.5) * -9}deg) rotateY(${(x - 0.5) * 13}deg)`;
+
+          spotlight.style.transform =
+            `translate(${event.clientX - rect.left}px, ${event.clientY - rect.top}px)`;
+        }
+      },
+      { passive: true }
+    );
+
+    card.addEventListener("click", () => {
+      setActive(card, true);
+
+      const isAppsCard =
+        card.classList.contains("apps-card");
+
+      stageEnergy?.bigBurst(
+        isAppsCard ? 1.05 : 0.92
+      );
+
+      localEnergyByCard
+        .get(card)
+        ?.burst(isAppsCard ? 0.96 : 0.78);
+
+      if (gsapReady && !reduceMotion) {
+        gsap.fromTo(
+          card,
+          { scale: 0.985 },
+          {
+            scale: 1.035,
+            duration: 0.22,
+            yoyo: true,
+            repeat: 1,
+            ease: "power3.out",
+            overwrite: "auto"
+          }
+        );
+      }
+
+      window.setTimeout(() => {
+        if (
+          !card.matches(":hover") &&
+          document.activeElement !== card
+        ) {
+          setActive(card, false);
+        }
+      }, 1150);
+    });
+  });
+
+  if (gsapReady && ScrollTrigger && !reduceMotion) {
+    const intro = gsap.timeline({
+      defaults: { ease: "power3.out" }
+    });
+
+    intro
+      .fromTo(
+        ".ultra-kicker",
+        { y: 18, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.72 }
+      )
+      .fromTo(
+        ".ultra-title",
+        {
+          y: 34,
+          opacity: 0,
+          filter: "blur(8px)"
+        },
+        {
+          y: 0,
+          opacity: 1,
+          filter: "blur(0px)",
+          duration: 0.92
+        },
+        "-=0.42"
+      )
+      .fromTo(
+        ".ultra-copy",
+        { y: 24, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.78 },
+        "-=0.55"
+      )
+      .fromTo(
+        ".section-beam",
+        { scaleX: 0.15, opacity: 0 },
+        {
+          scaleX: 1,
+          opacity: 1,
+          duration: 0.9
+        },
+        "-=0.48"
+      );
+
+    gsap.fromTo(
+      cards,
+      {
+        y: 78,
+        opacity: 0,
+        rotationX: -8,
+        scale: 0.94
+      },
+      {
+        y: 0,
+        opacity: 1,
+        rotationX: 0,
+        scale: 1,
+        duration: 1.05,
+        stagger: 0.13,
+        ease: "power4.out",
+        scrollTrigger: {
+          trigger: ".cards-scene",
+          start: "top 78%",
+          once: true
+        }
+      }
+    );
+
+    gsap.fromTo(
+      ".contact-stack",
+      {
+        y: 55,
+        opacity: 0,
+        scale: 0.94
+      },
+      {
+        y: 0,
+        opacity: 1,
+        scale: 1,
+        duration: 0.95,
+        ease: "power4.out",
+        scrollTrigger: {
+          trigger: ".contact-zone",
+          start: "top 80%",
+          once: true
+        }
+      }
+    );
+  } else {
+    document
+      .querySelectorAll(
+        ".ultra-kicker, .ultra-title, .ultra-copy, .section-beam"
+      )
+      .forEach((element) => {
+        element.style.opacity = "1";
+        element.style.transform = "none";
+      });
+
+    cards.forEach((card) => {
+      card.style.opacity = "1";
+      card.style.transform = "none";
+    });
+  }
+
+  const contactButton = document.querySelector(".contact-button");
+  const contactCanvas = document.querySelector(".contact-energy");
+
+  const contactFx =
+    contactButton && contactCanvas
+      ? new ContactEnergy(contactCanvas, contactButton)
+      : null;
+
+  if (contactButton) {
+    let moveX;
+    let moveY;
+
+    if (gsapReady) {
+      moveX = gsap.quickTo(contactButton, "x", {
+        duration: 0.38,
+        ease: "power3.out"
+      });
+
+      moveY = gsap.quickTo(contactButton, "y", {
+        duration: 0.38,
+        ease: "power3.out"
+      });
+    }
+
+    const heat = () => {
+      contactButton.classList.add("is-hot");
+
+      if (contactFx) {
+        contactFx.hot = true;
+        contactFx.burst(0.72);
+      }
+    };
+
+    const cool = () => {
+      contactButton.classList.remove("is-hot");
+
+      if (contactFx) {
+        contactFx.hot = false;
+      }
+
+      if (gsapReady) {
+        moveX(0);
+        moveY(0);
+      }
+    };
+
+    contactButton.addEventListener("pointerenter", heat);
+    contactButton.addEventListener("pointerleave", cool);
+    contactButton.addEventListener("focus", heat);
+    contactButton.addEventListener("blur", cool);
+
+    contactButton.addEventListener(
+      "pointermove",
+      (event) => {
+        if (!gsapReady || coarse || reduceMotion) return;
+
+        const rect = contactButton.getBoundingClientRect();
+
+        moveX(
+          (event.clientX - rect.left - rect.width / 2) *
+            0.14
+        );
+
+        moveY(
+          (event.clientY - rect.top - rect.height / 2) *
+            0.14
+        );
+      },
+      { passive: true }
+    );
+
+    contactButton.addEventListener("click", () => {
+      heat();
+      contactFx?.burst(0.92);
+
+      if (gsapReady && !reduceMotion) {
+        gsap.fromTo(
+          contactButton,
+          { scale: 0.93 },
+          {
+            scale: 1.07,
+            duration: 0.24,
+            yoyo: true,
+            repeat: 1,
+            ease: "power3.out"
+          }
+        );
+      }
+
+      window.setTimeout(() => {
+        if (!contactButton.matches(":hover")) {
+          cool();
+        }
+      }, 1050);
+    });
+  }
+
+  if (coarse && !reduceMotion) {
+    let index = 0;
+
+    window.setInterval(() => {
+      if (document.hidden || !cards.length) return;
+
+      const card = cards[index % cards.length];
+      setActive(card, true);
+      stageEnergy?.bigBurst(0.82);
+
+      window.setTimeout(() => {
+        setActive(card, false);
+      }, 1050);
+
+      index += 1;
+    }, 3400);
+  }
+})();
+
+</script>
+</body>
+</html>
