@@ -1,0 +1,30 @@
+NUCLEAIRS VFX VERIFICATION REPORT
+
+Generated UTC: 2026-07-13 12:03:41
+
+[plasma]
+0|vp9|video|596|690|yuv420p|1
+1|opus|audio
+2.049000
+
+[electric]
+0|vp9|video|570|650|yuv420p|1
+1|opus|audio
+1.591000
+
+[supernova]
+0|vp9|video|680|750|yuv420p|1
+1|opus|audio
+2.334000
+
+JavaScript syntax: PASS (index.html and preview_verified_vfx.html)
+
+Browser click verification: PASS
+- desktop_plasma: PASS
+- desktop_electric: PASS
+- desktop_supernova: PASS
+- mobile_supernova: PASS
+- console/page errors: NONE
+
+The self-contained index.html was also tested without the external CDN scripts loaded.
+The three main VFX still rendered and advanced playback successfully.

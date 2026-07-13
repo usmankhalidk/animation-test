@@ -1,0 +1,55 @@
+[
+  {
+    "case": "desktop_plasma",
+    "pass": true,
+    "diag": {
+      "readyState": 4,
+      "duration": 2.049,
+      "currentTime": 0.645659,
+      "paused": false,
+      "active": true,
+      "loadError": false
+    }
+  },
+  {
+    "case": "desktop_electric",
+    "pass": true,
+    "diag": {
+      "readyState": 4,
+      "duration": 1.591,
+      "currentTime": 0.942654,
+      "paused": false,
+      "active": true,
+      "loadError": false
+    }
+  },
+  {
+    "case": "desktop_supernova",
+    "pass": true,
+    "diag": {
+      "readyState": 4,
+      "duration": 2.334,
+      "currentTime": 1.112409,
+      "paused": false,
+      "active": true,
+      "loadError": false
+    }
+  },
+  {
+    "case": "mobile_supernova",
+    "pass": true,
+    "diag": {
+      "readyState": 4,
+      "duration": 2.334,
+      "currentTime": 0.748383,
+      "paused": false,
+      "active": true,
+      "loadError": false
+    }
+  },
+  {
+    "case": "console_errors",
+    "pass": true,
+    "logs": []
+  }
+]

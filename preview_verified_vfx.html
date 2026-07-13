@@ -1,0 +1,4573 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <meta
+    name="description"
+    content="Nucleairs high-fidelity premium animated service cards"
+  />
+  <title>Nucleairs — Perfect Synced Reference FX</title>
+  <style>
+
+:root {
+  color-scheme: dark;
+  --bg: #02030a;
+  --text: #f7faff;
+  --muted: #788399;
+  --mx: 50vw;
+  --my: 30vh;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  min-height: 100%;
+  background: var(--bg);
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100%;
+  overflow-x: hidden;
+  color: var(--text);
+  font-family:
+    Inter, Manrope, ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at 50% -12%, rgba(24, 100, 255, 0.19), transparent 34%),
+    radial-gradient(circle at -5% 54%, rgba(0, 123, 255, 0.075), transparent 30%),
+    radial-gradient(circle at 105% 57%, rgba(0, 231, 209, 0.055), transparent 32%),
+    linear-gradient(180deg, #050713 0%, #02030a 54%, #010207 100%);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 0.14;
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 230 230' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.91' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.19'/%3E%3C/svg%3E");
+  mix-blend-mode: soft-light;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      470px circle at var(--mx) var(--my),
+      rgba(52, 157, 255, 0.060),
+      transparent 70%
+    );
+}
+
+button,
+a {
+  font: inherit;
+}
+
+.ultra-page {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  isolation: isolate;
+}
+
+.ambient-field {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.ultra-wrap {
+  width: min(1260px, calc(100% - 42px));
+  margin: 0 auto;
+  padding: clamp(88px, 10vw, 144px) 0 112px;
+}
+
+.ultra-kicker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+  color: #79c5ff;
+  font-size: 10px;
+  font-weight: 760;
+  letter-spacing: 0.30em;
+  text-transform: uppercase;
+  opacity: 0;
+}
+
+.ultra-kicker::before,
+.ultra-kicker::after {
+  content: "";
+  width: 58px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #26a6ff);
+  box-shadow:
+    0 0 7px rgba(35, 169, 255, 0.9),
+    0 0 18px rgba(35, 169, 255, 0.48);
+}
+
+.ultra-kicker::after {
+  transform: scaleX(-1);
+}
+
+.ultra-title {
+  max-width: 940px;
+  margin: 20px auto 0;
+  text-align: center;
+  font-size: clamp(48px, 7vw, 84px);
+  font-weight: 700;
+  line-height: 0.96;
+  letter-spacing: -0.065em;
+  opacity: 0;
+}
+
+.ultra-title .gradient-word {
+  color: transparent;
+  background:
+    linear-gradient(
+      101deg,
+      #ffffff 6%,
+      #d9f1ff 32%,
+      #82d8ff 62%,
+      #318fff 94%
+    );
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 0 28px rgba(64, 171, 255, 0.19));
+}
+
+.ultra-copy {
+  max-width: 700px;
+  margin: 29px auto 0;
+  text-align: center;
+  color: var(--muted);
+  font-size: clamp(16px, 1.8vw, 19px);
+  line-height: 1.78;
+  opacity: 0;
+}
+
+.section-beam {
+  position: relative;
+  width: min(840px, 88%);
+  height: 1px;
+  margin: 39px auto 58px;
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(20, 129, 255, 0.20),
+      rgba(73, 212, 255, 0.51),
+      rgba(20, 129, 255, 0.20),
+      transparent
+    );
+  opacity: 0;
+}
+
+.section-beam::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -10%;
+  width: 17%;
+  height: 4px;
+  border-radius: 999px;
+  background:
+    linear-gradient(90deg, transparent, #25a5ff, #b9f3ff, transparent);
+  box-shadow:
+    0 0 7px #42baff,
+    0 0 27px rgba(42, 162, 255, 0.86);
+  animation: beam-run 5.2s ease-in-out infinite;
+}
+
+.cards-scene {
+  position: relative;
+  padding: 62px 24px 82px;
+  border-radius: 56px;
+}
+
+.cards-scene::before {
+  content: "";
+  position: absolute;
+  inset: 8% 1% 4%;
+  z-index: -2;
+  border-radius: 42%;
+  background:
+    radial-gradient(circle at 16% 58%, rgba(23, 122, 255, 0.135), transparent 21%),
+    radial-gradient(circle at 50% 58%, rgba(255, 35, 80, 0.095), transparent 21%),
+    radial-gradient(circle at 84% 58%, rgba(0, 224, 198, 0.10), transparent 21%);
+  filter: blur(39px);
+}
+
+.stage-energy {
+  position: absolute;
+  inset: -110px -85px;
+  z-index: 0;
+  width: calc(100% + 170px);
+  height: calc(100% + 220px);
+  pointer-events: none;
+}
+
+.cards-grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 27px;
+  perspective: 1500px;
+}
+
+.energy-card {
+  --accent-rgb: 40, 143, 255;
+  --accent: rgb(var(--accent-rgb));
+  position: relative;
+  min-height: 456px;
+  overflow: hidden;
+  border: 1px solid rgba(var(--accent-rgb), 0.44);
+  border-radius: 30px;
+  cursor: pointer;
+  outline: none;
+  opacity: 0;
+  transform-style: preserve-3d;
+  transform-origin: 50% 54%;
+  background:
+    linear-gradient(154deg, rgba(var(--accent-rgb), 0.18), transparent 33%),
+    radial-gradient(circle at 50% 117%, rgba(var(--accent-rgb), 0.215), transparent 43%),
+    linear-gradient(180deg, rgba(12, 18, 41, 0.91), rgba(3, 7, 19, 0.975));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    inset 0 -1px 0 rgba(var(--accent-rgb), 0.19),
+    0 34px 82px rgba(0, 0, 0, 0.48);
+  transition:
+    border-color 0.38s ease,
+    box-shadow 0.42s ease,
+    filter 0.42s ease,
+    opacity 0.42s ease;
+  will-change: transform;
+}
+
+.cards-grid.has-active .energy-card:not(.is-active) {
+  opacity: 0.61 !important;
+  filter: saturate(0.72) brightness(0.80);
+}
+
+.energy-card.is-active,
+.energy-card:hover,
+.energy-card:focus-visible {
+  border-color: rgba(var(--accent-rgb), 0.96);
+  filter: saturate(1.17) brightness(1.065);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.13),
+    inset 0 -1px 0 rgba(var(--accent-rgb), 0.40),
+    0 38px 100px rgba(0, 0, 0, 0.61),
+    0 0 10px rgba(var(--accent-rgb), 0.46),
+    0 0 30px rgba(var(--accent-rgb), 0.24),
+    0 0 74px rgba(var(--accent-rgb), 0.12);
+}
+
+.card-plasma {
+  position: absolute;
+  inset: -47%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.04;
+  border-radius: 50%;
+  background:
+    conic-gradient(
+      from 90deg,
+      transparent 0 7%,
+      rgba(var(--accent-rgb), 0.28) 14%,
+      transparent 24% 49%,
+      rgba(var(--accent-rgb), 0.22) 62%,
+      transparent 74% 100%
+    );
+  filter: blur(35px);
+  animation: plasma-turn 9s linear infinite;
+  transition: opacity 0.42s ease;
+}
+
+.energy-card.is-active .card-plasma,
+.energy-card:hover .card-plasma,
+.energy-card:focus-visible .card-plasma {
+  opacity: 0.52;
+}
+
+.card-spotlight {
+  position: absolute;
+  z-index: 1;
+  width: 230px;
+  height: 230px;
+  left: -115px;
+  top: -115px;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  background:
+    radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.20),
+      rgba(var(--accent-rgb), 0.095) 24%,
+      transparent 68%
+    );
+  filter: blur(2px);
+  mix-blend-mode: screen;
+  transition: opacity 0.3s ease;
+}
+
+.energy-card.is-active .card-spotlight,
+.energy-card:hover .card-spotlight,
+.energy-card:focus-visible .card-spotlight {
+  opacity: 1;
+}
+
+.card-sheen {
+  position: absolute;
+  inset: -20% -70%;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.42;
+  background:
+    linear-gradient(
+      112deg,
+      transparent 40%,
+      rgba(255, 255, 255, 0.025) 46%,
+      rgba(255, 255, 255, 0.115) 50%,
+      rgba(255, 255, 255, 0.025) 54%,
+      transparent 60%
+    );
+  transform: translateX(-29%);
+  transition: transform 0.85s cubic-bezier(.18,.84,.2,1);
+}
+
+.energy-card.is-active .card-sheen,
+.energy-card:hover .card-sheen,
+.energy-card:focus-visible .card-sheen {
+  transform: translateX(29%);
+}
+
+.edge-runner {
+  position: absolute;
+  inset: 0;
+  z-index: 7;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0.10;
+  padding: 2px;
+  background:
+    conic-gradient(
+      from var(--edge-angle, 0deg),
+      transparent 0 22%,
+      rgba(var(--accent-rgb), 0.12) 27%,
+      rgba(var(--accent-rgb), 1) 30%,
+      #ffffff 31%,
+      rgba(var(--accent-rgb), 0.96) 32%,
+      transparent 37% 100%
+    );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: edge-run 2.25s linear infinite paused;
+  transition: opacity 0.28s ease;
+}
+
+.energy-card.is-active .edge-runner,
+.energy-card:hover .edge-runner,
+.energy-card:focus-visible .edge-runner {
+  opacity: 0.76;
+  animation-play-state: running;
+}
+
+.inner-glass {
+  position: absolute;
+  inset: 11px;
+  z-index: 2;
+  border: 1px solid rgba(255, 255, 255, 0.028);
+  border-radius: 21px;
+  pointer-events: none;
+}
+
+.inner-glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0.38;
+  background:
+    linear-gradient(90deg, rgba(var(--accent-rgb), 0.23), transparent 15%) top left / 38% 1px no-repeat,
+    linear-gradient(90deg, transparent, rgba(var(--accent-rgb), 0.21)) bottom right / 38% 1px no-repeat;
+}
+
+.circuit-map {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.16;
+  transition: opacity 0.38s ease;
+}
+
+.circuit-map path {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 0.65;
+  stroke-linecap: round;
+  stroke-dasharray: 2 12;
+  animation: circuit-flow 7s linear infinite;
+}
+
+.energy-card.is-active .circuit-map,
+.energy-card:hover .circuit-map,
+.energy-card:focus-visible .circuit-map {
+  opacity: 0.42;
+}
+
+.corner {
+  position: absolute;
+  z-index: 8;
+  width: 18px;
+  height: 18px;
+  pointer-events: none;
+  opacity: 0.34;
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+.corner::before,
+.corner::after {
+  content: "";
+  position: absolute;
+  background: rgba(var(--accent-rgb), 0.95);
+}
+
+.corner::before {
+  width: 100%;
+  height: 1px;
+  box-shadow: 0 0 7px rgba(var(--accent-rgb), 0.88);
+}
+
+.corner::after {
+  width: 1px;
+  height: 100%;
+  box-shadow: 0 0 7px rgba(var(--accent-rgb), 0.88);
+}
+
+.corner.tl { top: 18px; left: 18px; }
+.corner.tr { top: 18px; right: 18px; transform: rotate(90deg); }
+.corner.bl { bottom: 18px; left: 18px; transform: rotate(-90deg); }
+.corner.br { right: 18px; bottom: 18px; transform: rotate(180deg); }
+
+.energy-card.is-active .corner,
+.energy-card:hover .corner,
+.energy-card:focus-visible .corner {
+  opacity: 1;
+  filter: brightness(1.8);
+}
+
+.card-content {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  min-height: 456px;
+  flex-direction: column;
+  align-items: center;
+  padding: 31px 30px 28px;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.card-badge {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 27px;
+  padding: 0 11px;
+  border: 1px solid rgba(var(--accent-rgb), 0.29);
+  border-radius: 999px;
+  color: rgba(221, 236, 255, 0.74);
+  background: rgba(var(--accent-rgb), 0.076);
+  font-size: 9px;
+  font-weight: 760;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transform: translateZ(32px);
+}
+
+.card-badge::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow:
+    0 0 7px var(--accent),
+    0 0 14px rgba(var(--accent-rgb), 0.7);
+  animation: status-pulse 1.65s ease-in-out infinite;
+}
+
+.icon-reactor {
+  position: relative;
+  display: grid;
+  width: 174px;
+  height: 160px;
+  margin: 10px auto 15px;
+  place-items: center;
+  transform: translateZ(55px);
+}
+
+.icon-reactor::before {
+  content: "";
+  position: absolute;
+  width: 110px;
+  height: 110px;
+  border: 1px solid rgba(var(--accent-rgb), 0.51);
+  border-radius: 29px;
+  background:
+    radial-gradient(circle at 28% 22%, rgba(255, 255, 255, 0.16), transparent 26%),
+    radial-gradient(circle at 58% 69%, rgba(var(--accent-rgb), 0.24), transparent 60%),
+    rgba(var(--accent-rgb), 0.052);
+  box-shadow:
+    inset 0 0 29px rgba(var(--accent-rgb), 0.18),
+    0 0 27px rgba(var(--accent-rgb), 0.14);
+  transform: rotate(45deg) scale(0.73);
+  transition:
+    transform 0.48s cubic-bezier(.18,.84,.2,1),
+    box-shadow 0.4s ease;
+}
+
+.icon-reactor::after {
+  content: "";
+  position: absolute;
+  bottom: 12px;
+  width: 82px;
+  height: 13px;
+  border-radius: 50%;
+  background: rgba(var(--accent-rgb), 0.78);
+  filter: blur(15px);
+  opacity: 0.36;
+  transform: scaleX(0.76);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.energy-card.is-active .icon-reactor::before,
+.energy-card:hover .icon-reactor::before,
+.energy-card:focus-visible .icon-reactor::before {
+  transform: rotate(45deg) scale(0.87);
+  box-shadow:
+    inset 0 0 37px rgba(var(--accent-rgb), 0.23),
+    0 0 18px rgba(var(--accent-rgb), 0.38),
+    0 0 61px rgba(var(--accent-rgb), 0.19);
+}
+
+.energy-card.is-active .icon-reactor::after,
+.energy-card:hover .icon-reactor::after,
+.energy-card:focus-visible .icon-reactor::after {
+  opacity: 0.98;
+  transform: scaleX(1.19);
+}
+
+.reactor-ring {
+  position: absolute;
+  width: 126px;
+  height: 126px;
+  border-radius: 50%;
+  border: 1px dashed rgba(var(--accent-rgb), 0.20);
+  opacity: 0.20;
+  animation: reactor-spin 15s linear infinite;
+  transition: opacity 0.35s ease;
+}
+
+.reactor-ring::before,
+.reactor-ring::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -3px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 11px var(--accent);
+}
+
+.reactor-ring::after {
+  top: auto;
+  bottom: -3px;
+}
+
+.energy-card.is-active .reactor-ring,
+.energy-card:hover .reactor-ring,
+.energy-card:focus-visible .reactor-ring {
+  opacity: 0.85;
+  animation-duration: 4.8s;
+}
+
+.card-icon {
+  position: relative;
+  z-index: 2;
+  width: 116px;
+  height: 95px;
+  overflow: visible;
+  color: var(--accent);
+  filter:
+    drop-shadow(0 0 7px rgba(var(--accent-rgb), 0.77))
+    drop-shadow(0 0 21px rgba(var(--accent-rgb), 0.27));
+  transition:
+    transform 0.44s cubic-bezier(.18,.84,.2,1),
+    filter 0.38s ease;
+}
+
+.card-icon .icon-detail {
+  transition: transform 0.4s cubic-bezier(.18,.84,.2,1), opacity 0.3s ease;
+  transform-origin: center;
+}
+
+.energy-card.is-active .card-icon,
+.energy-card:hover .card-icon,
+.energy-card:focus-visible .card-icon {
+  transform: translateY(-8px) scale(1.085);
+  filter:
+    drop-shadow(0 0 8px rgba(var(--accent-rgb), 1))
+    drop-shadow(0 0 31px rgba(var(--accent-rgb), 0.66));
+}
+
+.energy-card.is-active .card-icon .icon-detail,
+.energy-card:hover .card-icon .icon-detail,
+.energy-card:focus-visible .card-icon .icon-detail {
+  transform: translateY(-2px);
+}
+
+.energy-card h2 {
+  margin: 0;
+  text-align: center;
+  font-size: 30px;
+  font-weight: 650;
+  letter-spacing: -0.04em;
+  transform: translateZ(42px);
+}
+
+.card-rule {
+  width: 100%;
+  height: 1px;
+  margin: 22px 0 18px;
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(var(--accent-rgb), 0.46),
+      transparent
+    );
+  box-shadow: 0 0 13px rgba(var(--accent-rgb), 0.18);
+  transform: translateZ(30px);
+}
+
+.energy-card p {
+  margin: 0;
+  min-height: 74px;
+  text-align: center;
+  color: #8792a8;
+  font-size: 15px;
+  line-height: 1.67;
+  transform: translateZ(31px);
+  transition: color 0.3s ease;
+}
+
+.energy-card.is-active p,
+.energy-card:hover p,
+.energy-card:focus-visible p {
+  color: #bec8da;
+}
+
+.card-action {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 18px;
+  color: #69758c;
+  font-size: 10px;
+  font-weight: 720;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transform: translateZ(34px);
+}
+
+.action-orb {
+  display: grid;
+  width: 31px;
+  height: 31px;
+  place-items: center;
+  border: 1px solid rgba(var(--accent-rgb), 0.28);
+  border-radius: 50%;
+  color: var(--accent);
+  background: rgba(var(--accent-rgb), 0.06);
+  transition:
+    transform 0.34s cubic-bezier(.18,.84,.2,1),
+    background 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.energy-card.is-active .action-orb,
+.energy-card:hover .action-orb,
+.energy-card:focus-visible .action-orb {
+  transform: translateX(5px) rotate(8deg);
+  background: rgba(var(--accent-rgb), 0.15);
+  box-shadow:
+    inset 0 0 14px rgba(var(--accent-rgb), 0.12),
+    0 0 16px rgba(var(--accent-rgb), 0.22);
+}
+
+.energy-card::after {
+  content: "";
+  position: absolute;
+  right: 8%;
+  bottom: -12px;
+  left: 8%;
+  z-index: 3;
+  height: 20px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: rgba(var(--accent-rgb), 0.75);
+  filter: blur(20px);
+  opacity: 0.37;
+  transform: scaleX(0.80);
+  transition: opacity 0.38s ease, transform 0.38s ease;
+}
+
+.energy-card.is-active::after,
+.energy-card:hover::after,
+.energy-card:focus-visible::after {
+  opacity: 0.98;
+  transform: scaleX(1.18);
+}
+
+.interaction-copy {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  margin-top: 39px;
+  color: #647087;
+  font-size: 12px;
+}
+
+.interaction-copy .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #39a8ff;
+  box-shadow:
+    0 0 9px #39a8ff,
+    0 0 20px rgba(57, 168, 255, 0.58);
+  animation: status-pulse 1.8s ease-in-out infinite;
+}
+
+.contact-zone {
+  position: relative;
+  display: grid;
+  min-height: 440px;
+  place-items: center;
+  padding-top: 26px;
+}
+
+.contact-energy {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.contact-stack {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+}
+
+.contact-label {
+  margin-bottom: 38px;
+  color: #6d7a91;
+  font-size: 10px;
+  font-weight: 740;
+  letter-spacing: 0.23em;
+  text-transform: uppercase;
+}
+
+.contact-button {
+  position: relative;
+  display: grid;
+  width: 224px;
+  height: 224px;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  color: #fff;
+  cursor: pointer;
+  isolation: isolate;
+  font-size: 19px;
+  font-weight: 650;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  background:
+    radial-gradient(circle at 42% 29%, rgba(255, 255, 255, 0.33), transparent 19%),
+    radial-gradient(circle at 52% 130%, rgba(255, 76, 110, 0.9), transparent 59%),
+    linear-gradient(145deg, #dc304f, #850e2d 65%, #4a0619);
+  box-shadow:
+    inset 0 5px 18px rgba(255, 255, 255, 0.19),
+    inset 0 -21px 35px rgba(49, 0, 14, 0.54),
+    0 26px 67px rgba(0, 0, 0, 0.69),
+    0 0 0 10px rgba(135, 25, 53, 0.84),
+    0 0 0 13px rgba(61, 194, 255, 0.97),
+    0 0 29px 15px rgba(43, 169, 255, 0.36);
+  will-change: transform;
+}
+
+.contact-button::before {
+  content: "";
+  position: absolute;
+  inset: -42px;
+  z-index: -1;
+  border-radius: 50%;
+  opacity: 0.18;
+  background:
+    repeating-conic-gradient(
+      from 3deg,
+      transparent 0 5deg,
+      rgba(58, 185, 255, 0.98) 5.2deg 5.8deg,
+      transparent 6.05deg 12.5deg
+    );
+  filter:
+    blur(0.3px)
+    drop-shadow(0 0 8px rgba(42, 176, 255, 0.96));
+  -webkit-mask: radial-gradient(circle, transparent 0 48%, #000 53% 100%);
+  mask: radial-gradient(circle, transparent 0 48%, #000 53% 100%);
+  transform: scale(0.76);
+  animation: contact-rotate 6.4s linear infinite;
+  transition: opacity 0.3s ease, transform 0.42s cubic-bezier(.18,.84,.2,1);
+}
+
+.contact-button::after {
+  content: "";
+  position: absolute;
+  inset: -88px;
+  z-index: -2;
+  border-radius: 50%;
+  opacity: 0.18;
+  background: radial-gradient(circle, rgba(54, 184, 255, 0.35), transparent 65%);
+  filter: blur(18px);
+  transform: scale(0.75);
+  transition: opacity 0.35s ease, transform 0.45s ease;
+}
+
+.contact-button.is-hot,
+.contact-button:hover,
+.contact-button:focus-visible {
+  outline: none;
+  filter: saturate(1.18) brightness(1.08);
+  box-shadow:
+    inset 0 5px 19px rgba(255, 255, 255, 0.23),
+    inset 0 -21px 35px rgba(49, 0, 14, 0.58),
+    0 30px 80px rgba(0, 0, 0, 0.74),
+    0 0 0 10px rgba(145, 29, 58, 0.91),
+    0 0 0 13px rgba(101, 220, 255, 1),
+    0 0 32px 14px rgba(42, 176, 255, 0.45);
+}
+
+.contact-button.is-hot::before,
+.contact-button:hover::before,
+.contact-button:focus-visible::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.contact-button.is-hot::after,
+.contact-button:hover::after,
+.contact-button:focus-visible::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+
+/* --------------------------------------------------------------------------
+   APPS CARD — dedicated green animation layer
+   -------------------------------------------------------------------------- */
+
+.apps-local-energy {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.apps-card .apps-icon {
+  transform-origin: center;
+}
+
+.apps-card .apps-grid,
+.apps-card .app-tile {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.apps-card .app-link {
+  opacity: 0.20;
+  stroke-dasharray: 3 8;
+  stroke-dashoffset: 0;
+}
+
+.apps-card .app-core {
+  filter:
+    drop-shadow(0 0 4px rgba(var(--accent-rgb), 0.92))
+    drop-shadow(0 0 12px rgba(var(--accent-rgb), 0.46));
+}
+
+.apps-card.is-active .apps-icon,
+.apps-card:hover .apps-icon,
+.apps-card:focus-visible .apps-icon {
+  animation: apps-icon-float 1.85s ease-in-out infinite;
+}
+
+.apps-card.is-active .app-link,
+.apps-card:hover .app-link,
+.apps-card:focus-visible .app-link {
+  opacity: 0.72;
+  animation: apps-link-flow 0.85s linear infinite;
+}
+
+.apps-card.is-active .app-tile,
+.apps-card:hover .app-tile,
+.apps-card:focus-visible .app-tile {
+  animation: apps-tile-live 1.32s cubic-bezier(.2,.8,.2,1) infinite;
+}
+
+.apps-card.is-active .tile-1,
+.apps-card:hover .tile-1,
+.apps-card:focus-visible .tile-1 { animation-delay: -0.08s; }
+
+.apps-card.is-active .tile-2,
+.apps-card:hover .tile-2,
+.apps-card:focus-visible .tile-2 { animation-delay: -0.22s; }
+
+.apps-card.is-active .tile-3,
+.apps-card:hover .tile-3,
+.apps-card:focus-visible .tile-3 { animation-delay: -0.36s; }
+
+.apps-card.is-active .tile-4,
+.apps-card:hover .tile-4,
+.apps-card:focus-visible .tile-4 { animation-delay: -0.50s; }
+
+.apps-card.is-active .tile-5,
+.apps-card:hover .tile-5,
+.apps-card:focus-visible .tile-5 {
+  animation-name: apps-core-charge;
+  animation-duration: 0.92s;
+  animation-delay: -0.22s;
+}
+
+.apps-card.is-active .tile-6,
+.apps-card:hover .tile-6,
+.apps-card:focus-visible .tile-6 { animation-delay: -0.64s; }
+
+.apps-card.is-active .tile-7,
+.apps-card:hover .tile-7,
+.apps-card:focus-visible .tile-7 { animation-delay: -0.78s; }
+
+.apps-card.is-active .tile-8,
+.apps-card:hover .tile-8,
+.apps-card:focus-visible .tile-8 { animation-delay: -0.92s; }
+
+.apps-card.is-active .tile-9,
+.apps-card:hover .tile-9,
+.apps-card:focus-visible .tile-9 { animation-delay: -1.06s; }
+
+.apps-card.is-active .icon-reactor::before,
+.apps-card:hover .icon-reactor::before,
+.apps-card:focus-visible .icon-reactor::before {
+  box-shadow:
+    inset 0 0 34px rgba(var(--accent-rgb), 0.22),
+    0 0 14px rgba(var(--accent-rgb), 0.34),
+    0 0 50px rgba(var(--accent-rgb), 0.18),
+    0 0 80px rgba(var(--accent-rgb), 0.08);
+}
+
+.apps-card.is-active .reactor-ring,
+.apps-card:hover .reactor-ring,
+.apps-card:focus-visible .reactor-ring {
+  border-style: solid;
+  box-shadow:
+    inset 0 0 16px rgba(var(--accent-rgb), 0.13),
+    0 0 22px rgba(var(--accent-rgb), 0.22);
+  animation:
+    reactor-spin 2.7s linear infinite,
+    apps-reactor-breathe 1.35s ease-in-out infinite;
+}
+
+@keyframes apps-icon-float {
+  0%,
+  100% {
+    transform: translateY(-8px) scale(1.085) rotateZ(-0.6deg);
+  }
+  50% {
+    transform: translateY(-13px) scale(1.115) rotateZ(0.8deg);
+  }
+}
+
+@keyframes apps-link-flow {
+  to {
+    stroke-dashoffset: -44;
+  }
+}
+
+@keyframes apps-tile-live {
+  0%,
+  100% {
+    transform: translateY(0) scale(0.92);
+    opacity: 0.48;
+  }
+  38% {
+    transform: translateY(-4px) scale(1.12);
+    opacity: 1;
+  }
+  66% {
+    transform: translateY(1px) scale(1.01);
+    opacity: 0.76;
+  }
+}
+
+@keyframes apps-core-charge {
+  0%,
+  100% {
+    transform: scale(0.90) rotate(0deg);
+    opacity: 0.72;
+    filter:
+      drop-shadow(0 0 4px rgba(var(--accent-rgb), 0.80))
+      drop-shadow(0 0 10px rgba(var(--accent-rgb), 0.38));
+  }
+  48% {
+    transform: scale(1.28) rotate(4deg);
+    opacity: 1;
+    filter:
+      drop-shadow(0 0 7px rgba(var(--accent-rgb), 1))
+      drop-shadow(0 0 22px rgba(var(--accent-rgb), 0.92))
+      drop-shadow(0 0 42px rgba(var(--accent-rgb), 0.56));
+  }
+}
+
+@keyframes apps-reactor-breathe {
+  0%,
+  100% {
+    scale: 0.96;
+    opacity: 0.55;
+  }
+  50% {
+    scale: 1.06;
+    opacity: 1;
+  }
+}
+
+
+
+/* --------------------------------------------------------------------------
+   REFERENCE CLICK FX — per-card effect language from the supplied motion clip
+   -------------------------------------------------------------------------- */
+
+.reference-fx {
+  position: absolute;
+  inset: -110px -85px;
+  z-index: 9;
+  width: calc(100% + 170px);
+  height: calc(100% + 220px);
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+.energy-card.fx-plasma-afterglow {
+  border-color: rgba(255, 87, 103, 1) !important;
+  box-shadow:
+    inset 0 0 24px rgba(255, 44, 72, 0.24),
+    0 0 8px rgba(255, 72, 89, 0.96),
+    0 0 30px rgba(255, 36, 67, 0.56),
+    0 0 82px rgba(255, 21, 54, 0.30) !important;
+}
+
+.energy-card.fx-electric-afterglow {
+  border-color: rgba(119, 255, 239, 1) !important;
+  box-shadow:
+    inset 0 0 24px rgba(16, 255, 225, 0.19),
+    0 0 8px rgba(115, 255, 241, 1),
+    0 0 34px rgba(0, 245, 217, 0.62),
+    0 0 96px rgba(0, 224, 198, 0.31) !important;
+}
+
+.energy-card.fx-supernova-afterglow {
+  border-color: rgba(113, 195, 255, 1) !important;
+  box-shadow:
+    inset 0 0 28px rgba(44, 149, 255, 0.24),
+    0 0 9px rgba(127, 208, 255, 1),
+    0 0 38px rgba(39, 142, 255, 0.67),
+    0 0 122px rgba(20, 107, 255, 0.38) !important;
+}
+
+.energy-card.is-reference-bursting .edge-runner {
+  opacity: 1;
+  animation-play-state: running;
+}
+
+@media (max-width: 1020px) {
+  .reference-fx {
+    inset: -80px -65px;
+    width: calc(100% + 130px);
+    height: calc(100% + 160px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reference-fx {
+    display: none !important;
+  }
+}
+
+
+/* Reference-driven click FX — native transparent VP9 video compositor.
+   No WebGL video texture upload: this works when the HTML is opened directly
+   from a local file:// URL as well as from a normal web server. */
+.reference-video-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  width: 100vw;
+  height: 100vh;
+  overflow: visible;
+  pointer-events: none;
+  background: transparent !important;
+}
+
+.reference-alpha-video {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 0;
+  display: none;
+  width: 1px;
+  height: 1px;
+  max-width: none;
+  object-fit: fill;
+  pointer-events: none;
+  background: transparent !important;
+  mix-blend-mode: screen;
+  transform: translate3d(-9999px, -9999px, 0);
+  transform-origin: 0 0;
+  backface-visibility: hidden;
+  will-change: transform, width, height, filter;
+  contain: layout style paint;
+}
+
+.reference-alpha-video[data-kind="plasma"] {
+  --fx-glow: rgba(255, 35, 72, 0.72);
+  filter:
+    brightness(1.30)
+    saturate(1.22)
+    contrast(1.04)
+    drop-shadow(0 0 8px var(--fx-glow))
+    drop-shadow(0 0 23px var(--fx-glow));
+}
+
+.reference-alpha-video[data-kind="electric"] {
+  --fx-glow: rgba(0, 255, 220, 0.70);
+  filter:
+    brightness(1.28)
+    saturate(1.20)
+    contrast(1.05)
+    drop-shadow(0 0 7px var(--fx-glow))
+    drop-shadow(0 0 20px var(--fx-glow));
+}
+
+.reference-alpha-video[data-kind="supernova"] {
+  --fx-glow: rgba(35, 145, 255, 0.74);
+  filter:
+    brightness(1.34)
+    saturate(1.18)
+    contrast(1.03)
+    drop-shadow(0 0 10px var(--fx-glow))
+    drop-shadow(0 0 28px var(--fx-glow));
+}
+
+@media (max-width: 580px) {
+  .reference-alpha-video[data-kind="plasma"] {
+    filter: brightness(1.24) saturate(1.18) contrast(1.03)
+      drop-shadow(0 0 6px var(--fx-glow))
+      drop-shadow(0 0 16px var(--fx-glow));
+  }
+
+  .reference-alpha-video[data-kind="electric"] {
+    filter: brightness(1.24) saturate(1.16) contrast(1.04)
+      drop-shadow(0 0 6px var(--fx-glow))
+      drop-shadow(0 0 15px var(--fx-glow));
+  }
+
+  .reference-alpha-video[data-kind="supernova"] {
+    filter: brightness(1.28) saturate(1.15) contrast(1.02)
+      drop-shadow(0 0 7px var(--fx-glow))
+      drop-shadow(0 0 19px var(--fx-glow));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reference-video-layer {
+    display: none !important;
+  }
+}
+
+/* Keep the hero copy readable while large supernova rays travel behind it. */
+.ultra-kicker,
+.ultra-title,
+.ultra-copy,
+.section-beam {
+  position: relative;
+  z-index: 3;
+}
+
+@property --edge-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes beam-run {
+  0%, 100% { left: -10%; opacity: 0.16; }
+  48%, 54% { opacity: 1; }
+  100% { left: 94%; }
+}
+
+@keyframes plasma-turn {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes edge-run {
+  to { --edge-angle: 360deg; }
+}
+
+@keyframes circuit-flow {
+  to { stroke-dashoffset: -120; }
+}
+
+@keyframes status-pulse {
+  0%, 100% { opacity: 0.35; transform: scale(0.76); }
+  50% { opacity: 1; transform: scale(1.22); }
+}
+
+@keyframes reactor-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes contact-rotate {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 1020px) {
+  .ultra-wrap {
+    width: min(780px, calc(100% - 34px));
+  }
+
+  .cards-scene {
+    padding-inline: 32px;
+  }
+
+  .cards-grid {
+    grid-template-columns: 1fr;
+    max-width: 590px;
+    margin: 0 auto;
+  }
+
+  .energy-card,
+  .card-content {
+    min-height: 430px;
+  }
+
+  .stage-energy {
+    inset: -80px -65px;
+    width: calc(100% + 130px);
+    height: calc(100% + 160px);
+  }
+}
+
+@media (max-width: 580px) {
+  .ultra-wrap {
+    width: min(100% - 22px, 540px);
+    padding-top: 70px;
+  }
+
+  .ultra-kicker {
+    font-size: 8px;
+    letter-spacing: 0.20em;
+  }
+
+  .ultra-kicker::before,
+  .ultra-kicker::after {
+    width: 29px;
+  }
+
+  .ultra-copy {
+    line-height: 1.64;
+  }
+
+  .section-beam {
+    margin-bottom: 28px;
+  }
+
+  .cards-scene {
+    padding: 30px 0 58px;
+  }
+
+  .cards-grid {
+    gap: 20px;
+  }
+
+  .energy-card,
+  .card-content {
+    min-height: 410px;
+  }
+
+  .card-content {
+    padding: 26px 22px 23px;
+  }
+
+  .icon-reactor {
+    margin-top: 5px;
+  }
+
+  .contact-zone {
+    min-height: 390px;
+  }
+
+  .contact-button {
+    width: 190px;
+    height: 190px;
+    font-size: 16px;
+  }
+}
+
+@media (hover: none) {
+  .interaction-copy .desktop {
+    display: none;
+  }
+
+  .interaction-copy::after {
+    content: "Tik op een kaart om de energie te activeren";
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .stage-energy,
+  .ambient-field,
+  .contact-energy {
+    display: none !important;
+  }
+
+  .energy-card,
+  .card-content,
+  .contact-button {
+    transform: none !important;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<main class="ultra-page">
+  <canvas class="ambient-field" aria-hidden="true"></canvas>
+
+  <section class="ultra-wrap" aria-labelledby="ultra-title">
+    <div class="ultra-kicker">Nucleairs digital systems</div>
+
+    <h1 class="ultra-title" id="ultra-title">
+      Wat we <span class="gradient-word">bouwen</span>
+    </h1>
+
+    <p class="ultra-copy">
+      Inventieve AI-ondersteunende ontwikkelingsservices om je bedrijf
+      naar een hoger niveau te tillen.
+    </p>
+
+    <div class="section-beam" aria-hidden="true"></div>
+
+    <div class="cards-scene">
+      <canvas class="stage-energy" aria-hidden="true"></canvas>
+      <canvas class="reference-fx" aria-hidden="true" style="display:none"></canvas>
+      <div class="reference-video-layer" aria-hidden="true"></div>
+
+      <div class="cards-grid">
+        <article class="energy-card landing-card" data-effect="supernova" tabindex="0" style="--accent-rgb: 36, 139, 255">
+          <div class="card-plasma" aria-hidden="true"></div>
+          <div class="card-spotlight" aria-hidden="true"></div>
+          <div class="card-sheen" aria-hidden="true"></div>
+          <div class="edge-runner" aria-hidden="true"></div>
+          <div class="inner-glass" aria-hidden="true"></div>
+          <span class="corner tl" aria-hidden="true"></span>
+          <span class="corner tr" aria-hidden="true"></span>
+          <span class="corner bl" aria-hidden="true"></span>
+          <span class="corner br" aria-hidden="true"></span>
+
+          <svg class="circuit-map" viewBox="0 0 400 456" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M16 86H94L122 58H214"/>
+            <path d="M384 118H314L284 148H229"/>
+            <path d="M18 344H92L126 310H176"/>
+            <path d="M382 372H309L273 336H220"/>
+            <path d="M54 206H92L108 222H139"/>
+            <path d="M346 234H309L289 214H258"/>
+          </svg>
+
+          <div class="card-content">
+            <span class="card-badge">Conversion</span>
+
+            <div class="icon-reactor">
+              <span class="reactor-ring" aria-hidden="true"></span>
+              <svg class="card-icon" viewBox="0 0 150 108" fill="none" aria-hidden="true">
+                <rect x="13" y="11" width="124" height="86" rx="10" stroke="currentColor" stroke-width="2.2"/>
+                <path d="M13 31h124" stroke="currentColor" stroke-width="2.2"/>
+                <circle cx="25" cy="21" r="3.2" fill="currentColor"/>
+                <circle cx="36" cy="21" r="3.2" fill="currentColor" opacity=".66"/>
+                <circle cx="47" cy="21" r="3.2" fill="currentColor" opacity=".38"/>
+                <g class="icon-detail">
+                  <rect x="27" y="43" width="54" height="34" rx="4.5" stroke="currentColor" opacity=".82"/>
+                  <path d="M32 72l15-15 10 8 9-8 11 15" stroke="currentColor" stroke-width="2.2"/>
+                  <circle cx="69" cy="53" r="4.3" fill="currentColor"/>
+                </g>
+                <path d="M93 45h29M93 54h22M93 63h27" stroke="currentColor" stroke-width="2.2" opacity=".82"/>
+                <rect x="99" y="73" width="23" height="8" rx="4" fill="currentColor"/>
+              </svg>
+            </div>
+
+            <h2>Landingspage</h2>
+            <div class="card-rule"></div>
+            <p>
+              Snelle, conversiegerichte pagina’s met een premium visuele
+              ervaring en duidelijke call-to-actions.
+            </p>
+
+            <div class="card-action">
+              <span>Bekijk mogelijkheden</span>
+              <span class="action-orb" aria-hidden="true">↗</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="energy-card website-card" data-effect="plasma" tabindex="0" style="--accent-rgb: 255, 49, 88">
+          <div class="card-plasma" aria-hidden="true"></div>
+          <div class="card-spotlight" aria-hidden="true"></div>
+          <div class="card-sheen" aria-hidden="true"></div>
+          <div class="edge-runner" aria-hidden="true"></div>
+          <div class="inner-glass" aria-hidden="true"></div>
+          <span class="corner tl" aria-hidden="true"></span>
+          <span class="corner tr" aria-hidden="true"></span>
+          <span class="corner bl" aria-hidden="true"></span>
+          <span class="corner br" aria-hidden="true"></span>
+
+          <svg class="circuit-map" viewBox="0 0 400 456" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M16 86H94L122 58H214"/>
+            <path d="M384 118H314L284 148H229"/>
+            <path d="M18 344H92L126 310H176"/>
+            <path d="M382 372H309L273 336H220"/>
+            <path d="M54 206H92L108 222H139"/>
+            <path d="M346 234H309L289 214H258"/>
+          </svg>
+
+          <div class="card-content">
+            <span class="card-badge">Digital presence</span>
+
+            <div class="icon-reactor">
+              <span class="reactor-ring" aria-hidden="true"></span>
+              <svg class="card-icon" viewBox="0 0 150 108" fill="none" aria-hidden="true">
+                <rect x="13" y="11" width="124" height="86" rx="10" stroke="currentColor" stroke-width="2.2"/>
+                <path d="M13 31h124" stroke="currentColor" stroke-width="2.2"/>
+                <circle cx="25" cy="21" r="3.2" fill="currentColor"/>
+                <circle cx="36" cy="21" r="3.2" fill="currentColor" opacity=".66"/>
+                <circle cx="47" cy="21" r="3.2" fill="currentColor" opacity=".38"/>
+                <g class="icon-detail">
+                  <rect x="27" y="42" width="43" height="26" rx="4" stroke="currentColor"/>
+                  <rect x="80" y="42" width="43" height="26" rx="4" stroke="currentColor"/>
+                  <path d="M27 76h96M27 83h67" stroke="currentColor" stroke-width="2.2"/>
+                </g>
+              </svg>
+            </div>
+
+            <h2>Website</h2>
+            <div class="card-rule"></div>
+            <p>
+              Complete websites met een sterke structuur, moderne interacties
+              en schaalbare code voor groei.
+            </p>
+
+            <div class="card-action">
+              <span>Bekijk mogelijkheden</span>
+              <span class="action-orb" aria-hidden="true">↗</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="energy-card apps-card" data-effect="electric" tabindex="0" style="--accent-rgb: 15, 220, 199">
+          <div class="card-plasma" aria-hidden="true"></div>
+          <div class="card-spotlight" aria-hidden="true"></div>
+          <div class="card-sheen" aria-hidden="true"></div>
+          <div class="edge-runner" aria-hidden="true"></div>
+          <div class="inner-glass" aria-hidden="true"></div>
+          <canvas class="apps-local-energy" aria-hidden="true"></canvas>
+          <span class="corner tl" aria-hidden="true"></span>
+          <span class="corner tr" aria-hidden="true"></span>
+          <span class="corner bl" aria-hidden="true"></span>
+          <span class="corner br" aria-hidden="true"></span>
+
+          <svg class="circuit-map" viewBox="0 0 400 456" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M16 86H94L122 58H214"/>
+            <path d="M384 118H314L284 148H229"/>
+            <path d="M18 344H92L126 310H176"/>
+            <path d="M382 372H309L273 336H220"/>
+            <path d="M54 206H92L108 222H139"/>
+            <path d="M346 234H309L289 214H258"/>
+          </svg>
+
+          <div class="card-content">
+            <span class="card-badge">Custom systems</span>
+
+            <div class="icon-reactor">
+              <span class="reactor-ring" aria-hidden="true"></span>
+              <svg class="card-icon apps-icon" viewBox="0 0 150 108" fill="currentColor" aria-hidden="true">
+                <g class="apps-links" fill="none" stroke="currentColor" stroke-width="1.3">
+                  <path class="app-link" d="M55 25H63"/>
+                  <path class="app-link" d="M87 25H95"/>
+                  <path class="app-link" d="M43 37V45"/>
+                  <path class="app-link" d="M75 37V45"/>
+                  <path class="app-link" d="M107 37V45"/>
+                  <path class="app-link" d="M55 57H63"/>
+                  <path class="app-link" d="M87 57H95"/>
+                  <path class="app-link" d="M43 69V77"/>
+                  <path class="app-link" d="M75 69V77"/>
+                  <path class="app-link" d="M107 69V77"/>
+                </g>
+
+                <g class="icon-detail apps-grid" opacity=".96">
+                  <rect class="app-tile tile-1" x="31" y="13" width="24" height="24" rx="5"/>
+                  <rect class="app-tile tile-2" x="63" y="13" width="24" height="24" rx="5" opacity=".58"/>
+                  <rect class="app-tile tile-3" x="95" y="13" width="24" height="24" rx="5" opacity=".80"/>
+                  <rect class="app-tile tile-4" x="31" y="45" width="24" height="24" rx="5" opacity=".55"/>
+                  <rect class="app-tile tile-5 app-core" x="63" y="45" width="24" height="24" rx="5"/>
+                  <rect class="app-tile tile-6" x="95" y="45" width="24" height="24" rx="5" opacity=".52"/>
+                  <rect class="app-tile tile-7" x="31" y="77" width="24" height="18" rx="5" opacity=".80"/>
+                  <rect class="app-tile tile-8" x="63" y="77" width="24" height="18" rx="5" opacity=".60"/>
+                  <rect class="app-tile tile-9" x="95" y="77" width="24" height="18" rx="5"/>
+                </g>
+              </svg>
+            </div>
+
+            <h2>Apps</h2>
+            <div class="card-rule"></div>
+            <p>
+              Custom webapplicaties, dashboards en digitale producten die
+              processen vereenvoudigen en resultaat leveren.
+            </p>
+
+            <div class="card-action">
+              <span>Bekijk mogelijkheden</span>
+              <span class="action-orb" aria-hidden="true">↗</span>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="interaction-copy">
+        <span class="dot" aria-hidden="true"></span>
+        <span class="desktop">Beweeg over een kaart om de energie te activeren</span>
+      </div>
+    </div>
+
+    <div class="contact-zone">
+      <canvas class="contact-energy" aria-hidden="true"></canvas>
+
+      <div class="contact-stack">
+        <div class="contact-label">Klaar om te beginnen?</div>
+        <button class="contact-button" type="button">Contact</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pixi.js@8.19.0/dist/pixi.min.js"></script>
+  <script>
+
+(() => {
+  "use strict";
+
+  const gsapReady = typeof window.gsap !== "undefined";
+  const gsap = window.gsap;
+  const ScrollTrigger = window.ScrollTrigger;
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const coarse = window.matchMedia("(pointer: coarse)").matches;
+
+  if (gsapReady && ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+  }
+
+  const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+  const rnd = (min, max) => min + Math.random() * (max - min);
+
+  const buildLightningPath = (
+    start,
+    end,
+    displacement = 18,
+    roughness = 0.54,
+    iterations = 5
+  ) => {
+    let points = [start, end];
+
+    for (let level = 0; level < iterations; level += 1) {
+      const next = [points[0]];
+
+      for (let index = 0; index < points.length - 1; index += 1) {
+        const a = points[index];
+        const b = points[index + 1];
+        const midX = (a.x + b.x) * 0.5;
+        const midY = (a.y + b.y) * 0.5;
+        const dx = b.x - a.x;
+        const dy = b.y - a.y;
+        const length = Math.hypot(dx, dy) || 1;
+        const normalX = -dy / length;
+        const normalY = dx / length;
+        const offset = rnd(-displacement, displacement);
+
+        next.push({
+          x: midX + normalX * offset,
+          y: midY + normalY * offset
+        });
+
+        next.push(b);
+      }
+
+      points = next;
+      displacement *= roughness;
+    }
+
+    return points;
+  };
+  const cards = Array.from(document.querySelectorAll(".energy-card"));
+  const grid = document.querySelector(".cards-grid");
+  const scene = document.querySelector(".cards-scene");
+
+  document.addEventListener(
+    "pointermove",
+    (event) => {
+      document.documentElement.style.setProperty("--mx", `${event.clientX}px`);
+      document.documentElement.style.setProperty("--my", `${event.clientY}px`);
+    },
+    { passive: true }
+  );
+
+  class AmbientField {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.ctx = canvas.getContext("2d", { alpha: true });
+      this.dpr = Math.min(window.devicePixelRatio || 1, 1.35);
+      this.stars = [];
+      this.width = 1;
+      this.height = 1;
+      this.resize = this.resize.bind(this);
+      window.addEventListener("resize", this.resize, { passive: true });
+      this.resize();
+
+      if (!reduceMotion) {
+        requestAnimationFrame((t) => this.frame(t));
+      }
+    }
+
+    resize() {
+      const rect = this.canvas.getBoundingClientRect();
+      this.width = Math.max(1, rect.width);
+      this.height = Math.max(1, rect.height);
+      this.canvas.width = Math.round(this.width * this.dpr);
+      this.canvas.height = Math.round(this.height * this.dpr);
+      this.ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
+
+      const count = clamp(Math.floor(this.width / 14), 50, 120);
+      this.stars = Array.from({ length: count }, () => ({
+        x: Math.random() * this.width,
+        y: Math.random() * this.height,
+        r: rnd(0.25, 1.05),
+        a: rnd(0.05, 0.38),
+        tw: rnd(0.0015, 0.005),
+        phase: rnd(0, Math.PI * 2),
+        drift: rnd(-0.018, 0.018)
+      }));
+    }
+
+    frame(time) {
+      const ctx = this.ctx;
+      ctx.clearRect(0, 0, this.width, this.height);
+
+      for (const star of this.stars) {
+        star.y += star.drift;
+        if (star.y < 0) star.y = this.height;
+        if (star.y > this.height) star.y = 0;
+
+        const alpha = Math.max(
+          0,
+          star.a + Math.sin(time * star.tw + star.phase) * star.a * 0.55
+        );
+
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(126, 202, 255, ${alpha})`;
+        ctx.shadowBlur = star.r > 0.75 ? 8 : 0;
+        ctx.shadowColor = "rgba(48, 159, 255, .75)";
+        ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      requestAnimationFrame((t) => this.frame(t));
+    }
+  }
+
+  class StageEnergy {
+    constructor(canvas, stage, cardElements) {
+      this.canvas = canvas;
+      this.stage = stage;
+      this.cards = cardElements;
+      this.ctx = canvas.getContext("2d", { alpha: true });
+      this.dpr = Math.min(window.devicePixelRatio || 1, 1.35);
+      this.width = 1;
+      this.height = 1;
+      this.activeCard = null;
+      this.charge = 0;
+      this.targetCharge = 0;
+      this.running = false;
+      this.bolts = [];
+      this.sparks = [];
+      this.waves = [];
+      this.motes = [];
+      this.lastTime = performance.now();
+      this.lastAmbientArc = 0;
+      this.resizeObserver = new ResizeObserver(() => this.resize());
+      this.resizeObserver.observe(stage);
+      this.resize();
+
+    }
+
+    resize() {
+      const rect = this.canvas.getBoundingClientRect();
+      this.width = Math.max(1, rect.width);
+      this.height = Math.max(1, rect.height);
+      this.canvas.width = Math.round(this.width * this.dpr);
+      this.canvas.height = Math.round(this.height * this.dpr);
+      this.canvas.style.width = `${this.width}px`;
+      this.canvas.style.height = `${this.height}px`;
+      this.ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
+    }
+
+    cardRect(card) {
+      const canvasRect = this.canvas.getBoundingClientRect();
+      const rect = card.getBoundingClientRect();
+
+      return {
+        x: rect.left - canvasRect.left,
+        y: rect.top - canvasRect.top,
+        w: rect.width,
+        h: rect.height,
+        radius: 30,
+        rgb:
+          getComputedStyle(card).getPropertyValue("--accent-rgb").trim() ||
+          "40, 143, 255"
+      };
+    }
+
+    edgePoint(rect, t) {
+      const r = Math.min(rect.radius, rect.w / 2, rect.h / 2);
+      const top = rect.w - r * 2;
+      const side = rect.h - r * 2;
+      const q = Math.PI * r * 0.5;
+      const total = top * 2 + side * 2 + q * 4;
+      let d = (((t % 1) + 1) % 1) * total;
+
+      const arc = (cx, cy, start, dist) => {
+        const angle = start + dist / r;
+
+        return {
+          x: cx + Math.cos(angle) * r,
+          y: cy + Math.sin(angle) * r,
+          nx: Math.cos(angle),
+          ny: Math.sin(angle)
+        };
+      };
+
+      if (d < top) {
+        return { x: rect.x + r + d, y: rect.y, nx: 0, ny: -1 };
+      }
+
+      d -= top;
+
+      if (d < q) {
+        return arc(rect.x + rect.w - r, rect.y + r, -Math.PI / 2, d);
+      }
+
+      d -= q;
+
+      if (d < side) {
+        return { x: rect.x + rect.w, y: rect.y + r + d, nx: 1, ny: 0 };
+      }
+
+      d -= side;
+
+      if (d < q) {
+        return arc(rect.x + rect.w - r, rect.y + rect.h - r, 0, d);
+      }
+
+      d -= q;
+
+      if (d < top) {
+        return {
+          x: rect.x + rect.w - r - d,
+          y: rect.y + rect.h,
+          nx: 0,
+          ny: 1
+        };
+      }
+
+      d -= top;
+
+      if (d < q) {
+        return arc(rect.x + r, rect.y + rect.h - r, Math.PI / 2, d);
+      }
+
+      d -= q;
+
+      if (d < side) {
+        return {
+          x: rect.x,
+          y: rect.y + rect.h - r - d,
+          nx: -1,
+          ny: 0
+        };
+      }
+
+      d -= side;
+
+      return arc(rect.x + r, rect.y + r, Math.PI, d);
+    }
+
+    activate(card) {
+      this.start();
+      const changedCard = this.activeCard !== card;
+      this.activeCard = card;
+      this.targetCharge = 1;
+
+      if (changedCard) {
+        const rect = this.cardRect(card);
+
+        for (let index = 0; index < 3; index += 1) {
+          this.spawnEdgeArc(rect);
+        }
+
+        for (let index = 0; index < 12; index += 1) {
+          this.spawnSpark(rect, rnd(0.42, 0.72));
+        }
+      }
+    }
+
+    deactivate(card) {
+      if (this.activeCard === card) {
+        this.activeCard = null;
+        this.targetCharge = 0;
+      }
+    }
+
+    bigBurst(strength = 1) {
+      if (!this.activeCard || reduceMotion) return;
+
+      const rect = this.cardRect(this.activeCard);
+
+      this.waves.push({
+        x: rect.x + rect.w / 2,
+        y: rect.y + rect.h / 2,
+        rx: rect.w * 0.44,
+        ry: rect.h * 0.42,
+        alpha: 0.42,
+        speed: 4.3 * strength,
+        rgb: rect.rgb
+      });
+
+      const rayCount = Math.max(5, Math.floor(8 * strength));
+
+      for (let index = 0; index < rayCount; index += 1) {
+        const t =
+          index / rayCount +
+          rnd(-0.018, 0.018);
+
+        this.spawnRadialBolt(
+          rect,
+          t,
+          rnd(52, 102) * strength,
+          rnd(0.58, 0.88)
+        );
+      }
+
+      const sparkCount = Math.floor(46 * strength);
+
+      for (let index = 0; index < sparkCount; index += 1) {
+        this.spawnSpark(
+          rect,
+          rnd(0.45, 0.88) * strength
+        );
+      }
+
+      for (let index = 0; index < 7 * strength; index += 1) {
+        this.spawnMote(rect, rnd(0.55, 0.9));
+      }
+    }
+
+    spawnMote(rect, strength = 1) {
+      const p = this.edgePoint(rect, Math.random());
+
+      this.motes.push({
+        x: p.x + p.nx * rnd(8, 24),
+        y: p.y + p.ny * rnd(8, 24),
+        vx: p.nx * rnd(0.08, 0.5),
+        vy: p.ny * rnd(0.08, 0.5),
+        r: rnd(8, 20) * strength,
+        alpha: rnd(0.08, 0.23),
+        decay: rnd(0.0018, 0.0052),
+        rgb: rect.rgb,
+        phase: rnd(0, Math.PI * 2)
+      });
+    }
+
+    spawnSpark(rect, strength = 1) {
+      const p = this.edgePoint(rect, Math.random());
+      const tangentX = -p.ny;
+      const tangentY = p.nx;
+      const outward = rnd(0.9, 5.3) * strength;
+      const tangent = rnd(-1.5, 1.5) * strength;
+
+      this.sparks.push({
+        x: p.x,
+        y: p.y,
+        vx: p.nx * outward + tangentX * tangent,
+        vy: p.ny * outward + tangentY * tangent,
+        r: rnd(0.4, 1.9) * strength,
+        alpha: rnd(0.52, 1),
+        decay: rnd(0.013, 0.034),
+        rgb: rect.rgb,
+        trail: []
+      });
+    }
+
+    makeLightning(start, end, rgb, strength = 1) {
+      const distance =
+        Math.hypot(end.x - start.x, end.y - start.y) || 1;
+
+      const points = buildLightningPath(
+        start,
+        end,
+        Math.min(18, distance * 0.13) * strength,
+        0.50,
+        distance > 110 ? 5 : 4
+      );
+
+      this.bolts.push({
+        points,
+        alpha: rnd(0.58, 0.82),
+        decay: rnd(0.072, 0.115),
+        width: rnd(0.48, 0.92) * strength,
+        rgb,
+        branch: Math.random() > 0.76
+      });
+    }
+
+    spawnRadialBolt(rect, t, length, strength = 1) {
+      const start = this.edgePoint(rect, t);
+      const angleJitter = rnd(-0.24, 0.24);
+      const nx =
+        start.nx * Math.cos(angleJitter) -
+        start.ny * Math.sin(angleJitter);
+      const ny =
+        start.nx * Math.sin(angleJitter) +
+        start.ny * Math.cos(angleJitter);
+
+      const end = {
+        x: start.x + nx * length,
+        y: start.y + ny * length
+      };
+
+      this.makeLightning(start, end, rect.rgb, strength);
+    }
+
+    spawnEdgeArc(rect) {
+      const a = Math.random();
+      const direction = Math.random() > 0.5 ? 1 : -1;
+      const b = a + direction * rnd(0.045, 0.13);
+      const start = this.edgePoint(rect, a);
+      const end = this.edgePoint(rect, b);
+
+      this.makeLightning(start, end, rect.rgb, rnd(0.55, 0.95));
+    }
+
+    drawBolt(bolt) {
+      const ctx = this.ctx;
+      const alpha = Math.max(0, bolt.alpha);
+
+      ctx.save();
+      ctx.lineJoin = "round";
+      ctx.lineCap = "round";
+
+      ctx.beginPath();
+      ctx.moveTo(bolt.points[0].x, bolt.points[0].y);
+
+      for (let i = 1; i < bolt.points.length; i += 1) {
+        ctx.lineTo(bolt.points[i].x, bolt.points[i].y);
+      }
+
+      ctx.strokeStyle = `rgba(${bolt.rgb}, ${alpha * 0.21})`;
+      ctx.lineWidth = bolt.width * 5.5;
+      ctx.shadowBlur = 14;
+      ctx.shadowColor = `rgba(${bolt.rgb}, .98)`;
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(bolt.points[0].x, bolt.points[0].y);
+
+      for (let i = 1; i < bolt.points.length; i += 1) {
+        ctx.lineTo(bolt.points[i].x, bolt.points[i].y);
+      }
+
+      ctx.strokeStyle = `rgba(242, 252, 255, ${alpha})`;
+      ctx.lineWidth = bolt.width;
+      ctx.shadowBlur = 4;
+      ctx.shadowColor = `rgba(${bolt.rgb}, 1)`;
+      ctx.stroke();
+
+      if (bolt.branch && bolt.points.length > 7) {
+        const pivotIndex = Math.floor(rnd(3, bolt.points.length - 3));
+        const pivot = bolt.points[pivotIndex];
+        const before = bolt.points[pivotIndex - 1];
+        const after = bolt.points[pivotIndex + 1];
+        const baseAngle = Math.atan2(
+          after.y - before.y,
+          after.x - before.x
+        );
+        const angle =
+          baseAngle +
+          (Math.random() > 0.5 ? 1 : -1) * rnd(0.62, 1.22);
+        const branchLength = rnd(12, 28);
+
+        ctx.beginPath();
+        ctx.moveTo(pivot.x, pivot.y);
+        ctx.lineTo(
+          pivot.x +
+            Math.cos(angle) * branchLength * 0.45 +
+            rnd(-5, 5),
+          pivot.y +
+            Math.sin(angle) * branchLength * 0.45 +
+            rnd(-5, 5)
+        );
+        ctx.lineTo(
+          pivot.x + Math.cos(angle) * branchLength,
+          pivot.y + Math.sin(angle) * branchLength
+        );
+
+        ctx.strokeStyle = `rgba(240, 252, 255, ${alpha * 0.68})`;
+        ctx.lineWidth = Math.max(0.42, bolt.width * 0.62);
+        ctx.stroke();
+      }
+
+      ctx.restore();
+      bolt.alpha -= bolt.decay;
+    }
+
+    drawSpark(spark, delta) {
+      spark.trail.push({ x: spark.x, y: spark.y });
+
+      if (spark.trail.length > 4) {
+        spark.trail.shift();
+      }
+
+      spark.x += spark.vx * delta;
+      spark.y += spark.vy * delta;
+      spark.vx *= Math.pow(0.982, delta);
+      spark.vy *= Math.pow(0.982, delta);
+      spark.alpha -= spark.decay * delta;
+
+      const ctx = this.ctx;
+      ctx.save();
+
+      if (spark.trail.length > 1) {
+        ctx.beginPath();
+        ctx.moveTo(spark.trail[0].x, spark.trail[0].y);
+
+        for (let i = 1; i < spark.trail.length; i += 1) {
+          ctx.lineTo(spark.trail[i].x, spark.trail[i].y);
+        }
+
+        ctx.strokeStyle =
+          `rgba(${spark.rgb}, ${Math.max(0, spark.alpha) * 0.34})`;
+        ctx.lineWidth = Math.max(0.35, spark.r * 0.65);
+        ctx.stroke();
+      }
+
+      ctx.beginPath();
+      ctx.fillStyle =
+        `rgba(${spark.rgb}, ${Math.max(0, spark.alpha)})`;
+      ctx.shadowBlur = 12;
+      ctx.shadowColor = `rgba(${spark.rgb}, 1)`;
+      ctx.arc(spark.x, spark.y, spark.r, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    drawWave(wave, delta) {
+      wave.rx += wave.speed * delta;
+      wave.ry += wave.speed * 1.10 * delta;
+      wave.alpha -= 0.026 * delta;
+
+      const ctx = this.ctx;
+
+      ctx.save();
+      ctx.beginPath();
+      ctx.ellipse(
+        wave.x,
+        wave.y,
+        wave.rx,
+        wave.ry,
+        0,
+        0,
+        Math.PI * 2
+      );
+      ctx.strokeStyle =
+        `rgba(${wave.rgb}, ${Math.max(0, wave.alpha)})`;
+      ctx.lineWidth = 1.2;
+      ctx.shadowBlur = 18;
+      ctx.shadowColor = `rgba(${wave.rgb}, .95)`;
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    drawMote(mote, time, delta) {
+      mote.x += mote.vx * delta;
+      mote.y += mote.vy * delta;
+      mote.alpha -= mote.decay * delta;
+
+      const pulse =
+        0.65 + Math.sin(time * 0.004 + mote.phase) * 0.35;
+
+      const ctx = this.ctx;
+      const gradient = ctx.createRadialGradient(
+        mote.x,
+        mote.y,
+        0,
+        mote.x,
+        mote.y,
+        mote.r
+      );
+
+      gradient.addColorStop(
+        0,
+        `rgba(${mote.rgb}, ${Math.max(0, mote.alpha) * pulse})`
+      );
+      gradient.addColorStop(1, `rgba(${mote.rgb}, 0)`);
+
+      ctx.fillStyle = gradient;
+      ctx.fillRect(
+        mote.x - mote.r,
+        mote.y - mote.r,
+        mote.r * 2,
+        mote.r * 2
+      );
+    }
+
+    start() {
+      if (this.running || reduceMotion) return;
+      this.running = true;
+      this.lastTime = performance.now();
+      requestAnimationFrame((time) => this.frame(time));
+    }
+
+    frame(time) {
+      const elapsed = clamp(time - this.lastTime, 0, 34);
+      const delta = elapsed / 16.667;
+      this.lastTime = time;
+
+      this.charge +=
+        (this.targetCharge - this.charge) *
+        Math.min(1, 0.09 * delta);
+
+      this.ctx.clearRect(0, 0, this.width, this.height);
+
+      if (this.activeCard) {
+        const rect = this.cardRect(this.activeCard);
+
+        if (time - this.lastAmbientArc > 145 - this.charge * 42) {
+          this.lastAmbientArc = time;
+
+          if (Math.random() < 0.48) {
+            this.spawnEdgeArc(rect);
+          }
+
+          if (Math.random() < 0.42) {
+            this.spawnSpark(rect, rnd(0.55, 1.05));
+          }
+
+          if (Math.random() < 0.055 * this.charge) {
+            this.spawnRadialBolt(
+              rect,
+              Math.random(),
+              rnd(34, 68),
+              rnd(0.45, 0.78)
+            );
+          }
+
+          if (Math.random() < 0.05) {
+            this.spawnMote(rect, rnd(0.7, 1.1));
+          }
+        }
+      }
+
+      for (const mote of this.motes) {
+        this.drawMote(mote, time, delta);
+      }
+
+      for (const wave of this.waves) {
+        this.drawWave(wave, delta);
+      }
+
+      for (const bolt of this.bolts) {
+        this.drawBolt(bolt);
+      }
+
+      for (const spark of this.sparks) {
+        this.drawSpark(spark, delta);
+      }
+
+      this.motes = this.motes.filter((m) => m.alpha > 0);
+      this.waves = this.waves.filter((w) => w.alpha > 0);
+      this.bolts = this.bolts.filter((b) => b.alpha > 0);
+      this.sparks = this.sparks.filter((s) => s.alpha > 0);
+
+      const alive =
+        this.activeCard ||
+        this.charge > 0.01 ||
+        this.motes.length ||
+        this.waves.length ||
+        this.bolts.length ||
+        this.sparks.length;
+
+      if (alive) {
+        requestAnimationFrame((nextTime) => this.frame(nextTime));
+      } else {
+        this.running = false;
+        this.ctx.clearRect(0, 0, this.width, this.height);
+      }
+    }
+  }
+
+
+
+
+  /* ------------------------------------------------------------------------
+     WebGLReferenceBurstEngine
+     GPU-rendered click VFX. PixiJS owns the heavy particles/glows/lines;
+     GSAP remains responsible for DOM/card motion.
+     ------------------------------------------------------------------------ */
+
+  class WebGLReferenceBurstEngine {
+    constructor(canvas, stage) {
+      this.canvas = canvas;
+      this.stage = stage;
+      this.app = null;
+      this.ready = false;
+      this.failed = false;
+      this.queue = [];
+      this.items = [];
+      this.sessions = [];
+      this.textures = {};
+      this.lastTime = performance.now();
+      this.init();
+    }
+
+    async init() {
+      if (!window.PIXI || reduceMotion) {
+        this.failed = true;
+        return;
+      }
+
+      try {
+        const app = new PIXI.Application();
+        await app.init({
+          canvas: this.canvas,
+          resizeTo: this.stage,
+          preference: "webgl",
+          powerPreference: "high-performance",
+          antialias: false,
+          autoDensity: true,
+          resolution: Math.min(window.devicePixelRatio || 1, 1.35),
+          backgroundAlpha: 0,
+          clearBeforeRender: true
+        });
+
+        this.app = app;
+        this.app.stage.eventMode = "none";
+        this.app.stage.blendMode = "add";
+        this.createTextures();
+        this.app.ticker.add((ticker) => this.tick(ticker));
+        this.app.stop();
+        this.ready = true;
+
+        const queued = this.queue.splice(0);
+        queued.forEach(({ card, kind }) => this.burst(card, kind));
+      } catch (error) {
+        console.error("WebGL reference FX failed to initialize", error);
+        this.failed = true;
+      }
+    }
+
+    makeRadialTexture(size, stops) {
+      const source = document.createElement("canvas");
+      source.width = size;
+      source.height = size;
+      const ctx = source.getContext("2d");
+      const half = size / 2;
+      const gradient = ctx.createRadialGradient(half, half, 0, half, half, half);
+      stops.forEach(([offset, color]) => gradient.addColorStop(offset, color));
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, size, size);
+      return PIXI.Texture.from(source);
+    }
+
+    makeRingTexture(size, strokeWidth, rgb) {
+      const source = document.createElement("canvas");
+      source.width = size;
+      source.height = size;
+      const ctx = source.getContext("2d");
+      const half = size / 2;
+      ctx.strokeStyle = `rgba(${rgb}, .95)`;
+      ctx.lineWidth = strokeWidth;
+      ctx.shadowBlur = strokeWidth * 4;
+      ctx.shadowColor = `rgba(${rgb}, 1)`;
+      ctx.beginPath();
+      ctx.arc(half, half, half - strokeWidth * 4, 0, Math.PI * 2);
+      ctx.stroke();
+      return PIXI.Texture.from(source);
+    }
+
+    createTextures() {
+      this.textures.white = PIXI.Texture.WHITE;
+      this.textures.plasmaRed = this.makeRadialTexture(128, [
+        [0, "rgba(255,246,220,.96)"],
+        [.14, "rgba(255,180,76,.92)"],
+        [.42, "rgba(255,45,68,.72)"],
+        [.72, "rgba(255,20,45,.25)"],
+        [1, "rgba(255,20,45,0)"]
+      ]);
+      this.textures.plasmaOrange = this.makeRadialTexture(128, [
+        [0, "rgba(255,255,242,1)"],
+        [.18, "rgba(255,214,122,.95)"],
+        [.48, "rgba(255,94,40,.62)"],
+        [1, "rgba(255,50,35,0)"]
+      ]);
+      this.textures.sparkRed = this.makeRadialTexture(48, [
+        [0, "rgba(255,255,255,1)"],
+        [.2, "rgba(255,184,90,1)"],
+        [.52, "rgba(255,46,69,.55)"],
+        [1, "rgba(255,46,69,0)"]
+      ]);
+      this.textures.sparkTeal = this.makeRadialTexture(48, [
+        [0, "rgba(255,255,255,1)"],
+        [.2, "rgba(184,255,248,1)"],
+        [.55, "rgba(28,255,223,.58)"],
+        [1, "rgba(28,255,223,0)"]
+      ]);
+      this.textures.sparkBlue = this.makeRadialTexture(48, [
+        [0, "rgba(255,255,255,1)"],
+        [.18, "rgba(205,241,255,1)"],
+        [.54, "rgba(50,148,255,.62)"],
+        [1, "rgba(50,148,255,0)"]
+      ]);
+      this.textures.cloudBlue = this.makeRadialTexture(192, [
+        [0, "rgba(184,226,255,.56)"],
+        [.28, "rgba(75,164,255,.44)"],
+        [.65, "rgba(31,116,255,.17)"],
+        [1, "rgba(31,116,255,0)"]
+      ]);
+      this.textures.flashRed = this.makeRadialTexture(256, [
+        [0, "rgba(255,255,255,.94)"],
+        [.12, "rgba(255,178,83,.82)"],
+        [.38, "rgba(255,40,64,.48)"],
+        [1, "rgba(255,40,64,0)"]
+      ]);
+      this.textures.flashTeal = this.makeRadialTexture(256, [
+        [0, "rgba(255,255,255,.94)"],
+        [.12, "rgba(177,255,248,.82)"],
+        [.42, "rgba(26,255,222,.35)"],
+        [1, "rgba(26,255,222,0)"]
+      ]);
+      this.textures.flashBlue = this.makeRadialTexture(256, [
+        [0, "rgba(255,255,255,1)"],
+        [.12, "rgba(197,235,255,.92)"],
+        [.38, "rgba(61,156,255,.58)"],
+        [1, "rgba(61,156,255,0)"]
+      ]);
+      this.textures.ringBlue = this.makeRingTexture(256, 3, "102, 191, 255");
+    }
+
+    colorHex(rgb) {
+      const parts = rgb.split(",").map((part) => clamp(parseInt(part.trim(), 10) || 0, 0, 255));
+      return (parts[0] << 16) | (parts[1] << 8) | parts[2];
+    }
+
+    cardRect(card) {
+      const canvasRect = this.canvas.getBoundingClientRect();
+      const rect = card.getBoundingClientRect();
+      return {
+        x: rect.left - canvasRect.left,
+        y: rect.top - canvasRect.top,
+        w: rect.width,
+        h: rect.height,
+        radius: 30
+      };
+    }
+
+    edgePoint(rect, t) {
+      const r = Math.min(rect.radius, rect.w / 2, rect.h / 2);
+      const top = rect.w - r * 2;
+      const side = rect.h - r * 2;
+      const q = Math.PI * r * 0.5;
+      const total = top * 2 + side * 2 + q * 4;
+      let d = (((t % 1) + 1) % 1) * total;
+
+      const arc = (cx, cy, start, distance) => {
+        const angle = start + distance / r;
+        return {
+          x: cx + Math.cos(angle) * r,
+          y: cy + Math.sin(angle) * r,
+          nx: Math.cos(angle),
+          ny: Math.sin(angle)
+        };
+      };
+
+      if (d < top) return { x: rect.x + r + d, y: rect.y, nx: 0, ny: -1 };
+      d -= top;
+      if (d < q) return arc(rect.x + rect.w - r, rect.y + r, -Math.PI / 2, d);
+      d -= q;
+      if (d < side) return { x: rect.x + rect.w, y: rect.y + r + d, nx: 1, ny: 0 };
+      d -= side;
+      if (d < q) return arc(rect.x + rect.w - r, rect.y + rect.h - r, 0, d);
+      d -= q;
+      if (d < top) return { x: rect.x + rect.w - r - d, y: rect.y + rect.h, nx: 0, ny: 1 };
+      d -= top;
+      if (d < q) return arc(rect.x + r, rect.y + rect.h - r, Math.PI / 2, d);
+      d -= q;
+      if (d < side) return { x: rect.x, y: rect.y + rect.h - r - d, nx: -1, ny: 0 };
+      d -= side;
+      return arc(rect.x + r, rect.y + r, Math.PI, d);
+    }
+
+    rayStartAtCard(rect, angle, inset = 4) {
+      const cx = rect.x + rect.w / 2;
+      const cy = rect.y + rect.h / 2;
+      const dx = Math.cos(angle);
+      const dy = Math.sin(angle);
+      const hx = rect.w / 2 + inset;
+      const hy = rect.h / 2 + inset;
+      const tx = Math.abs(dx) < 0.0001 ? Infinity : hx / Math.abs(dx);
+      const ty = Math.abs(dy) < 0.0001 ? Infinity : hy / Math.abs(dy);
+      const distance = Math.min(tx, ty);
+      return { x: cx + dx * distance, y: cy + dy * distance, dx, dy };
+    }
+
+    addAfterglow(card, className, duration) {
+      card.classList.remove(
+        "fx-plasma-afterglow",
+        "fx-electric-afterglow",
+        "fx-supernova-afterglow"
+      );
+      card.classList.add("is-reference-bursting", className);
+      window.clearTimeout(card.__referenceFxTimer);
+      card.__referenceFxTimer = window.setTimeout(() => {
+        card.classList.remove("is-reference-bursting", className);
+      }, duration);
+    }
+
+    burst(card, kind) {
+      if (reduceMotion) return;
+
+      if (this.failed) {
+        const strength = kind === "supernova" ? 1.35 : kind === "electric" ? 1.05 : 1.15;
+        stageEnergy?.activate(card);
+        stageEnergy?.bigBurst(strength);
+        return;
+      }
+
+      if (!this.ready) {
+        this.queue.push({ card, kind });
+        return;
+      }
+
+      const rect = this.cardRect(card);
+      const now = performance.now();
+
+      if (kind === "plasma") this.burstPlasma(card, rect, now);
+      else if (kind === "electric") this.burstElectric(card, rect, now);
+      else this.burstSupernova(card, rect, now);
+
+      this.app.start();
+    }
+
+    addSprite(texture, x, y, width, height, alpha = 1, rotation = 0) {
+      const sprite = new PIXI.Sprite(texture);
+      sprite.anchor.set(0.5);
+      sprite.position.set(x, y);
+      sprite.width = width;
+      sprite.height = height;
+      sprite.alpha = alpha;
+      sprite.rotation = rotation;
+      sprite.blendMode = "add";
+      this.app.stage.addChild(sprite);
+      return sprite;
+    }
+
+    addFlash(texture, x, y, width, height, alpha, decay) {
+      const display = this.addSprite(texture, x, y, width, height, alpha);
+      this.items.push({ type: "fade", display, alpha, decay });
+    }
+
+    addParticle(texture, options) {
+      const display = this.addSprite(
+        texture,
+        options.x,
+        options.y,
+        options.size,
+        options.size,
+        options.alpha,
+        options.rotation || 0
+      );
+      this.items.push({
+        type: "particle",
+        display,
+        x: options.x,
+        y: options.y,
+        vx: options.vx || 0,
+        vy: options.vy || 0,
+        alpha: options.alpha,
+        decay: options.decay,
+        drag: options.drag || 1,
+        grow: options.grow || 0,
+        size: options.size,
+        spin: options.spin || 0
+      });
+    }
+
+    addLine(start, end, rgb, width, alpha, decay, glow = 7) {
+      const dx = end.x - start.x;
+      const dy = end.y - start.y;
+      const length = Math.hypot(dx, dy) || 1;
+      const angle = Math.atan2(dy, dx);
+      const container = new PIXI.Container();
+      container.position.set(start.x, start.y);
+      container.rotation = angle;
+      container.alpha = alpha;
+      container.blendMode = "add";
+
+      const color = this.colorHex(rgb);
+      const glowLine = new PIXI.Sprite(this.textures.white);
+      glowLine.anchor.set(0, 0.5);
+      glowLine.width = length;
+      glowLine.height = Math.max(1, width * glow);
+      glowLine.tint = color;
+      glowLine.alpha = 0.18;
+
+      const coreLine = new PIXI.Sprite(this.textures.white);
+      coreLine.anchor.set(0, 0.5);
+      coreLine.width = length;
+      coreLine.height = Math.max(0.65, width);
+      coreLine.tint = 0xf4ffff;
+      coreLine.alpha = 0.96;
+
+      container.addChild(glowLine, coreLine);
+      this.app.stage.addChild(container);
+      this.items.push({ type: "fade", display: container, alpha, decay });
+      return container;
+    }
+
+    addPolyline(points, rgb, width, alpha, decay, glow = 7) {
+      const group = new PIXI.Container();
+      group.alpha = alpha;
+      group.blendMode = "add";
+      this.app.stage.addChild(group);
+      const color = this.colorHex(rgb);
+
+      for (let index = 0; index < points.length - 1; index += 1) {
+        const start = points[index];
+        const end = points[index + 1];
+        const dx = end.x - start.x;
+        const dy = end.y - start.y;
+        const length = Math.hypot(dx, dy) || 1;
+        const angle = Math.atan2(dy, dx);
+
+        const glowLine = new PIXI.Sprite(this.textures.white);
+        glowLine.anchor.set(0, 0.5);
+        glowLine.position.set(start.x, start.y);
+        glowLine.rotation = angle;
+        glowLine.width = length + 1;
+        glowLine.height = Math.max(1, width * glow);
+        glowLine.tint = color;
+        glowLine.alpha = 0.17;
+
+        const coreLine = new PIXI.Sprite(this.textures.white);
+        coreLine.anchor.set(0, 0.5);
+        coreLine.position.set(start.x, start.y);
+        coreLine.rotation = angle;
+        coreLine.width = length + 1;
+        coreLine.height = Math.max(0.65, width);
+        coreLine.tint = 0xf1ffff;
+        coreLine.alpha = 0.98;
+
+        group.addChild(glowLine, coreLine);
+      }
+
+      this.items.push({ type: "fade", display: group, alpha, decay });
+      return group;
+    }
+
+    burstPlasma(card, rect, now) {
+      this.addAfterglow(card, "fx-plasma-afterglow", 1280);
+      this.sessions.push({ kind: "plasma", rect, start: now, duration: 920, lastEmit: -1 });
+      this.addFlash(
+        this.textures.flashRed,
+        rect.x + rect.w * 0.5,
+        rect.y + 2,
+        rect.w * 1.25,
+        115,
+        0.92,
+        0.062
+      );
+
+      for (let index = 0; index < 42; index += 1) this.spawnPlasmaBlob(rect, 1.05, index < 30);
+      for (let index = 0; index < 24; index += 1) this.spawnPlasmaStrand(rect, index < 18);
+      for (let index = 0; index < 48; index += 1) this.spawnPlasmaSpark(rect);
+    }
+
+    spawnPlasmaBlob(rect, power = 1, preferTop = true) {
+      const topWeighted = preferTop || Math.random() < 0.66;
+      let x;
+      let y;
+      let vx;
+      let vy;
+
+      if (topWeighted) {
+        x = rect.x + rnd(rect.w * 0.04, rect.w * 0.96);
+        y = rect.y + rnd(-5, 14);
+        vx = rnd(-0.26, 0.26) * rnd(0.45, 1.2) * power;
+        vy = rnd(-1.25, -0.32) * rnd(0.48, 1.12) * power;
+      } else {
+        const right = Math.random() > 0.5;
+        x = right ? rect.x + rect.w + rnd(-7, 7) : rect.x + rnd(-7, 7);
+        y = rect.y + rnd(rect.h * 0.05, rect.h * 0.88);
+        vx = (right ? 1 : -1) * rnd(0.25, 0.94) * rnd(0.45, 1.12) * power;
+        vy = rnd(-0.5, 0.42) * rnd(0.45, 1.12) * power;
+      }
+
+      const hot = Math.random() < 0.38;
+      this.addParticle(hot ? this.textures.plasmaOrange : this.textures.plasmaRed, {
+        x,
+        y,
+        vx,
+        vy,
+        size: rnd(24, 66) * power,
+        alpha: rnd(0.3, 0.72),
+        decay: rnd(0.008, 0.02),
+        drag: 0.986,
+        grow: rnd(0.12, 0.45)
+      });
+    }
+
+    spawnPlasmaStrand(rect, preferTop = true) {
+      const top = preferTop || Math.random() < 0.7;
+      let start;
+      let angle;
+      let length;
+
+      if (top) {
+        start = { x: rect.x + rnd(rect.w * 0.02, rect.w * 0.98), y: rect.y + rnd(-2, 8) };
+        angle = rnd(-Math.PI * 0.82, -Math.PI * 0.18);
+        length = rnd(28, 92);
+      } else {
+        const side = Math.random() > 0.5 ? 1 : -1;
+        start = { x: side > 0 ? rect.x + rect.w : rect.x, y: rect.y + rnd(rect.h * 0.08, rect.h * 0.9) };
+        angle = side > 0 ? rnd(-0.6, 0.6) : rnd(Math.PI - 0.6, Math.PI + 0.6);
+        length = rnd(20, 64);
+      }
+
+      const points = [start];
+      const normalX = -Math.sin(angle);
+      const normalY = Math.cos(angle);
+      for (let index = 1; index <= 5; index += 1) {
+        const t = index / 5;
+        const wave = Math.sin(t * Math.PI * rnd(1.2, 2.4)) * rnd(-10, 10);
+        points.push({
+          x: start.x + Math.cos(angle) * length * t + normalX * wave,
+          y: start.y + Math.sin(angle) * length * t + normalY * wave
+        });
+      }
+      this.addPolyline(
+        points,
+        Math.random() < 0.35 ? "255,205,129" : "255,54,72",
+        rnd(0.7, 2.0),
+        rnd(0.58, 1),
+        rnd(0.036, 0.07),
+        6
+      );
+    }
+
+    spawnPlasmaSpark(rect) {
+      const top = Math.random() < 0.68;
+      const point = top
+        ? { x: rect.x + Math.random() * rect.w, y: rect.y, nx: rnd(-0.18, 0.18), ny: -1 }
+        : this.edgePoint(rect, Math.random());
+      this.addParticle(this.textures.sparkRed, {
+        x: point.x,
+        y: point.y,
+        vx: point.nx * rnd(1.1, 5.8) + rnd(-1.1, 1.1),
+        vy: point.ny * rnd(1.2, 6.4) + rnd(-1.1, 0.5),
+        size: rnd(5, 12),
+        alpha: rnd(0.64, 1),
+        decay: rnd(0.024, 0.056),
+        drag: 0.967
+      });
+    }
+
+    burstElectric(card, rect, now) {
+      this.addAfterglow(card, "fx-electric-afterglow", 1480);
+      this.sessions.push({ kind: "electric", rect, start: now, duration: 760, lastEmit: -1 });
+      this.addFlash(
+        this.textures.flashTeal,
+        rect.x + rect.w * 0.5,
+        rect.y + rect.h * 0.5,
+        rect.w * 1.32,
+        rect.h * 1.25,
+        0.42,
+        0.11
+      );
+      for (let index = 0; index < 16; index += 1) this.spawnElectricBolt(rect, index % 3 === 0);
+      for (let index = 0; index < 50; index += 1) this.spawnElectricSpark(rect);
+    }
+
+    spawnElectricBolt(rect, crossSurface = false) {
+      const startT = Math.random();
+      const start = this.edgePoint(rect, startT);
+      let end;
+
+      if (crossSurface) {
+        end = Math.random() < 0.55
+          ? { x: rect.x + rnd(rect.w * 0.12, rect.w * 0.88), y: rect.y + rnd(rect.h * 0.1, rect.h * 0.9) }
+          : this.edgePoint(rect, startT + rnd(0.26, 0.64));
+      } else {
+        const direction = Math.random() > 0.5 ? 1 : -1;
+        end = this.edgePoint(rect, startT + direction * rnd(0.035, 0.16));
+      }
+
+      const distance = Math.hypot(end.x - start.x, end.y - start.y) || 1;
+      const points = buildLightningPath(
+        start,
+        end,
+        Math.min(21, distance * 0.135),
+        0.48,
+        distance > 130 ? 5 : 4
+      );
+      this.addPolyline(
+        points,
+        Math.random() < 0.24 ? "184,255,248" : "31,255,224",
+        crossSurface ? rnd(0.8, 1.55) : rnd(0.65, 1.28),
+        rnd(0.76, 1),
+        rnd(0.18, 0.3),
+        8
+      );
+    }
+
+    spawnElectricSpark(rect) {
+      const point = this.edgePoint(rect, Math.random());
+      const tangentX = -point.ny;
+      const tangentY = point.nx;
+      const outward = rnd(0.8, 4.1);
+      const tangent = rnd(-2.2, 2.2);
+      this.addParticle(this.textures.sparkTeal, {
+        x: point.x,
+        y: point.y,
+        vx: point.nx * outward + tangentX * tangent,
+        vy: point.ny * outward + tangentY * tangent,
+        size: rnd(4, 10),
+        alpha: rnd(0.62, 1),
+        decay: rnd(0.045, 0.096),
+        drag: 0.95
+      });
+    }
+
+    burstSupernova(card, rect, now) {
+      this.addAfterglow(card, "fx-supernova-afterglow", 2180);
+      this.sessions.push({ kind: "supernova", rect, start: now, duration: 1760, lastEmit: -1 });
+      const cx = rect.x + rect.w / 2;
+      const cy = rect.y + rect.h / 2;
+
+      this.addFlash(
+        this.textures.flashBlue,
+        cx,
+        cy,
+        rect.w * 1.72,
+        rect.h * 1.36,
+        1,
+        0.052
+      );
+
+      const wave = this.addSprite(
+        this.textures.ringBlue,
+        cx,
+        cy,
+        Math.hypot(rect.w, rect.h) * 0.78,
+        Math.hypot(rect.w, rect.h) * 0.78,
+        0.96
+      );
+      this.items.push({ type: "wave", display: wave, alpha: 0.96, decay: 0.038, grow: 0.052 });
+
+      for (let index = 0; index < 112; index += 1) this.spawnSupernovaRay(rect, index / 112);
+      for (let index = 0; index < 156; index += 1) this.spawnSupernovaSpark(rect);
+      for (let index = 0; index < 26; index += 1) this.spawnBlueCloud(rect);
+    }
+
+    spawnSupernovaRay(rect, normalizedAngle = Math.random()) {
+      const angle = normalizedAngle * Math.PI * 2 + rnd(-0.024, 0.024);
+      const start = this.rayStartAtCard(rect, angle, rnd(1, 9));
+      const length = Math.pow(Math.random(), 0.58) * 150 + 28;
+      const bend = rnd(-0.12, 0.12);
+      const endAngle = angle + bend;
+      const end = {
+        x: start.x + Math.cos(endAngle) * length,
+        y: start.y + Math.sin(endAngle) * length
+      };
+      this.addLine(
+        start,
+        end,
+        Math.random() < 0.26 ? "178,229,255" : "43,139,255",
+        rnd(0.38, 1.9),
+        rnd(0.38, 1),
+        rnd(0.008, 0.021),
+        8
+      );
+    }
+
+    spawnSupernovaSpark(rect) {
+      const angle = Math.random() * Math.PI * 2;
+      const start = this.rayStartAtCard(rect, angle, rnd(0, 10));
+      const speed = rnd(1.3, 8.2);
+      this.addParticle(this.textures.sparkBlue, {
+        x: start.x,
+        y: start.y,
+        vx: start.dx * speed + rnd(-0.55, 0.55),
+        vy: start.dy * speed + rnd(-0.55, 0.55),
+        size: rnd(4, 11),
+        alpha: rnd(0.42, 1),
+        decay: rnd(0.01, 0.032),
+        drag: 0.978
+      });
+    }
+
+    spawnBlueCloud(rect) {
+      const angle = Math.random() * Math.PI * 2;
+      const start = this.rayStartAtCard(rect, angle, rnd(0, 16));
+      this.addParticle(this.textures.cloudBlue, {
+        x: start.x + start.dx * rnd(4, 28),
+        y: start.y + start.dy * rnd(4, 28),
+        vx: start.dx * rnd(0.06, 0.32),
+        vy: start.dy * rnd(0.06, 0.32),
+        size: rnd(35, 90),
+        alpha: rnd(0.08, 0.24),
+        decay: rnd(0.0015, 0.0048),
+        drag: 1,
+        grow: rnd(0.08, 0.26)
+      });
+    }
+
+    emitSession(session, time) {
+      const elapsed = time - session.start;
+      if (elapsed > session.duration) return;
+
+      if (session.kind === "plasma") {
+        const interval = elapsed < 560 ? 34 : 62;
+        if (session.lastEmit < 0 || elapsed - session.lastEmit >= interval) {
+          const build = Math.sin(Math.min(1, elapsed / 720) * Math.PI * 0.92);
+          const count = Math.max(2, Math.round(2 + build * 4));
+          for (let index = 0; index < count; index += 1) this.spawnPlasmaBlob(session.rect, 0.72 + build * 0.48, true);
+          if (Math.random() < 0.64) this.spawnPlasmaStrand(session.rect, true);
+          session.lastEmit = elapsed;
+        }
+      }
+
+      if (session.kind === "electric") {
+        if (session.lastEmit < 0 || elapsed - session.lastEmit >= 52) {
+          const arcCount = elapsed < 560 ? 4 : 2;
+          for (let index = 0; index < arcCount; index += 1) {
+            this.spawnElectricBolt(session.rect, index === 0 || Math.random() < 0.26);
+          }
+          for (let index = 0; index < 5; index += 1) this.spawnElectricSpark(session.rect);
+          session.lastEmit = elapsed;
+        }
+      }
+
+      if (session.kind === "supernova") {
+        if (elapsed < 500 && (session.lastEmit < 0 || elapsed - session.lastEmit >= 62)) {
+          for (let index = 0; index < 10; index += 1) this.spawnSupernovaRay(session.rect);
+          for (let index = 0; index < 12; index += 1) this.spawnSupernovaSpark(session.rect);
+          session.lastEmit = elapsed;
+        } else if (
+          elapsed >= 500 &&
+          elapsed < 1420 &&
+          (session.lastEmit < 0 || elapsed - session.lastEmit >= 170)
+        ) {
+          for (let index = 0; index < 3; index += 1) this.spawnSupernovaRay(session.rect);
+          for (let index = 0; index < 5; index += 1) this.spawnSupernovaSpark(session.rect);
+          session.lastEmit = elapsed;
+        }
+      }
+    }
+
+    tick(ticker) {
+      if (!this.ready) return;
+      const time = performance.now();
+      const delta = clamp(ticker.deltaTime, 0.25, 2.2);
+
+      for (const session of this.sessions) this.emitSession(session, time);
+      this.sessions = this.sessions.filter((session) => time - session.start < session.duration);
+
+      const alive = [];
+      for (const item of this.items) {
+        if (item.type === "particle") {
+          item.x += item.vx * delta;
+          item.y += item.vy * delta;
+          item.vx *= Math.pow(item.drag, delta);
+          item.vy *= Math.pow(item.drag, delta);
+          item.size += item.grow * delta;
+          item.alpha -= item.decay * delta;
+          item.display.position.set(item.x, item.y);
+          item.display.width = item.size;
+          item.display.height = item.size;
+          item.display.rotation += item.spin * delta;
+          item.display.alpha = Math.max(0, item.alpha);
+        } else if (item.type === "wave") {
+          item.alpha -= item.decay * delta;
+          item.display.alpha = Math.max(0, item.alpha);
+          item.display.scale.x += item.grow * delta;
+          item.display.scale.y += item.grow * delta;
+        } else {
+          item.alpha -= item.decay * delta;
+          item.display.alpha = Math.max(0, item.alpha);
+        }
+
+        if (item.alpha > 0) {
+          alive.push(item);
+        } else {
+          item.display.removeFromParent();
+          item.display.destroy({ children: true });
+        }
+      }
+      this.items = alive;
+
+      if (!this.sessions.length && !this.items.length) {
+        this.app.stop();
+        this.app.renderer.clear();
+      }
+    }
+  }
+
+
+
+  class ReferenceVideoFxEngine {
+    constructor(stage) {
+      this.stage = stage;
+      this.layer = stage.querySelector(".reference-video-layer");
+      this.specs = {
+        plasma: {
+          mediaW: 596, mediaH: 690,
+          cardX: 122, cardY: 142, cardW: 353, cardH: 375,
+          duration: 2.049,
+          afterglow: 3050
+        },
+        electric: {
+          mediaW: 570, mediaH: 650,
+          cardX: 107, cardY: 142, cardW: 353, cardH: 375,
+          duration: 1.591,
+          afterglow: 2350
+        },
+        supernova: {
+          mediaW: 680, mediaH: 750,
+          cardX: 157, cardY: 182, cardW: 354, cardH: 375,
+          duration: 2.334,
+          afterglow: 3600
+        }
+      };
+
+      this.entries = new Map();
+      this.running = false;
+      this.raf = 0;
+      this.resizeBound = () => this.positionAll();
+
+      if (!this.layer || reduceMotion) return;
+      this.layer.replaceChildren();
+
+      Object.entries(this.specs).forEach(([kind, spec]) => {
+        const video = document.createElement("video");
+        video.className = "reference-alpha-video";
+        video.dataset.kind = kind;
+        video.preload = "auto";
+        video.playsInline = true;
+        video.disablePictureInPicture = true;
+        video.controls = false;
+        video.setAttribute("aria-hidden", "true");
+        video.setAttribute("webkit-playsinline", "");
+        video.src = `assets/${kind}.webm`;
+        video.volume = 0.90;
+
+        const entry = {
+          kind,
+          spec,
+          video,
+          card: null,
+          active: false,
+          playToken: 0,
+          timer: 0,
+          afterglowTimer: 0,
+          loadError: false
+        };
+
+        video.addEventListener("error", () => {
+          entry.loadError = true;
+          console.error(`Reference FX failed to load: ${kind}`, video.error);
+        });
+
+        video.addEventListener("ended", () => {
+          this.finish(kind, entry.playToken);
+        });
+
+        this.layer.appendChild(video);
+        video.load();
+        this.entries.set(kind, entry);
+      });
+
+      window.addEventListener("resize", this.resizeBound, { passive: true });
+      window.addEventListener("orientationchange", this.resizeBound, { passive: true });
+      if (window.visualViewport) {
+        window.visualViewport.addEventListener("resize", this.resizeBound, { passive: true });
+        window.visualViewport.addEventListener("scroll", this.resizeBound, { passive: true });
+      }
+    }
+
+    geometry(entry) {
+      const { spec, card } = entry;
+      if (!card || !card.isConnected) return null;
+      const rect = card.getBoundingClientRect();
+      const scaleX = rect.width / spec.cardW;
+      const scaleY = rect.height / spec.cardH;
+
+      return {
+        left: rect.left - spec.cardX * scaleX,
+        top: rect.top - spec.cardY * scaleY,
+        width: spec.mediaW * scaleX,
+        height: spec.mediaH * scaleY
+      };
+    }
+
+    position(entry) {
+      const geo = this.geometry(entry);
+      if (!geo) return false;
+      const { video } = entry;
+      video.style.width = `${Math.max(1, geo.width)}px`;
+      video.style.height = `${Math.max(1, geo.height)}px`;
+      video.style.transform = `translate3d(${geo.left}px, ${geo.top}px, 0)`;
+      return true;
+    }
+
+    positionAll() {
+      this.entries.forEach((entry) => {
+        if (entry.active) this.position(entry);
+      });
+    }
+
+    finish(kind, token = null) {
+      const entry = this.entries.get(kind);
+      if (!entry || !entry.active) return;
+      if (token !== null && token !== entry.playToken) return;
+
+      window.clearTimeout(entry.timer);
+      entry.active = false;
+      entry.video.pause();
+      entry.video.style.display = "none";
+      entry.video.style.transform = "translate3d(-9999px, -9999px, 0)";
+
+      if (entry.card) {
+        entry.card.classList.remove("is-reference-bursting");
+      }
+      entry.card = null;
+
+      if (!Array.from(this.entries.values()).some((item) => item.active)) {
+        this.running = false;
+        if (this.raf) cancelAnimationFrame(this.raf);
+        this.raf = 0;
+      }
+    }
+
+    frame = () => {
+      let alive = false;
+      this.entries.forEach((entry, kind) => {
+        if (!entry.active) return;
+        alive = true;
+        this.position(entry);
+
+        if (entry.video.ended || entry.video.currentTime >= entry.spec.duration - 0.012) {
+          this.finish(kind, entry.playToken);
+        }
+      });
+
+      if (alive && Array.from(this.entries.values()).some((entry) => entry.active)) {
+        this.raf = requestAnimationFrame(this.frame);
+      } else {
+        this.running = false;
+        this.raf = 0;
+      }
+    };
+
+    burst(card, kind, withSound = true) {
+      if (reduceMotion || !this.layer || !card) return;
+      const entry = this.entries.get(kind);
+      if (!entry) return;
+
+      // The reference sequence is designed as one hero event at a time.
+      // Ending the previous event prevents overlapping audio and stacked glows.
+      this.entries.forEach((item, itemKind) => {
+        if (item.active) this.finish(itemKind);
+      });
+
+      entry.playToken += 1;
+      const token = entry.playToken;
+      entry.card = card;
+      entry.active = true;
+
+      window.clearTimeout(entry.afterglowTimer);
+      card.classList.remove(
+        "fx-plasma-afterglow",
+        "fx-electric-afterglow",
+        "fx-supernova-afterglow"
+      );
+      card.classList.add("is-reference-bursting", `fx-${kind}-afterglow`);
+      entry.afterglowTimer = window.setTimeout(() => {
+        card.classList.remove(`fx-${kind}-afterglow`);
+      }, entry.spec.afterglow);
+
+      const { video } = entry;
+      video.pause();
+      video.muted = !withSound;
+      video.volume = 0.90;
+      video.style.display = "block";
+      this.position(entry);
+
+      try {
+        video.currentTime = 0;
+      } catch (error) {
+        console.warn(`Could not reset ${kind} FX`, error);
+      }
+
+      const playPromise = video.play();
+      if (playPromise && typeof playPromise.catch === "function") {
+        playPromise.catch((error) => {
+          // A browser may reject audio playback outside a trusted gesture.
+          // Keep the visual alive rather than losing the entire effect.
+          if (!entry.active || entry.playToken !== token) return;
+          console.warn(`${kind} FX audio playback was blocked; retrying visual muted`, error);
+          video.muted = true;
+          const visualPromise = video.play();
+          visualPromise?.catch?.((visualError) => {
+            console.error(`${kind} FX could not play`, visualError);
+          });
+        });
+      }
+
+      window.clearTimeout(entry.timer);
+      entry.timer = window.setTimeout(
+        () => this.finish(kind, token),
+        Math.ceil(entry.spec.duration * 1000) + 180
+      );
+
+      if (!this.running) {
+        this.running = true;
+        this.raf = requestAnimationFrame(this.frame);
+      }
+    }
+
+    diagnostics() {
+      return Array.from(this.entries.values()).map((entry) => ({
+        kind: entry.kind,
+        readyState: entry.video.readyState,
+        networkState: entry.video.networkState,
+        duration: Number.isFinite(entry.video.duration) ? entry.video.duration : null,
+        currentTime: entry.video.currentTime,
+        paused: entry.video.paused,
+        active: entry.active,
+        loadError: entry.loadError,
+        src: entry.video.currentSrc || entry.video.src
+      }));
+    }
+  }
+
+
+    class ReferenceFxAudio {
+    constructor() {
+      this.context = null;
+      this.master = null;
+    }
+
+    ensureContext() {
+      if (!this.context) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContextClass) return false;
+        this.context = new AudioContextClass();
+        this.master = this.context.createGain();
+        this.master.gain.value = 0.31;
+        this.master.connect(this.context.destination);
+      }
+
+      if (this.context.state === "suspended") {
+        this.context.resume();
+      }
+
+      return true;
+    }
+
+    noise(duration = 0.5) {
+      const length = Math.max(1, Math.floor(this.context.sampleRate * duration));
+      const buffer = this.context.createBuffer(1, length, this.context.sampleRate);
+      const data = buffer.getChannelData(0);
+      let last = 0;
+
+      for (let index = 0; index < length; index += 1) {
+        const white = Math.random() * 2 - 1;
+        last = last * 0.72 + white * 0.28;
+        data[index] = last;
+      }
+
+      const source = this.context.createBufferSource();
+      source.buffer = buffer;
+      return source;
+    }
+
+    play(kind) {
+      if (!this.ensureContext()) return;
+      if (kind === "plasma") this.playPlasma();
+      else if (kind === "electric") this.playElectric();
+      else this.playSupernova();
+    }
+
+    playPlasma() {
+      const ctx = this.context;
+      const now = ctx.currentTime;
+
+      const noise = this.noise(0.78);
+      const band = ctx.createBiquadFilter();
+      const gain = ctx.createGain();
+      band.type = "bandpass";
+      band.frequency.setValueAtTime(1650, now);
+      band.frequency.exponentialRampToValueAtTime(420, now + 0.72);
+      band.Q.value = 0.72;
+      gain.gain.setValueAtTime(0.001, now);
+      gain.gain.exponentialRampToValueAtTime(0.62, now + 0.026);
+      gain.gain.exponentialRampToValueAtTime(0.18, now + 0.42);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.78);
+      noise.connect(band).connect(gain).connect(this.master);
+      noise.start(now);
+
+      const osc = ctx.createOscillator();
+      const oscGain = ctx.createGain();
+      osc.type = "sawtooth";
+      osc.frequency.setValueAtTime(180, now);
+      osc.frequency.exponentialRampToValueAtTime(54, now + 0.52);
+      oscGain.gain.setValueAtTime(0.001, now);
+      oscGain.gain.exponentialRampToValueAtTime(0.18, now + 0.018);
+      oscGain.gain.exponentialRampToValueAtTime(0.001, now + 0.56);
+      osc.connect(oscGain).connect(this.master);
+      osc.start(now);
+      osc.stop(now + 0.58);
+    }
+
+    playElectric() {
+      const ctx = this.context;
+      const now = ctx.currentTime;
+      const offsets = [0, 0.055, 0.12, 0.205, 0.325, 0.47, 0.61];
+
+      offsets.forEach((offset, index) => {
+        const start = now + offset;
+        const duration = index < 3 ? 0.052 : 0.078;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        const high = ctx.createBiquadFilter();
+        osc.type = index % 2 ? "square" : "sawtooth";
+        osc.frequency.setValueAtTime(rnd(1250, 2600), start);
+        osc.frequency.exponentialRampToValueAtTime(rnd(180, 520), start + duration);
+        high.type = "highpass";
+        high.frequency.value = 620;
+        gain.gain.setValueAtTime(0.001, start);
+        gain.gain.exponentialRampToValueAtTime(rnd(0.16, 0.31), start + 0.004);
+        gain.gain.exponentialRampToValueAtTime(0.001, start + duration);
+        osc.connect(high).connect(gain).connect(this.master);
+        osc.start(start);
+        osc.stop(start + duration + 0.01);
+
+        const crackle = this.noise(duration + 0.018);
+        const crackleFilter = ctx.createBiquadFilter();
+        const crackleGain = ctx.createGain();
+        crackleFilter.type = "highpass";
+        crackleFilter.frequency.value = rnd(1800, 4200);
+        crackleGain.gain.setValueAtTime(rnd(0.08, 0.19), start);
+        crackleGain.gain.exponentialRampToValueAtTime(0.001, start + duration);
+        crackle.connect(crackleFilter).connect(crackleGain).connect(this.master);
+        crackle.start(start);
+      });
+    }
+
+    playSupernova() {
+      const ctx = this.context;
+      const now = ctx.currentTime;
+
+      const low = ctx.createOscillator();
+      const lowGain = ctx.createGain();
+      low.type = "sine";
+      low.frequency.setValueAtTime(82, now);
+      low.frequency.exponentialRampToValueAtTime(31, now + 1.22);
+      lowGain.gain.setValueAtTime(0.001, now);
+      lowGain.gain.exponentialRampToValueAtTime(0.46, now + 0.018);
+      lowGain.gain.exponentialRampToValueAtTime(0.17, now + 0.52);
+      lowGain.gain.exponentialRampToValueAtTime(0.001, now + 1.3);
+      low.connect(lowGain).connect(this.master);
+      low.start(now);
+      low.stop(now + 1.34);
+
+      const sweep = ctx.createOscillator();
+      const sweepGain = ctx.createGain();
+      sweep.type = "sawtooth";
+      sweep.frequency.setValueAtTime(520, now);
+      sweep.frequency.exponentialRampToValueAtTime(78, now + 0.88);
+      sweepGain.gain.setValueAtTime(0.001, now);
+      sweepGain.gain.exponentialRampToValueAtTime(0.12, now + 0.025);
+      sweepGain.gain.exponentialRampToValueAtTime(0.001, now + 0.92);
+      sweep.connect(sweepGain).connect(this.master);
+      sweep.start(now);
+      sweep.stop(now + 0.96);
+
+      const noise = this.noise(1.18);
+      const lowpass = ctx.createBiquadFilter();
+      const noiseGain = ctx.createGain();
+      lowpass.type = "lowpass";
+      lowpass.frequency.setValueAtTime(4200, now);
+      lowpass.frequency.exponentialRampToValueAtTime(510, now + 1.06);
+      noiseGain.gain.setValueAtTime(0.001, now);
+      noiseGain.gain.exponentialRampToValueAtTime(0.34, now + 0.014);
+      noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 1.17);
+      noise.connect(lowpass).connect(noiseGain).connect(this.master);
+      noise.start(now);
+    }
+  }
+
+
+  class AppsLocalEnergy {
+    constructor(card, canvas) {
+      this.card = card;
+      this.canvas = canvas;
+      this.ctx = canvas.getContext("2d", { alpha: true });
+      this.dpr = Math.min(window.devicePixelRatio || 1, 1.35);
+      this.width = 1;
+      this.height = 1;
+      this.active = false;
+      this.running = false;
+      this.bolts = [];
+      this.sparks = [];
+      this.lastTime = performance.now();
+      this.lastArc = 0;
+      this.rgb =
+        getComputedStyle(card).getPropertyValue("--accent-rgb").trim() ||
+        "15, 220, 199";
+
+      this.resizeObserver = new ResizeObserver(() => this.resize());
+      this.resizeObserver.observe(card);
+      this.resize();
+    }
+
+    resize() {
+      const rect = this.card.getBoundingClientRect();
+
+      this.width = Math.max(1, rect.width);
+      this.height = Math.max(1, rect.height);
+      this.dpr = Math.min(window.devicePixelRatio || 1, 1.35);
+
+      this.canvas.width = Math.round(this.width * this.dpr);
+      this.canvas.height = Math.round(this.height * this.dpr);
+      this.canvas.style.width = `${this.width}px`;
+      this.canvas.style.height = `${this.height}px`;
+
+      this.ctx.setTransform(
+        this.dpr,
+        0,
+        0,
+        this.dpr,
+        0,
+        0
+      );
+    }
+
+    edgePoint(t) {
+      const rect = {
+        x: 1,
+        y: 1,
+        w: this.width - 2,
+        h: this.height - 2,
+        radius: 29
+      };
+
+      const r = rect.radius;
+      const top = rect.w - r * 2;
+      const side = rect.h - r * 2;
+      const quarter = Math.PI * r * 0.5;
+      const total = top * 2 + side * 2 + quarter * 4;
+      let distance = (((t % 1) + 1) % 1) * total;
+
+      const arc = (cx, cy, startAngle, arcDistance) => {
+        const angle = startAngle + arcDistance / r;
+
+        return {
+          x: cx + Math.cos(angle) * r,
+          y: cy + Math.sin(angle) * r,
+          nx: Math.cos(angle),
+          ny: Math.sin(angle)
+        };
+      };
+
+      if (distance < top) {
+        return {
+          x: rect.x + r + distance,
+          y: rect.y,
+          nx: 0,
+          ny: -1
+        };
+      }
+
+      distance -= top;
+
+      if (distance < quarter) {
+        return arc(
+          rect.x + rect.w - r,
+          rect.y + r,
+          -Math.PI / 2,
+          distance
+        );
+      }
+
+      distance -= quarter;
+
+      if (distance < side) {
+        return {
+          x: rect.x + rect.w,
+          y: rect.y + r + distance,
+          nx: 1,
+          ny: 0
+        };
+      }
+
+      distance -= side;
+
+      if (distance < quarter) {
+        return arc(
+          rect.x + rect.w - r,
+          rect.y + rect.h - r,
+          0,
+          distance
+        );
+      }
+
+      distance -= quarter;
+
+      if (distance < top) {
+        return {
+          x: rect.x + rect.w - r - distance,
+          y: rect.y + rect.h,
+          nx: 0,
+          ny: 1
+        };
+      }
+
+      distance -= top;
+
+      if (distance < quarter) {
+        return arc(
+          rect.x + r,
+          rect.y + rect.h - r,
+          Math.PI / 2,
+          distance
+        );
+      }
+
+      distance -= quarter;
+
+      if (distance < side) {
+        return {
+          x: rect.x,
+          y: rect.y + rect.h - r - distance,
+          nx: -1,
+          ny: 0
+        };
+      }
+
+      distance -= side;
+
+      return arc(
+        rect.x + r,
+        rect.y + r,
+        Math.PI,
+        distance
+      );
+    }
+
+    makeBolt(start, end, strength = 1) {
+      const distance =
+        Math.hypot(end.x - start.x, end.y - start.y) || 1;
+
+      const points = buildLightningPath(
+        start,
+        end,
+        Math.min(12, distance * 0.11) * strength,
+        0.48,
+        distance > 90 ? 5 : 4
+      );
+
+      this.bolts.push({
+        points,
+        alpha: rnd(0.56, 0.78),
+        decay: rnd(0.075, 0.12),
+        width: rnd(0.46, 0.82) * strength
+      });
+    }
+
+    spawnEdgeArc() {
+      const startT = Math.random();
+      const direction = Math.random() > 0.5 ? 1 : -1;
+      const endT =
+        startT + direction * rnd(0.04, 0.11);
+
+      this.makeBolt(
+        this.edgePoint(startT),
+        this.edgePoint(endT),
+        rnd(0.62, 1)
+      );
+    }
+
+    spawnSpark(strength = 1) {
+      const point = this.edgePoint(Math.random());
+      const tangentX = -point.ny;
+      const tangentY = point.nx;
+      const outward = rnd(0.5, 2.7) * strength;
+      const tangent = rnd(-1.1, 1.1) * strength;
+
+      this.sparks.push({
+        x: point.x,
+        y: point.y,
+        vx:
+          point.nx * outward +
+          tangentX * tangent,
+        vy:
+          point.ny * outward +
+          tangentY * tangent,
+        radius: rnd(0.45, 1.65) * strength,
+        alpha: rnd(0.55, 1),
+        decay: rnd(0.018, 0.042)
+      });
+    }
+
+    burst(power = 1) {
+      if (reduceMotion) return;
+
+      const origin = {
+        x: this.width / 2,
+        y: Math.min(173, this.height * 0.39)
+      };
+
+      const rayCount = Math.max(
+        4,
+        Math.floor(7 * power)
+      );
+
+      for (let index = 0; index < rayCount; index += 1) {
+        const edge = this.edgePoint(
+          index / rayCount +
+          rnd(-0.014, 0.014)
+        );
+
+        this.makeBolt(
+          origin,
+          edge,
+          rnd(0.56, 0.82) * power
+        );
+      }
+
+      const sparkCount = Math.floor(34 * power);
+
+      for (let index = 0; index < sparkCount; index += 1) {
+        const angle = Math.random() * Math.PI * 2;
+        const radius = rnd(28, 56);
+        const speed = rnd(0.55, 2.6) * power;
+
+        this.sparks.push({
+          x: origin.x + Math.cos(angle) * radius,
+          y: origin.y + Math.sin(angle) * radius,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          radius: rnd(0.4, 1.2),
+          alpha: rnd(0.48, 0.82),
+          decay: rnd(0.024, 0.048)
+        });
+      }
+
+      this.start();
+    }
+
+    activate() {
+      const wasActive = this.active;
+      this.active = true;
+
+      if (!wasActive) {
+        for (let index = 0; index < 2; index += 1) {
+          this.spawnEdgeArc();
+        }
+
+        for (let index = 0; index < 8; index += 1) {
+          this.spawnSpark(rnd(0.38, 0.62));
+        }
+      }
+
+      this.start();
+    }
+
+    deactivate() {
+      this.active = false;
+    }
+
+    start() {
+      if (this.running || reduceMotion) return;
+
+      this.running = true;
+      this.lastTime = performance.now();
+
+      requestAnimationFrame((time) => this.frame(time));
+    }
+
+    drawBolt(bolt) {
+      const ctx = this.ctx;
+      const alpha = Math.max(0, bolt.alpha);
+
+      ctx.save();
+      ctx.lineJoin = "round";
+      ctx.lineCap = "round";
+
+      ctx.beginPath();
+      ctx.moveTo(
+        bolt.points[0].x,
+        bolt.points[0].y
+      );
+
+      for (
+        let index = 1;
+        index < bolt.points.length;
+        index += 1
+      ) {
+        ctx.lineTo(
+          bolt.points[index].x,
+          bolt.points[index].y
+        );
+      }
+
+      ctx.strokeStyle =
+        `rgba(${this.rgb}, ${alpha * 0.25})`;
+      ctx.lineWidth = bolt.width * 5;
+      ctx.shadowBlur = 12;
+      ctx.shadowColor =
+        `rgba(${this.rgb}, 1)`;
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(
+        bolt.points[0].x,
+        bolt.points[0].y
+      );
+
+      for (
+        let index = 1;
+        index < bolt.points.length;
+        index += 1
+      ) {
+        ctx.lineTo(
+          bolt.points[index].x,
+          bolt.points[index].y
+        );
+      }
+
+      ctx.strokeStyle =
+        `rgba(233, 255, 251, ${alpha})`;
+      ctx.lineWidth = bolt.width;
+      ctx.shadowBlur = 3.5;
+      ctx.shadowColor =
+        `rgba(${this.rgb}, 1)`;
+      ctx.stroke();
+
+      ctx.restore();
+
+      bolt.alpha -= bolt.decay;
+    }
+
+    drawSpark(spark, delta) {
+      spark.x += spark.vx * delta;
+      spark.y += spark.vy * delta;
+      spark.vx *= Math.pow(0.979, delta);
+      spark.vy *= Math.pow(0.979, delta);
+      spark.alpha -= spark.decay * delta;
+
+      this.ctx.save();
+      this.ctx.beginPath();
+      this.ctx.fillStyle =
+        `rgba(${this.rgb}, ${Math.max(0, spark.alpha)})`;
+      this.ctx.shadowBlur = 12;
+      this.ctx.shadowColor =
+        `rgba(${this.rgb}, 1)`;
+      this.ctx.arc(
+        spark.x,
+        spark.y,
+        spark.radius,
+        0,
+        Math.PI * 2
+      );
+      this.ctx.fill();
+      this.ctx.restore();
+    }
+
+    frame(time) {
+      const elapsed = clamp(
+        time - this.lastTime,
+        0,
+        34
+      );
+      const delta = elapsed / 16.667;
+
+      this.lastTime = time;
+
+      this.ctx.clearRect(
+        0,
+        0,
+        this.width,
+        this.height
+      );
+
+      if (
+        this.active &&
+        time - this.lastArc > 145
+      ) {
+        this.lastArc = time;
+
+        this.spawnEdgeArc();
+        this.spawnSpark(rnd(0.65, 1.10));
+
+        if (Math.random() < 0.16) {
+          this.spawnEdgeArc();
+        }
+      }
+
+      for (const bolt of this.bolts) {
+        this.drawBolt(bolt);
+      }
+
+      for (const spark of this.sparks) {
+        this.drawSpark(spark, delta);
+      }
+
+      this.bolts = this.bolts.filter(
+        (bolt) => bolt.alpha > 0
+      );
+
+      this.sparks = this.sparks.filter(
+        (spark) => spark.alpha > 0
+      );
+
+      if (
+        this.active ||
+        this.bolts.length ||
+        this.sparks.length
+      ) {
+        requestAnimationFrame((nextTime) =>
+          this.frame(nextTime)
+        );
+      } else {
+        this.running = false;
+
+        this.ctx.clearRect(
+          0,
+          0,
+          this.width,
+          this.height
+        );
+      }
+    }
+  }
+
+  class ContactEnergy {
+    constructor(canvas, button) {
+      this.canvas = canvas;
+      this.button = button;
+      this.ctx = canvas.getContext("2d", { alpha: true });
+      this.dpr = Math.min(window.devicePixelRatio || 1, 1.35);
+      this.width = 1;
+      this.height = 1;
+      this.hot = false;
+      this.running = false;
+      this.bolts = [];
+      this.sparks = [];
+      this.last = performance.now();
+      this.lastSpawn = 0;
+      this.resizeObserver = new ResizeObserver(() => this.resize());
+      this.resizeObserver.observe(canvas.parentElement);
+      this.resize();
+
+    }
+
+    resize() {
+      const rect = this.canvas.getBoundingClientRect();
+      this.width = Math.max(1, rect.width);
+      this.height = Math.max(1, rect.height);
+      this.canvas.width = Math.round(this.width * this.dpr);
+      this.canvas.height = Math.round(this.height * this.dpr);
+      this.ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
+    }
+
+    center() {
+      const canvasRect = this.canvas.getBoundingClientRect();
+      const buttonRect = this.button.getBoundingClientRect();
+
+      return {
+        x:
+          buttonRect.left -
+          canvasRect.left +
+          buttonRect.width / 2,
+        y:
+          buttonRect.top -
+          canvasRect.top +
+          buttonRect.height / 2,
+        r: buttonRect.width / 2 + 14
+      };
+    }
+
+    burst(power = 1) {
+      this.start();
+      const o = this.center();
+
+      for (let i = 0; i < 10 * power; i += 1) {
+        const a =
+          Math.PI * 2 * (i / (10 * power)) +
+          rnd(-0.08, 0.08);
+
+        this.makeBolt(
+          a,
+          rnd(46, 102) * power,
+          rnd(0.7, 1.2)
+        );
+      }
+
+      for (let i = 0; i < 42 * power; i += 1) {
+        const a = Math.random() * Math.PI * 2;
+        const speed = rnd(0.7, 3.1) * power;
+
+        this.sparks.push({
+          x: o.x + Math.cos(a) * o.r,
+          y: o.y + Math.sin(a) * o.r,
+          vx: Math.cos(a) * speed,
+          vy: Math.sin(a) * speed,
+          r: rnd(0.45, 1.7),
+          a: rnd(0.55, 1),
+          d: rnd(0.014, 0.034)
+        });
+      }
+    }
+
+    makeBolt(angle, length, strength = 1) {
+      const o = this.center();
+      const start = {
+        x: o.x + Math.cos(angle) * o.r,
+        y: o.y + Math.sin(angle) * o.r
+      };
+      const end = {
+        x: start.x + Math.cos(angle) * length,
+        y: start.y + Math.sin(angle) * length
+      };
+
+      const points = buildLightningPath(
+        start,
+        end,
+        Math.min(13, length * 0.10) * strength,
+        0.50,
+        length > 100 ? 5 : 4
+      );
+
+      this.bolts.push({
+        pts: points,
+        a: rnd(0.55, 0.78),
+        d: rnd(0.075, 0.12),
+        w: rnd(0.48, 0.86) * strength
+      });
+    }
+
+    drawBolt(bolt) {
+      const ctx = this.ctx;
+
+      ctx.save();
+      ctx.lineJoin = "round";
+      ctx.lineCap = "round";
+
+      ctx.beginPath();
+      ctx.moveTo(bolt.pts[0].x, bolt.pts[0].y);
+
+      for (let i = 1; i < bolt.pts.length; i += 1) {
+        ctx.lineTo(bolt.pts[i].x, bolt.pts[i].y);
+      }
+
+      ctx.strokeStyle =
+        `rgba(38, 176, 255, ${bolt.a * 0.23})`;
+      ctx.lineWidth = bolt.w * 5;
+      ctx.shadowBlur = 13;
+      ctx.shadowColor = "rgba(46, 181, 255, 1)";
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(bolt.pts[0].x, bolt.pts[0].y);
+
+      for (let i = 1; i < bolt.pts.length; i += 1) {
+        ctx.lineTo(bolt.pts[i].x, bolt.pts[i].y);
+      }
+
+      ctx.strokeStyle =
+        `rgba(241, 252, 255, ${bolt.a})`;
+      ctx.lineWidth = bolt.w;
+      ctx.stroke();
+      ctx.restore();
+
+      bolt.a -= bolt.d;
+    }
+
+    start() {
+      if (this.running || reduceMotion) return;
+      this.running = true;
+      this.last = performance.now();
+      requestAnimationFrame((time) => this.frame(time));
+    }
+
+    frame(time) {
+      const elapsed = clamp(time - this.last, 0, 34);
+      const delta = elapsed / 16.667;
+      this.last = time;
+
+      this.ctx.clearRect(0, 0, this.width, this.height);
+
+      if (this.hot && time - this.lastSpawn > 170) {
+        this.lastSpawn = time;
+
+        if (Math.random() < 0.38) {
+          this.makeBolt(
+            Math.random() * Math.PI * 2,
+            rnd(35, 94),
+            rnd(0.45, 0.8)
+          );
+        }
+      }
+
+      for (const bolt of this.bolts) {
+        this.drawBolt(bolt);
+      }
+
+      for (const spark of this.sparks) {
+        spark.x += spark.vx * delta;
+        spark.y += spark.vy * delta;
+        spark.vx *= Math.pow(0.982, delta);
+        spark.vy *= Math.pow(0.982, delta);
+        spark.a -= spark.d * delta;
+
+        this.ctx.beginPath();
+        this.ctx.fillStyle =
+          `rgba(51, 181, 255, ${Math.max(0, spark.a)})`;
+        this.ctx.shadowBlur = 11;
+        this.ctx.shadowColor = "rgba(43, 174, 255, 1)";
+        this.ctx.arc(
+          spark.x,
+          spark.y,
+          spark.r,
+          0,
+          Math.PI * 2
+        );
+        this.ctx.fill();
+      }
+
+      this.bolts = this.bolts.filter((b) => b.a > 0);
+      this.sparks = this.sparks.filter((s) => s.a > 0);
+
+      if (this.hot || this.bolts.length || this.sparks.length) {
+        requestAnimationFrame((nextTime) => this.frame(nextTime));
+      } else {
+        this.running = false;
+        this.ctx.clearRect(0, 0, this.width, this.height);
+      }
+    }
+  }
+
+  const ambientCanvas = document.querySelector(".ambient-field");
+
+  if (ambientCanvas) {
+    new AmbientField(ambientCanvas);
+  }
+
+  const stageCanvas = document.querySelector(".stage-energy");
+  const stageEnergy =
+    stageCanvas && scene
+      ? new StageEnergy(stageCanvas, scene, cards)
+      : null;
+
+  const referenceFx =
+    scene
+      ? new ReferenceVideoFxEngine(scene)
+      : null;
+
+  const localEnergyByCard = new WeakMap();
+
+  document
+    .querySelectorAll(".apps-card")
+    .forEach((card) => {
+      const canvas =
+        card.querySelector(".apps-local-energy");
+
+      if (canvas) {
+        localEnergyByCard.set(
+          card,
+          new AppsLocalEnergy(card, canvas)
+        );
+      }
+    });
+
+  function setActive(card, active) {
+    if (active) {
+      grid?.classList.add("has-active");
+
+      cards.forEach((item) => {
+        item.classList.toggle("is-active", item === card);
+      });
+
+      stageEnergy?.activate(card);
+      localEnergyByCard.get(card)?.activate();
+      return;
+    }
+
+    card.classList.remove("is-active");
+
+    const stillActive = cards.some(
+      (item) =>
+        item.matches(":hover") ||
+        item.matches(":focus-visible")
+    );
+
+    if (!stillActive) {
+      grid?.classList.remove("has-active");
+
+      cards.forEach((item) => {
+        item.classList.remove("is-active");
+      });
+    }
+
+    stageEnergy?.deactivate(card);
+    localEnergyByCard.get(card)?.deactivate();
+  }
+
+  cards.forEach((card) => {
+    const content = card.querySelector(".card-content");
+    const spotlight = card.querySelector(".card-spotlight");
+
+    let toRotX;
+    let toRotY;
+    let toY;
+    let contentX;
+    let contentY;
+    let spotX;
+    let spotY;
+
+    if (gsapReady) {
+      gsap.set(card, {
+        transformPerspective: 1500,
+        transformOrigin: "50% 54%",
+        force3D: true
+      });
+
+      toRotX = gsap.quickTo(card, "rotationX", {
+        duration: 0.42,
+        ease: "power3.out"
+      });
+
+      toRotY = gsap.quickTo(card, "rotationY", {
+        duration: 0.42,
+        ease: "power3.out"
+      });
+
+      toY = gsap.quickTo(card, "y", {
+        duration: 0.48,
+        ease: "power3.out"
+      });
+
+      contentX = gsap.quickTo(content, "x", {
+        duration: 0.58,
+        ease: "power3.out"
+      });
+
+      contentY = gsap.quickTo(content, "y", {
+        duration: 0.58,
+        ease: "power3.out"
+      });
+
+      spotX = gsap.quickTo(spotlight, "x", {
+        duration: 0.22,
+        ease: "power2.out"
+      });
+
+      spotY = gsap.quickTo(spotlight, "y", {
+        duration: 0.22,
+        ease: "power2.out"
+      });
+    }
+
+    card.addEventListener("pointerenter", () => {
+      if (card.classList.contains("is-reference-bursting")) return;
+      setActive(card, true);
+
+      if (gsapReady) {
+        toY(-12);
+      }
+    });
+
+    card.addEventListener("pointerleave", () => {
+      if (card.classList.contains("is-reference-bursting")) return;
+      setActive(card, false);
+
+      if (gsapReady) {
+        toRotX(0);
+        toRotY(0);
+        toY(0);
+        contentX(0);
+        contentY(0);
+      } else {
+        card.style.transform = "";
+        spotlight.style.transform = "";
+      }
+    });
+
+    card.addEventListener("focus", () => {
+      if (card.classList.contains("is-reference-bursting")) return;
+      setActive(card, true);
+
+      if (gsapReady) {
+        toY(-12);
+      }
+    });
+
+    card.addEventListener("blur", () => {
+      if (card.classList.contains("is-reference-bursting")) return;
+      setActive(card, false);
+
+      if (gsapReady) {
+        toY(0);
+      }
+    });
+
+    card.addEventListener(
+      "pointermove",
+      (event) => {
+        if (
+          reduceMotion ||
+          coarse ||
+          card.classList.contains("is-reference-bursting")
+        ) return;
+
+        const rect = card.getBoundingClientRect();
+        const x = clamp(
+          (event.clientX - rect.left) / rect.width,
+          0,
+          1
+        );
+        const y = clamp(
+          (event.clientY - rect.top) / rect.height,
+          0,
+          1
+        );
+
+        if (gsapReady) {
+          toRotY((x - 0.5) * 13);
+          toRotX((y - 0.5) * -9);
+          contentX((x - 0.5) * 8);
+          contentY((y - 0.5) * 7);
+          spotX(event.clientX - rect.left);
+          spotY(event.clientY - rect.top);
+        } else {
+          card.style.transform =
+            `translateY(-12px) rotateX(${(y - 0.5) * -9}deg) rotateY(${(x - 0.5) * 13}deg)`;
+
+          spotlight.style.transform =
+            `translate(${event.clientX - rect.left}px, ${event.clientY - rect.top}px)`;
+        }
+      },
+      { passive: true }
+    );
+
+    card.addEventListener("click", () => {
+      setActive(card, true);
+
+      const effect = card.dataset.effect || "supernova";
+
+      // The extracted reference frame must share one exact rectangle with the
+      // live card. Kill the hover/tilt easing synchronously before playback,
+      // then the FX tracker follows the impact scale every rendered frame.
+      if (gsapReady && !reduceMotion) {
+        gsap.killTweensOf(card);
+        gsap.killTweensOf(content);
+        gsap.set(card, { rotationX: 0, rotationY: 0, y: -3, scale: 1 });
+        gsap.set(content, { x: 0, y: 0 });
+      } else if (!reduceMotion) {
+        card.style.transform = "translateY(-3px)";
+      }
+
+      stageEnergy?.deactivate(card);
+      referenceFx?.burst(card, effect);
+
+      // Apps keeps a second, card-local lightning layer so arcs can spiderweb
+      // over the dark glass surface while the stage layer wraps the perimeter.
+      if (effect === "electric") {
+        localEnergyByCard.get(card)?.burst(1.12);
+      }
+
+      if (gsapReady && !reduceMotion) {
+        const impactScale =
+          effect === "supernova" ? 1.045 :
+          effect === "plasma" ? 1.032 :
+          1.026;
+
+        gsap.fromTo(
+          card,
+          { scale: 0.992 },
+          {
+            scale: impactScale,
+            duration: effect === "supernova" ? 0.16 : 0.20,
+            yoyo: true,
+            repeat: 1,
+            ease: "power4.out",
+            overwrite: "auto"
+          }
+        );
+      }
+
+      const releaseDelay =
+        effect === "plasma" ? 2260 :
+        effect === "electric" ? 1780 :
+        2480;
+
+      window.setTimeout(() => {
+        if (
+          !card.matches(":hover") &&
+          document.activeElement !== card
+        ) {
+          setActive(card, false);
+        }
+      }, releaseDelay);
+    });
+  });
+
+  if (gsapReady && ScrollTrigger && !reduceMotion) {
+    const intro = gsap.timeline({
+      defaults: { ease: "power3.out" }
+    });
+
+    intro
+      .fromTo(
+        ".ultra-kicker",
+        { y: 18, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.72 }
+      )
+      .fromTo(
+        ".ultra-title",
+        {
+          y: 34,
+          opacity: 0,
+          filter: "blur(8px)"
+        },
+        {
+          y: 0,
+          opacity: 1,
+          filter: "blur(0px)",
+          duration: 0.92
+        },
+        "-=0.42"
+      )
+      .fromTo(
+        ".ultra-copy",
+        { y: 24, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.78 },
+        "-=0.55"
+      )
+      .fromTo(
+        ".section-beam",
+        { scaleX: 0.15, opacity: 0 },
+        {
+          scaleX: 1,
+          opacity: 1,
+          duration: 0.9
+        },
+        "-=0.48"
+      );
+
+    gsap.fromTo(
+      cards,
+      {
+        y: 78,
+        opacity: 0,
+        rotationX: -8,
+        scale: 0.94
+      },
+      {
+        y: 0,
+        opacity: 1,
+        rotationX: 0,
+        scale: 1,
+        duration: 1.05,
+        stagger: 0.13,
+        ease: "power4.out",
+        scrollTrigger: {
+          trigger: ".cards-scene",
+          start: "top 78%",
+          once: true
+        }
+      }
+    );
+
+    gsap.fromTo(
+      ".contact-stack",
+      {
+        y: 55,
+        opacity: 0,
+        scale: 0.94
+      },
+      {
+        y: 0,
+        opacity: 1,
+        scale: 1,
+        duration: 0.95,
+        ease: "power4.out",
+        scrollTrigger: {
+          trigger: ".contact-zone",
+          start: "top 80%",
+          once: true
+        }
+      }
+    );
+  } else {
+    document
+      .querySelectorAll(
+        ".ultra-kicker, .ultra-title, .ultra-copy, .section-beam"
+      )
+      .forEach((element) => {
+        element.style.opacity = "1";
+        element.style.transform = "none";
+      });
+
+    cards.forEach((card) => {
+      card.style.opacity = "1";
+      card.style.transform = "none";
+    });
+  }
+
+  const contactButton = document.querySelector(".contact-button");
+  const contactCanvas = document.querySelector(".contact-energy");
+
+  const contactFx =
+    contactButton && contactCanvas
+      ? new ContactEnergy(contactCanvas, contactButton)
+      : null;
+
+  if (contactButton) {
+    let moveX;
+    let moveY;
+
+    if (gsapReady) {
+      moveX = gsap.quickTo(contactButton, "x", {
+        duration: 0.38,
+        ease: "power3.out"
+      });
+
+      moveY = gsap.quickTo(contactButton, "y", {
+        duration: 0.38,
+        ease: "power3.out"
+      });
+    }
+
+    const heat = () => {
+      contactButton.classList.add("is-hot");
+
+      if (contactFx) {
+        contactFx.hot = true;
+        contactFx.burst(0.72);
+      }
+    };
+
+    const cool = () => {
+      contactButton.classList.remove("is-hot");
+
+      if (contactFx) {
+        contactFx.hot = false;
+      }
+
+      if (gsapReady) {
+        moveX(0);
+        moveY(0);
+      }
+    };
+
+    contactButton.addEventListener("pointerenter", heat);
+    contactButton.addEventListener("pointerleave", cool);
+    contactButton.addEventListener("focus", heat);
+    contactButton.addEventListener("blur", cool);
+
+    contactButton.addEventListener(
+      "pointermove",
+      (event) => {
+        if (!gsapReady || coarse || reduceMotion) return;
+
+        const rect = contactButton.getBoundingClientRect();
+
+        moveX(
+          (event.clientX - rect.left - rect.width / 2) *
+            0.14
+        );
+
+        moveY(
+          (event.clientY - rect.top - rect.height / 2) *
+            0.14
+        );
+      },
+      { passive: true }
+    );
+
+    contactButton.addEventListener("click", () => {
+      heat();
+      contactFx?.burst(0.92);
+
+      if (gsapReady && !reduceMotion) {
+        gsap.fromTo(
+          contactButton,
+          { scale: 0.93 },
+          {
+            scale: 1.07,
+            duration: 0.24,
+            yoyo: true,
+            repeat: 1,
+            ease: "power3.out"
+          }
+        );
+      }
+
+      window.setTimeout(() => {
+        if (!contactButton.matches(":hover")) {
+          cool();
+        }
+      }, 1050);
+    });
+  }
+
+  if (coarse && !reduceMotion) {
+    let index = 0;
+
+    window.setInterval(() => {
+      if (document.hidden || !cards.length) return;
+
+      const card = cards[index % cards.length];
+      const effect = card.dataset.effect || "supernova";
+      setActive(card, true);
+      referenceFx?.burst(card, effect, false);
+
+      const autoRelease =
+        effect === "plasma" ? 2260 :
+        effect === "electric" ? 1780 :
+        2480;
+
+      window.setTimeout(() => {
+        setActive(card, false);
+      }, autoRelease);
+
+      index += 1;
+    }, 4400);
+  }
+
+  // Local-file smoke-test hook. It never runs in the normal page URL.
+  const verifyFxKind = new URLSearchParams(window.location.search).get("verifyFx");
+  if (verifyFxKind && referenceFx && !reduceMotion) {
+    window.setTimeout(() => {
+      const card = cards.find((item) => item.dataset.effect === verifyFxKind);
+      if (!card) return;
+      setActive(card, true);
+      referenceFx.burst(card, verifyFxKind, false);
+      if (verifyFxKind === "electric") {
+        localEnergyByCard.get(card)?.burst(1.12);
+      }
+    }, 450);
+  }
+
+  window.__nucleairsFxDiagnostics = () => referenceFx?.diagnostics?.() || [];
+
+})();
+
+</script>
+</body>
+</html>
